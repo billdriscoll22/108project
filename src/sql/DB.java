@@ -50,11 +50,6 @@ public class DB {
 		}
 	}
 	
-	/*
-	 * CS108 student: Do not add/remove any methods to this file since this file will be replaced
-	 * when we test your code!
-	 */
-	
 	public void addUser(String user, String hash, boolean isAdmin){
 		String query = "Insert into users values('" + user + "', " + "'" + hash + "'," + isAdmin + ")";
 		System.out.println(query);
