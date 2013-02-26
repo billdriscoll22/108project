@@ -8,11 +8,11 @@ public class User {
 	private final String id;
 	private final DB db;
 	
-	public User(String user, String password, DB db){
+	public User(String user, String password, boolean isAdmin, DB db){
 		this.db = db;
 		this.id = user;
 		String hash = hash(password);
-		db.addUser(user, hash);
+		db.addUser(user, hash, isAdmin);
 	}
 	
 	private String hash(String raw){
@@ -67,3 +67,7 @@ public class User {
 		db.setAdminStatus(this.id, status);
 	}
 }
+
+
+
+
