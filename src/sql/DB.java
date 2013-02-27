@@ -158,7 +158,8 @@ public class DB {
 				String source = rs.getString("source");
 				boolean isConfirmed = rs.getBoolean("isConfirmed");
 				String time = rs.getString("time");
-				FriendRequest fr = new FriendRequest(source, id, source + " has added you as a friend!", isConfirmed);
+				String body = source + " has added you as a friend!";
+				FriendRequest fr = new FriendRequest(source, id, body, isConfirmed, time);
 				list.add(fr);
 			}
 		} catch (SQLException e) {
