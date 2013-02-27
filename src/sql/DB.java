@@ -51,9 +51,9 @@ public class DB {
 	}
 	
 	public void addUser(String user, String hash, boolean isAdmin){
-		String query = "Insert into users values('" + user + "', " + "'" + hash + "'," + isAdmin + ")";
+		String query = "INSERT INTO users VALUES('" + user + "', " + "'" + hash + "', " + isAdmin + ");";
 		System.out.println(query);
-		
+		ResultSet rs = getResult(query);
 	}
 	
 	private ResultSet getResult(String query){
@@ -73,7 +73,21 @@ public class DB {
 	}
 	
 	public ArrayList<String> getFriends(String userId){
-		return new ArrayList<String>();
+		String query = "SELECT id2 FROM friends WHERE id1 = '" + userId + "';";
+		System.out.println(query);
+		ArrayList<String> list = new ArrayList<String>();
+		try {
+			ResultSet rs = getResult(query);
+			rs.beforeFirst();
+			while (rs.next()){
+				list.add(rs.getString("id2"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 	
 	public ArrayList<Message> getMessages(String userId){
@@ -101,14 +115,36 @@ public class DB {
 	}
 	
 	public void addFriend(String user1, String user2){
-		
+		String query = "INSERT INTO friends VALUES('" + user1 + "', '" + user2 + "');";
+		ResultSet rs = getResult(query);
+		System.out.println(query);
 	}
 
 	public void removeFriend(String id, String id2) {
+		String query = "DELETE FROM friends WHERE id1 = '" + id + "' AND id2 = '" + id2 + "';";
+		ResultSet rs = getResult(query);
+		System.out.println(query);
 	}
 
 	public ArrayList<FriendRequest> getFriendRequests(String id) {
-		return null;
+		String query = "SELECT * FROM requests WHERE dest = '" + id + "' and isConfirmed = false;";
+		System.out.println(query);
+		ArrayList<FriendRequest> list = new ArrayList<FriendRequest>();
+		try {
+			ResultSet rs = getResult(query);
+			rs.beforeFirst();
+			while (rs.next()){
+				String source = rs.getString("source");
+				boolean isConfirmed = rs.getBoolean("isConfirmed");
+				String time = rs.getString("time");
+				FriendRequest fr = new FriendRequest(source, id, source + " has added you as a friend!", isConfirmed);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 	public void addResult(String id, Result result) {
@@ -125,11 +161,5 @@ public class DB {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public void main(){
-		addUser("hi", "sup", false);
-	}
-	
-	
 
 }
