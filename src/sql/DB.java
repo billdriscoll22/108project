@@ -91,7 +91,20 @@ public class DB {
 	}
 	
 	public ArrayList<Message> getMessages(String userId){
+		ArrayList<Message> returnList = new ArrayList<Message>();
+		String query = "select * from notes where dest = '" + userId  + "'";
+		ResultSet rs = getResult(query);
+		try {
+			while(rs.next()){
+				returnList.add(new Message(rs.getString("src"), rs.getString("dest"), rs.getString("body"), rs.getString("time")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return new ArrayList<Message>();
+		
+		
 	}
 	
 	public History getHistory(String userId){
