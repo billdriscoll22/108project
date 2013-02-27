@@ -53,7 +53,7 @@ public class DB {
 	public void addUser(String user, String hash, boolean isAdmin){
 		String query = "INSERT INTO users VALUES('" + user + "', " + "'" + hash + "', " + isAdmin + ");";
 		System.out.println(query);
-		ResultSet rs = getResult(query);
+		sqlUpdate(query);
 	}
 	
 	private ResultSet getResult(String query){
@@ -66,10 +66,18 @@ public class DB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return null;
-		
-		
+	}
+	
+	private void sqlUpdate(String query){
+		Statement stmt;
+		try {
+			stmt = con.createStatement();
+			stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 	
 	public ArrayList<String> getFriends(String userId){
@@ -129,13 +137,13 @@ public class DB {
 	
 	public void addFriend(String user1, String user2){
 		String query = "INSERT INTO friends VALUES('" + user1 + "', '" + user2 + "');";
-		ResultSet rs = getResult(query);
+		sqlUpdate(query);
 		System.out.println(query);
 	}
 
 	public void removeFriend(String id, String id2) {
 		String query = "DELETE FROM friends WHERE id1 = '" + id + "' AND id2 = '" + id2 + "';";
-		ResultSet rs = getResult(query);
+		sqlUpdate(query);
 		System.out.println(query);
 	}
 
@@ -151,6 +159,7 @@ public class DB {
 				boolean isConfirmed = rs.getBoolean("isConfirmed");
 				String time = rs.getString("time");
 				FriendRequest fr = new FriendRequest(source, id, source + " has added you as a friend!", isConfirmed);
+				list.add(fr);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

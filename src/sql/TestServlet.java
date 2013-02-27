@@ -28,11 +28,12 @@ public class TestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		DB db = new DB();
-		db.addUser("yo", "dude", false);
+		db.addUser("matt", "lavan", false);
+		db.addUser("bill", "the drill", false);
 		db.addFriend("matt", "bill");
-		db.getFriends("matt");
-		db.removeFriend("matt", "bill");
-		db.getFriendRequests("matt");
+		//db.getFriends("matt");
+		//db.removeFriend("matt", "bill");
+		//db.getFriendRequests("matt");
 	}
 
 	/**
