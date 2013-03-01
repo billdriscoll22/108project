@@ -132,7 +132,24 @@ public class DB {
 	}
 	
 	public ArrayList<Challenge> getChallenges(String userId){
-		return null;
+		String query = "SELECT * FROM challenges WHERE destination='" + userId + "'";
+		ArrayList<Challenge> challenges = new ArrayList<Challenge>();
+		try {
+			ResultSet rs = getResult(query);
+			rs.beforeFirst();
+			while(rs.next()) {
+				String src = rs.getString("src");
+				String body = rs.getString("body");
+				String url = rs.getString("url");
+				String time = rs.getString("time");
+				Challenge c = new Challenge(src, userId, body, url, time);
+				challenges.add(c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return challenges;
 	}
 	
 	public void addFriend(String user1, String user2){
