@@ -1,3 +1,7 @@
 .classpath
 bin/*
 build/*
+.settings/*
+.settings
+.project
+.eclipse
