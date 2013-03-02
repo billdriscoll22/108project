@@ -15,6 +15,7 @@ import frontend.FriendRequest;
 import frontend.History;
 import frontend.Message;
 import frontend.Result;
+import frontend.User;
 
 public class DB {
 	
@@ -50,11 +51,6 @@ public class DB {
 		}
 	}
 	
-	public void addUser(String user, String hash, boolean isAdmin){
-		String query = "INSERT INTO users VALUES('" + user + "', " + "'" + hash + "', " + isAdmin + ");";
-		System.out.println(query);
-		sqlUpdate(query);
-	}
 	
 	private ResultSet getResult(String query){
 		Statement stmt;
@@ -78,6 +74,38 @@ public class DB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+	}
+	
+	public void addUser(String user, String hash, boolean isAdmin){
+		String query = "INSERT INTO users VALUES('" + user + "', " + "'" + hash + "', " + isAdmin + ");";
+		System.out.println(query);
+		sqlUpdate(query);
+	}
+	
+	// return null if user id does not exist
+	public User getUser(String id){
+		// execute query
+		String query = "SELECT * FROM users WHERE id = '" + id + "'";
+		System.out.println(query);
+		ResultSet rs = getResult(query);
+		
+		// check if result is empty
+		try {
+			if(rs.next() == false) return null;
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		// otherwise create user with query result
+		String hash = null;
+		boolean isAdmin = false;
+		try {
+			hash = rs.getString("hash");
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		try {
+			isAdmin = rs.getBoolean("isAdmin");
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		return new User(id, hash, isAdmin, this);		
 	}
 	
 	public ArrayList<String> getFriends(String userId){
@@ -124,7 +152,7 @@ public class DB {
 	}
 	
 	public boolean getIsAdmin(String userId){
-		String query = "SELECT isAdmin FROM users WHERE id = '" + userId + "';";
+		String query = "SELECT isAdmin FROM users WHERE id = '" + userId + "'";
 		System.out.println(query);
 		boolean isAdmin = false;
 		try {
@@ -203,7 +231,7 @@ public class DB {
 	}
 
 	public void setAdminStatus(String id, boolean status) {
-		String query = "UPDATE users SET isAdmin = '" + status + "' WHERE id = '" + id + "';";
+		String query = "UPDATE users SET isAdmin = '" + status + "' WHERE id = '" + id + "'";
 		System.out.println(query);
 		
 		sqlUpdate(query);		

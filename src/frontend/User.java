@@ -8,12 +8,22 @@ import sql.DB;
 public class User {
 	private final String id;
 	private final DB db;
+	private final String hash;
 	
-	public User(String user, String password, boolean isAdmin, DB db){
+	public User(String user, String hash, boolean isAdmin, DB db){
 		this.db = db;
 		this.id = user;
-		String hash = hash(password);
-		db.addUser(user, hash, isAdmin);
+		this.hash = hash;
+		//String hash = hash(password);
+		//db.addUser(user, hash, isAdmin);
+	}
+	
+	public String getHash(){
+		return hash;
+	}
+	
+	public String getID(){
+		return id;
 	}
 	
 	private String hash(String raw){
