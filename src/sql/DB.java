@@ -124,7 +124,17 @@ public class DB {
 	}
 	
 	public boolean getIsAdmin(String userId){
-		return false;
+		String query = "SELECT isAdmin FROM users WHERE id = '" + userId + "';";
+		System.out.println(query);
+		boolean isAdmin = false;
+		try {
+			ResultSet rs = getResult(query);
+			rs.first();
+			isAdmin = rs.getBoolean("isAdmin");
+			
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		return isAdmin;
 	}
 	
 	public void addAchievement(String userId, String achievement){
@@ -193,8 +203,10 @@ public class DB {
 	}
 
 	public void setAdminStatus(String id, boolean status) {
-		// TODO Auto-generated method stub
+		String query = "UPDATE users SET isAdmin = '" + status + "' WHERE id = '" + id + "';";
+		System.out.println(query);
 		
+		sqlUpdate(query);		
 	}
 
 	public void sendMessage(Message message) {
