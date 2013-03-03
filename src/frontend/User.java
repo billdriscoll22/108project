@@ -42,7 +42,7 @@ public class User {
 		return db.getHistory(this.id);
 	}
 	
-	public ArrayList<String> getAchievements(){
+	public ArrayList<Achievement> getAchievements(){
 		return db.getAchievements(this.id);
 	}
 	
@@ -50,7 +50,7 @@ public class User {
 		return db.getIsAdmin(this.id);
 	}
 	
-	public void addAchievement(String achievement){
+	public void addAchievement(Achievement achievement){
 		db.addAchievement(this.id, achievement);
 	}
 	

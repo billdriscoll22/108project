@@ -24,3 +24,15 @@ correct BIGINT - number of questions answered correctly
 date CHAR(64) - date when the quiz was taken
 
 /*******************************************/
+
+
+/********** achievements Table ****************/
+
+|***user***|***achievement***|***description***|***url***|
+
+user CHAR(64) - user id of the person who earned the achievement
+achievement CHAR(64) - achievement name
+description CHAR(255) - description of the achievement earned
+url CHAR(255) - url of the achievement image
+
+/*******************************************/

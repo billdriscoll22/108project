@@ -10,6 +10,7 @@ import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 
+import frontend.Achievement;
 import frontend.Challenge;
 import frontend.FriendRequest;
 import frontend.History;
@@ -143,6 +144,17 @@ public class DB {
 		
 	}
 	
+	public void addResult(String id, Result result) {		
+		String query = "INSERT INTO results VALUES('" + id + "', " + "'" + result.getQuiz() + "', " 
+				+ result.getTimeUsed() +  ", " 
+				+ result.getNumQuestions() + ", " 
+				+ result.getNumCorrect() + ", '"
+				+ result.getDateTaken() + "'"
+				+ ")";
+		System.out.println(query);
+		sqlUpdate(query);
+	}
+	
 	public History getHistory(String userId){
 		History history = new History(userId);
 		
@@ -167,9 +179,37 @@ public class DB {
 		return history;
 	}
 	
-	public ArrayList<String> getAchievements(String userId){
-		return null;
+	public void addAchievement(String userId, Achievement achievement){
+		String query = "INSERT INTO achievements VALUES('" + userId + "', '" + achievement.getName() + "', '"
+				+ achievement.getDescription() + "', '"
+				+ achievement.getURL()
+				+ "')";
+		sqlUpdate(query);
+		System.out.println(query);
 	}
+	
+	public ArrayList<Achievement> getAchievements(String userId){
+		ArrayList<Achievement> list = new ArrayList<Achievement>();
+		
+		// get all entries in the results table for this user
+		String query = "SELECT * FROM achievements WHERE user = '" + userId + "'";
+		System.out.println(query);
+		ResultSet rs = getResult(query);
+		
+		// add each achievement to the list
+		try{
+			while(rs.next()) {
+				String achievement = rs.getString("achievement");
+				String description = rs.getString("description");
+				String url = rs.getString("url");
+				list.add(new Achievement(achievement, description, url));				
+			}
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		return list;
+	}
+	
+
 	
 	public boolean getIsAdmin(String userId){
 		String query = "SELECT isAdmin FROM users WHERE id = '" + userId + "'";
@@ -185,9 +225,7 @@ public class DB {
 		return isAdmin;
 	}
 	
-	public void addAchievement(String userId, String achievement){
-		
-	}
+	
 	
 	public ArrayList<Challenge> getChallenges(String userId){
 		String query = "SELECT * FROM challenges WHERE destination='" + userId + "'";
@@ -245,16 +283,7 @@ public class DB {
 		return list;
 	}
 
-	public void addResult(String id, Result result) {		
-		String query = "INSERT INTO results VALUES('" + id + "', " + "'" + result.getQuiz() + "', " 
-				+ result.getTimeUsed() +  ", " 
-				+ result.getNumQuestions() + ", " 
-				+ result.getNumCorrect() + ", '"
-				+ result.getDateTaken() + "'"
-				+ ")";
-		System.out.println(query);
-		sqlUpdate(query);
-	}
+	
 
 	public void setAdminStatus(String id, boolean status) {
 		String query = "UPDATE users SET isAdmin = '" + status + "' WHERE id = '" + id + "'";

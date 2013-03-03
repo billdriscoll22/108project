@@ -1,12 +1,15 @@
 package sql;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import frontend.Achievement;
 import frontend.History;
 import frontend.Result;
 
@@ -48,6 +51,13 @@ public class TestServlet extends HttpServlet {
 		/* test method to retrieve history */
 		//History h = db.getHistory("Eli");
 		//System.out.println(h.toString());
+		
+		/* Test achievement functionality in database */
+		db.addAchievement("Eli", new Achievement("Amateur Author", "Created a quiz", "www.idunno.com"));
+		db.addAchievement("Eli", new Achievement("Quiz Machine", "Took ten quizes", "www.quizme.com"));
+		db.addAchievement("Eli", new Achievement("Prolific Author", "Created 5 quizes", "www.idunno.com"));
+		ArrayList<Achievement> list = db.getAchievements("Eli");
+		System.out.println(list.toString());
 	}
 
 	/**
