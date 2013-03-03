@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import frontend.History;
+import frontend.Result;
+
 /**
  * Servlet implementation class TestServlet
  */
@@ -26,14 +29,25 @@ public class TestServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		DB db = new DB();
-		db.addUser("matt", "lavan", false);
-		db.addUser("bill", "the drill", false);
-		db.addFriend("matt", "bill");
+		//db.addUser("matt", "lavan", false);
+		//db.addUser("bill", "the drill", false);
+		//db.addFriend("matt", "bill");
 		//db.getFriends("matt");
 		//db.removeFriend("matt", "bill");
 		//db.getFriendRequests("matt");
+		
+		/* test methods to add result */
+		//Result result = new Result("myQuiz", 100, 20, 10, "today");
+		//db.addResult("Eli", result);
+		//result = new Result("myQuiz", 100, 20, 5, "yesterday");
+		//db.addResult("Eli", result);
+		//result = new Result("myQuiz", 100, 20, 18, "tomorrow");
+		//db.addResult("Eli", result);
+		
+		/* test method to retrieve history */
+		//History h = db.getHistory("Eli");
+		//System.out.println(h.toString());
 	}
 
 	/**

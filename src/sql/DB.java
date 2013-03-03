@@ -144,7 +144,27 @@ public class DB {
 	}
 	
 	public History getHistory(String userId){
-		return null;
+		History history = new History(userId);
+		
+		// get all entries in the results table for this user
+		String query = "SELECT * FROM results WHERE user = '" + userId + "'";
+		System.out.println(query);
+		ResultSet rs = getResult(query);
+		
+		// add each result to the history
+		try{
+			while(rs.next()) {
+				String quiz = rs.getString("quiz");
+				int time = rs.getInt("time");
+				int questions = rs.getInt("questions");
+				int	correct = rs.getInt("correct");
+				String date = rs.getString("date");
+				Result r = new Result(quiz, time, questions, correct, date);
+				history.addResult(r);
+			}
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		return history;
 	}
 	
 	public ArrayList<String> getAchievements(String userId){
@@ -225,9 +245,15 @@ public class DB {
 		return list;
 	}
 
-	public void addResult(String id, Result result) {
-		// TODO Auto-generated method stub
-		
+	public void addResult(String id, Result result) {		
+		String query = "INSERT INTO results VALUES('" + id + "', " + "'" + result.getQuiz() + "', " 
+				+ result.getTimeUsed() +  ", " 
+				+ result.getNumQuestions() + ", " 
+				+ result.getNumCorrect() + ", '"
+				+ result.getDateTaken() + "'"
+				+ ")";
+		System.out.println(query);
+		sqlUpdate(query);
 	}
 
 	public void setAdminStatus(String id, boolean status) {

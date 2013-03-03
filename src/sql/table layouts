@@ -9,3 +9,18 @@
 |***id1***|***id2***|
 
 /*******************************************/
+
+
+
+/********** results Table ****************/
+
+|***user***|***quiz***|***time***|***questions***|***correct***|date***|
+
+user CHAR(64) - user id of the person who took the quiz
+quiz CHAR(64) - quiz id of quiz that was taken
+time BIGINT - number of seconds used to take the quiz
+questions BIGINT - number of questions on the quiz
+correct BIGINT - number of questions answered correctly
+date CHAR(64) - date when the quiz was taken
+
+/*******************************************/
