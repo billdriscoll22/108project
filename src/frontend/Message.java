@@ -21,5 +21,18 @@ public class Message {
 		db.sendMessage(message);
 	}
 	
+	public String getSrc(){
+		return src;
+	}
+	public String getDest(){
+		return dest;
+	}
+	public String getBody(){
+		return body;
+	}
+	public String getTime(){
+		return time;
+	}
+	
 	
 }

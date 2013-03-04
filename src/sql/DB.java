@@ -52,7 +52,6 @@ public class DB {
 	
 	public void addUser(String user, String hash, boolean isAdmin){
 		String query = "INSERT INTO users VALUES('" + user + "', " + "'" + hash + "', " + isAdmin + ");";
-		System.out.println(query);
 		sqlUpdate(query);
 	}
 	
@@ -82,7 +81,6 @@ public class DB {
 	
 	public ArrayList<String> getFriends(String userId){
 		String query = "SELECT id2 FROM friends WHERE id1 = '" + userId + "';";
-		System.out.println(query);
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			ResultSet rs = getResult(query);
@@ -124,7 +122,18 @@ public class DB {
 	}
 	
 	public boolean getIsAdmin(String userId){
-		return false;
+		String query = "SELECT isAdmin FROM users WHERE id = '" + userId + "';";
+		ResultSet rs = getResult(query);
+		boolean isAdmin = false;
+		try {
+			rs.absolute(1);
+			isAdmin = rs.getBoolean("isAdmin");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(isAdmin);
+		return isAdmin;
 	}
 	
 	public void addAchievement(String userId, String achievement){
@@ -155,18 +164,23 @@ public class DB {
 	public void addFriend(String user1, String user2){
 		String query = "INSERT INTO friends VALUES('" + user1 + "', '" + user2 + "');";
 		sqlUpdate(query);
-		System.out.println(query);
+		query = "UPDATE requests SET isConfirmed = true WHERE source = '" + user1 + "' AND dest = '" + user2 + "';";
+		sqlUpdate(query);
 	}
 
 	public void removeFriend(String id, String id2) {
 		String query = "DELETE FROM friends WHERE id1 = '" + id + "' AND id2 = '" + id2 + "';";
 		sqlUpdate(query);
-		System.out.println(query);
+		query = "DELETE FROM friends WHERE id1 = '" + id2 + "' AND id2 = '" + id + "';";
+		sqlUpdate(query);
+		query = "DELETE FROM requests WHERE source = '" + id + "' AND dest = '" + id2 + "';";
+		sqlUpdate(query);
+		query = "DELETE FROM requests WHERE source = '" + id2 + "' AND dest = '" + id + "';";
+		sqlUpdate(query);
 	}
 
 	public ArrayList<FriendRequest> getFriendRequests(String id) {
-		String query = "SELECT * FROM requests WHERE dest = '" + id + "' and isConfirmed = false;";
-		System.out.println(query);
+		String query = "SELECT * FROM requests WHERE dest = '" + id + "';";
 		ArrayList<FriendRequest> list = new ArrayList<FriendRequest>();
 		try {
 			ResultSet rs = getResult(query);
@@ -186,6 +200,13 @@ public class DB {
 		
 		return list;
 	}
+	
+	public void sendFriendRequest(String id1, String id2){
+		Date date = new Date();
+		String dateAsStr = date.toString();
+		String query = "INSERT INTO requests VALUES('" + id1 + "', '" + id2 + "', false, '" + dateAsStr + "');";
+		sqlUpdate(query);
+	}
 
 	public void addResult(String id, Result result) {
 		// TODO Auto-generated method stub
@@ -193,8 +214,13 @@ public class DB {
 	}
 
 	public void setAdminStatus(String id, boolean status) {
-		// TODO Auto-generated method stub
-		
+		String query = "";
+		if (status){
+			query = "UPDATE users SET isAdmin = true WHERE id = '" + id + "';";
+		} else {
+			query = "UPDATE users SET isAdmin = false WHERE id = '" + id + "';";
+		}
+		sqlUpdate(query);		
 	}
 
 	public void sendMessage(Message message) {

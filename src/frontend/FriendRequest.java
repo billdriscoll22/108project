@@ -7,4 +7,7 @@ public class FriendRequest extends Message {
 		super(src, dest, body, date);
 		this.isConfirmed = isConfirmed;
 	}
+	public boolean getStatus(){
+		return isConfirmed;
+	}
 }
