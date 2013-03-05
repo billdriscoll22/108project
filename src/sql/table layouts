@@ -68,9 +68,22 @@ d CHAR(255)
 /************************************/
 
 
-
  /****************answers***********/
 quiz_id CHAR(64)
 question_num int
 answer CHAR(255)
 /************************************/
+
+ /****************quizzes***********/
+
+|***quiz_id***|***date_created***|***creator_id***|***num_questions***|***is_random***|***is_one_page***|***is_immediate***|
+
+quiz_id CHAR(64) - unique name of the quiz
+date_created CHAR(64) - original creation date of the quiz
+creator_id CHAR(64) - username of the person who made the quiz
+num_questions INT - the number of questions in the quiz
+is_random BOOLEAN - whether questions or shown in random order
+is_one_page BOOLEAN - whether all questions or shown on one page
+is_immediate BOOLEAN - whether users get immediate feedback on answers when there is one answer per page
+
+/*******************************************/

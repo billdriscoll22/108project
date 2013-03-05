@@ -1,7 +1,8 @@
 package frontend;
 
 public abstract class Question {
-	private int questionNumber;
+	protected int questionNumber;
+	
 	
 	public int getNumber(){
 		return questionNumber;
