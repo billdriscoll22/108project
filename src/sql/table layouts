@@ -57,7 +57,7 @@ question_one CHAR(255)
 question_two CHAR(255)
 /************************************/
 
-/***********fill_in_the_blank******/
+/***********multiple_choice******/
 quiz_id CHAR(64)
 question_num int
 question CHAR(255)
