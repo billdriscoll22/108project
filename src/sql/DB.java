@@ -304,7 +304,7 @@ public class DB {
 		String dest = message.getDest();
 		String body = message.getBody();
 		String time = message.getTime();
-		String query = "INSERT INTO messages VALUES('" + src + "', '" + dest + "', '" + body + "', '" + time + "');";
+		String query = "INSERT INTO notes VALUES('" + src + "', '" + dest + "', '" + body + "', '" + time + "');";
 		sqlUpdate(query);
 	}
 
