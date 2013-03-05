@@ -10,11 +10,13 @@ import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 
+import frontend.Achievement;
 import frontend.Challenge;
 import frontend.FriendRequest;
 import frontend.History;
 import frontend.Message;
 import frontend.Result;
+import frontend.User;
 
 public class DB {
 	
@@ -79,6 +81,32 @@ public class DB {
 		}		
 	}
 	
+	// return null if user id does not exist
+	public User getUser(String id){
+		// execute query
+		String query = "SELECT * FROM users WHERE id = '" + id + "'";
+		System.out.println(query);
+		ResultSet rs = getResult(query);
+		
+		// check if result is empty
+		try {
+			if(rs.next() == false) return null;
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		// otherwise create user with query result
+		String hash = null;
+		boolean isAdmin = false;
+		try {
+			hash = rs.getString("hash");
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		try {
+			isAdmin = rs.getBoolean("isAdmin");
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		return new User(id, hash, isAdmin, this);		
+	}
+	
 	public ArrayList<String> getFriends(String userId){
 		String query = "SELECT id2 FROM friends WHERE id1 = '" + userId + "';";
 		ArrayList<String> list = new ArrayList<String>();
@@ -113,12 +141,48 @@ public class DB {
 		
 	}
 	
-	public History getHistory(String userId){
-		return null;
+	public void addResult(String id, Result result) {		
+		String query = "INSERT INTO results VALUES('" + id + "', " + "'" + result.getQuiz() + "', " 
+				+ result.getTimeUsed() +  ", " 
+				+ result.getNumQuestions() + ", " 
+				+ result.getNumCorrect() + ", '"
+				+ result.getDateTaken() + "'"
+				+ ")";
+		System.out.println(query);
+		sqlUpdate(query);
 	}
 	
-	public ArrayList<String> getAchievements(String userId){
-		return null;
+	public History getHistory(String userId){
+		History history = new History(userId);
+		
+		// get all entries in the results table for this user
+		String query = "SELECT * FROM results WHERE user = '" + userId + "'";
+		System.out.println(query);
+		ResultSet rs = getResult(query);
+		
+		// add each result to the history
+		try{
+			while(rs.next()) {
+				String quiz = rs.getString("quiz");
+				int time = rs.getInt("time");
+				int questions = rs.getInt("questions");
+				int	correct = rs.getInt("correct");
+				String date = rs.getString("date");
+				Result r = new Result(quiz, time, questions, correct, date);
+				history.addResult(r);
+			}
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		return history;
+	}
+	
+	public void addAchievement(String userId, Achievement achievement){
+		String query = "INSERT INTO achievements VALUES('" + userId + "', '" + achievement.getName() + "', '"
+				+ achievement.getDescription() + "', '"
+				+ achievement.getURL()
+				+ "')";
+		sqlUpdate(query);
+		System.out.println(query);
 	}
 	
 	public boolean getIsAdmin(String userId){
@@ -136,9 +200,28 @@ public class DB {
 		return isAdmin;
 	}
 	
-	public void addAchievement(String userId, String achievement){
+	public ArrayList<Achievement> getAchievements(String userId){
+		ArrayList<Achievement> list = new ArrayList<Achievement>();
 		
+		// get all entries in the results table for this user
+		String query = "SELECT * FROM achievements WHERE user = '" + userId + "'";
+		System.out.println(query);
+		ResultSet rs = getResult(query);
+		
+		// add each achievement to the list
+		try{
+			while(rs.next()) {
+				String achievement = rs.getString("achievement");
+				String description = rs.getString("description");
+				String url = rs.getString("url");
+				list.add(new Achievement(achievement, description, url));				
+			}
+		} catch (SQLException e) {e.printStackTrace();
+		}
+		
+		return list;
 	}
+	
 	
 	public ArrayList<Challenge> getChallenges(String userId){
 		String query = "SELECT * FROM challenges WHERE destination='" + userId + "'";
@@ -208,24 +291,21 @@ public class DB {
 		sqlUpdate(query);
 	}
 
-	public void addResult(String id, Result result) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	public void setAdminStatus(String id, boolean status) {
-		String query = "";
-		if (status){
-			query = "UPDATE users SET isAdmin = true WHERE id = '" + id + "';";
-		} else {
-			query = "UPDATE users SET isAdmin = false WHERE id = '" + id + "';";
-		}
+		String query = "UPDATE users SET isAdmin = '" + status + "' WHERE id = '" + id + "'";
+		System.out.println(query);
 		sqlUpdate(query);		
 	}
 
 	public void sendMessage(Message message) {
-		// TODO Auto-generated method stub
-		
+		String src = message.getSrc();
+		String dest = message.getDest();
+		String body = message.getBody();
+		String time = message.getTime();
+		String query = "INSERT INTO messages VALUES('" + src + "', '" + dest + "', '" + body + "', '" + time + "');";
+		sqlUpdate(query);
 	}
 
 }

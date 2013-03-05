@@ -10,12 +10,22 @@ import sql.DB;
 public class User {
 	private final String id;
 	private final DB db;
+	private final String hash;
 	
-	public User(String user, String password, boolean isAdmin, DB db){
+	public User(String user, String hash, boolean isAdmin, DB db){
 		this.db = db;
 		this.id = user;
-		String hash = hash(password);
-		db.addUser(user, hash, isAdmin);
+		this.hash = hash;
+		//String hash = hash(password);
+		//db.addUser(user, hash, isAdmin);
+	}
+	
+	public String getHash(){
+		return hash;
+	}
+	
+	public String getID(){
+		return id;
 	}
 	
 	private static String hexToString(byte[] bytes) {
@@ -59,7 +69,7 @@ public class User {
 		return db.getHistory(this.id);
 	}
 	
-	public ArrayList<String> getAchievements(){
+	public ArrayList<Achievement> getAchievements(){
 		return db.getAchievements(this.id);
 	}
 	
@@ -67,7 +77,7 @@ public class User {
 		return db.getIsAdmin(this.id);
 	}
 	
-	public void addAchievement(String achievement){
+	public void addAchievement(Achievement achievement){
 		db.addAchievement(this.id, achievement);
 	}
 	

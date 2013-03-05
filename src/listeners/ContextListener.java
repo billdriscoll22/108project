@@ -1,8 +1,12 @@
 package listeners;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+
+import sql.DB;
+
 
 /**
  * Application Lifecycle Listener implementation class ContextListener
@@ -21,15 +25,19 @@ public class ContextListener implements ServletContextListener {
 	/**
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
-    public void contextInitialized(ServletContextEvent arg0) {
-        // TODO Auto-generated method stub
+    public void contextInitialized(ServletContextEvent e) {
+    	// create new database connection and store as a context attribute
+    	DB db = new DB();
+    	ServletContext context = e.getServletContext();        
+        context.setAttribute("db", db);
     }
 
 	/**
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
-    public void contextDestroyed(ServletContextEvent arg0) {
-        // TODO Auto-generated method stub
+    public void contextDestroyed(ServletContextEvent e) {
+        // close DB connection
+    	DB.close();
     }
 	
 }
