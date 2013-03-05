@@ -15,7 +15,10 @@ public class FillInBlank extends Question {
 	}
 	
 	public String toHTML(){
-		return "";
+		StringBuffer html = new StringBuffer();
+		html.append("<p>" + questionNumber + ". " + questions.get(0) + " ________ " + questions.get(1) + "</p>");
+		html.append("Fill in the Blank: <input type='text' name='" + questionNumber + "'><br>");		
+		return html.toString();
 	}
 	
 	public boolean isCorrect(String answer){

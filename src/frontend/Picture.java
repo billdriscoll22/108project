@@ -3,19 +3,23 @@ package frontend;
 import java.util.ArrayList;
 
 public class Picture extends Question {
-	private final String URL;
+	private final String url;
 	private final String question;
 	private final ArrayList<String> answers;
 	
 	public Picture(String url, String question, ArrayList<String> answers, int questionNumber){
-		this.URL = url;
+		this.url = url;
 		this.question = question;
 		this.answers = answers;
 		this.questionNumber = questionNumber;
 	}
 	
 	public String toHTML(){
-		return "";
+		StringBuffer html = new StringBuffer();
+		html.append("<p>" + questionNumber + ". " + question + "</p>");
+		html.append("<img src='" + url + "'> ");
+		html.append("Answer: <input type='text' name='" + questionNumber + "'><br>");		
+		return html.toString();
 	}
 	
 	public boolean isCorrect(String answer){

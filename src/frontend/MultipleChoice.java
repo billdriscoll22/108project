@@ -15,7 +15,13 @@ public class MultipleChoice extends Question {
 	}
 	
 	public String toHTML(){
-		return "";
+		StringBuffer html = new StringBuffer();
+		html.append("<p>" + questionNumber + ". " + question + "</p>");
+		html.append("<input type='radio' name='" + questionNumber + "' value='A'> " + answers.get(0) + "><br>");		
+		html.append("<input type='radio' name='" + questionNumber + "' value='B'> " + answers.get(1) + "><br>");		
+		html.append("<input type='radio' name='" + questionNumber + "' value='C'> " + answers.get(2) + "><br>");		
+		html.append("<input type='radio' name='" + questionNumber + "' value='D'> " + answers.get(3) + "><br>");		
+		return html.toString();
 	}
 	
 	public boolean isCorrect(String answer){

@@ -13,7 +13,10 @@ public class QuestionResponse extends Question{
 	}
 	
 	public String toHTML(){
-		return "";
+		StringBuffer html = new StringBuffer();
+		html.append("<p>" + questionNumber + ". " + question + "</p>");
+		html.append("Answer: <input type='text' name='" + questionNumber + "'><br>");		
+		return html.toString();
 	}
 	
 	public boolean isCorrect(String answer){
