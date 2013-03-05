@@ -36,3 +36,41 @@ description CHAR(255) - description of the achievement earned
 url CHAR(255) - url of the achievement image
 
 /*******************************************/
+
+/***********question_response******/
+quiz_id CHAR(64)
+question_num int
+question CHAR(255)
+/************************************/
+
+/***********picture******/
+quiz_id CHAR(64)
+question_num int
+question CHAR(255)
+url CHAR(255)
+/************************************/
+
+/***********fill_in_the_blank******/
+quiz_id CHAR(64)
+question_num int
+question_one CHAR(255)
+question_two CHAR(255)
+/************************************/
+
+/***********fill_in_the_blank******/
+quiz_id CHAR(64)
+question_num int
+question CHAR(255)
+a CHAR(255)
+b CHAR(255)
+c CHAR(255)
+d CHAR(255)
+/************************************/
+
+
+
+ /****************answers***********/
+quiz_id CHAR(64)
+question_num int
+answer CHAR(255)
+/************************************/
