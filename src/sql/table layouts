@@ -37,27 +37,27 @@ url CHAR(255) - url of the achievement image
 
 /*******************************************/
 
-/***********question_response******/
-quiz_id CHAR(64)
+/***********question_response Table******/
+quiz_id CHAR(64) - also the quiz title
 question_num int
 question CHAR(255)
 /************************************/
 
-/***********picture******/
+/***********picture Table******/
 quiz_id CHAR(64)
 question_num int
 question CHAR(255)
 url CHAR(255)
 /************************************/
 
-/***********fill_in_the_blank******/
+/***********fill_in_the_blank Table******/
 quiz_id CHAR(64)
 question_num int
 question_one CHAR(255)
 question_two CHAR(255)
 /************************************/
 
-/***********multiple_choice******/
+/***********multiple_choice Table******/
 quiz_id CHAR(64)
 question_num int
 question CHAR(255)
@@ -69,7 +69,7 @@ d CHAR(255)
 
 
 
- /****************answers***********/
+ /****************answers Table***********/
 quiz_id CHAR(64)
 question_num int
 answer CHAR(255)
