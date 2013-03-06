@@ -28,6 +28,10 @@ public class Quiz {
 		isShuffled = false;
 	}
 	
+	public String getQuizId(){
+		return quizId;
+	}
+
 	public void addQuestion(Question question){
 		questions.add(question);
 		numQuestions++;

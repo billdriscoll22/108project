@@ -15,6 +15,7 @@ import frontend.Challenge;
 import frontend.FriendRequest;
 import frontend.History;
 import frontend.Message;
+import frontend.Quiz;
 import frontend.Result;
 import frontend.User;
 
@@ -308,4 +309,91 @@ public class DB {
 		sqlUpdate(query);
 	}
 
+	/**
+	 * deletes user from users, achievements, 
+	 * and friends list, and deletes
+	 * messages of any type sent to or from the user
+	 * Leaves references to the user in the history
+	 * and any quizzes created by the user remain
+	 * @param user
+	 */
+	public void removeUser(User user){
+		String id = user.getID();
+		String query = "DELETE FROM users WHERE id = '"+ id + "';";
+		sqlUpdate(query);
+		query = "DELETE FROM friends WHERE id1 = id OR id2 = '" + id + "';";
+		sqlUpdate(query);
+		query = "DELETE FROM achievements WHERE user = id;";
+		sqlUpdate(query);
+		
+		query = "DELETE FROM notes WHERE source = '" + id + "' OR dest = '" + id + "';";
+		sqlUpdate(query);
+		query = "DELETE FROM challenges WHERE source = '" + id + "' OR dest = '" + id + "';";
+		sqlUpdate(query);
+		query = "DELETE FROM requests WHERE source = '" + id + "' OR dest = '" + id + "';";
+		sqlUpdate(query);
+	}
+	
+	public void postAnnouncement(String message){
+		Date date = new Date();
+		String dateAsStr = date.toString();
+		String query = "INSERT INTO announcements VALUES('" + message + "', '" + dateAsStr + "');";
+		sqlUpdate(query);
+	}
+	
+	/**
+	 * erases any entries concerning this quiz from
+	 * question_response, picture, fill_in_the_blank,
+	 * multiple_choice, answers, and quizzes tables
+	 * references to it remain in users' histories
+	 * @param quiz
+	 */
+	public void removeQuiz(Quiz quiz){
+		String id = quiz.getQuizId();
+		String query = "DELETE FROM question_response WHERE quiz_id = '" + id + "';";
+		query = "DELETE FROM picture WHERE quiz_id = '" + id + "';";
+		query = "DELETE FROM fill_in_the_blank WHERE quiz_id = '" + id + "';";
+		query = "DELETE FROM multiple_choice WHERE quiz_id = '" + id + "';";
+		query = "DELETE FROM answers WHERE quiz_id = '" + id + "';";
+		query = "DELETE FROM quizzes WHERE quiz_id = '" + id + "';";
+	}
+	
+	/**
+	 * removes any references to this quiz in results,
+	 * erasing any records of high scores, best times, etc
+	 * @param quiz
+	 */
+	public void resetQuizStats(Quiz quiz){
+		String id = quiz.getQuizId();
+		String query = "DELETE FROM results WHERE quiz_id = '" + id + "';";
+	}
+	
+	public int numQuizzes(){
+		String query = "SELECT * FROM quizzes;";
+		ResultSet rs = getResult(query);
+		try {
+			rs.afterLast();
+			rs.previous();
+			return rs.getRow();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int numUsers(){
+		String query = "SELECT * FROM users;";
+		ResultSet rs = getResult(query);
+		try {
+			rs.afterLast();
+			rs.previous();
+			return rs.getRow();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 }
