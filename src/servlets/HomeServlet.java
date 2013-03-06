@@ -26,14 +26,16 @@ public class HomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/home.jsp").forward(request, response);
+		if(request.getSession().getAttribute("user") == null)
+			request.getRequestDispatcher("/home.jsp").forward(request, response);
+		else
+			request.getRequestDispatcher("/account_creation.html").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/home.jsp").forward(request, response);
 	}
 
 }
