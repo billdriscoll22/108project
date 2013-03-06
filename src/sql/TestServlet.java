@@ -21,7 +21,7 @@ import frontend.Result;
 /**
  * Servlet implementation class TestServlet
  */
-@WebServlet("/index.html")
+@WebServlet("/TestServlet")
 public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

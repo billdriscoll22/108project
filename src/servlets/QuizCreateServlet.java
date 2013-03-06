@@ -1,33 +1,32 @@
 package servlets;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import frontend.Hash;
+import sql.DB;
+import frontend.Quiz;
 import frontend.User;
 
-import sql.DB;
-
-
 /**
- * Servlet implementation class AccountCreationServlet
+ * Servlet implementation class QuizCreateServlet
  */
-@WebServlet("/AccountCreationServlet")
-public class AccountCreationServlet extends HttpServlet {
+public class QuizCreateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AccountCreationServlet() {
+    public QuizCreateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,31 +42,31 @@ public class AccountCreationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hitting account creation servlet post");
 		ServletContext context = request.getServletContext();
 		DB db = (DB) context.getAttribute("db");
-	
-		String id = request.getParameter("username");
-		String password = request.getParameter("password");
 		
-		if(db.getUser(id) != null){
-			// forward to account name in use page
-			RequestDispatcher dispatch = request.getRequestDispatcher("username_in_use.jsp");
-			dispatch.forward(request, response);
+		if(request.getParameter("init").equals("Create Quiz")) {
+			String quizId = request.getParameter("quizId");
+			boolean isRandom = request.getParameter("order").equals("random");
+			boolean isOnePage = request.getParameter("pages").equals("onePage");
+			boolean isImmediate = request.getParameter("whenGraded").equals("immediate");
 			
-		} else {
-			// add new user to database
-			String hash = Hash.getHash(password);
-			db.addUser(id, hash, false);
+			long millisInDay = 60 * 60 * 24 * 1000;
+			long currentTime = new Date().getTime();
+			long dateOnly = (currentTime / millisInDay) * millisInDay;
+			Date clearDate = new Date(dateOnly);
+			String date = clearDate.toString();
 			
-			// set session user object
+			//String creatorId = ((User) request.getAttribute("user")).getID();
+			String creatorId = "test";
 			HttpSession session = request.getSession();
-			session.setAttribute("user", new User(id, hash, false, db));
-			
-			// forward to home page
-			RequestDispatcher dispatch = request.getRequestDispatcher("/HomeServlet");
+			session.setAttribute("quiz", new Quiz(quizId, creatorId, date, isRandom, isOnePage, isImmediate));
+			System.out.println("done");
+			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
 			dispatch.forward(request, response);
 		}
+		
+		
 	}
 
 }

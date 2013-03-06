@@ -5,3 +5,5 @@ build/*
 .settings
 .project
 .eclipse
+WebContent/WEB-INF/*
+WebContent/WEB-INF
