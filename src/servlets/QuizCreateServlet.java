@@ -45,7 +45,7 @@ public class QuizCreateServlet extends HttpServlet {
 		ServletContext context = request.getServletContext();
 		DB db = (DB) context.getAttribute("db");
 		
-		if(true) {
+		if(request.getParameter("init").equals("Create Quiz")) {
 			String quizId = request.getParameter("quizId");
 			boolean isRandom = request.getParameter("order").equals("random");
 			boolean isOnePage = request.getParameter("pages").equals("onePage");
