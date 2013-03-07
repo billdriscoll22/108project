@@ -45,6 +45,23 @@ public class DB {
 		return con;
 	}
 	
+	/*Todo: implement this.*/
+	public ArrayList<Quiz> getPopularQuizzes(int limit){
+		String query = "select * from quizzes order by times_taken limit " + limit;
+		ResultSet rs = getResult(query);
+		ArrayList<Quiz> popularQuizzes = new ArrayList<Quiz>();
+		try {
+			while(rs.next()){
+				popularQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate"))));
+				return popularQuizzes;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static void close() {
 		try {
 			con.close();
@@ -108,6 +125,11 @@ public class DB {
 		return new User(id, hash, isAdmin, this);		
 	}
 	
+	public void addIsTaken(String quizID){
+		String query = "update users set times_taken = times_taken + 1 where quiz_id = " + quizID;
+		sqlUpdate(query);
+	}
+	
 	public ArrayList<String> getFriends(String userId){
 		String query = "SELECT id2 FROM friends WHERE id1 = '" + userId + "';";
 		ArrayList<String> list = new ArrayList<String>();
@@ -124,6 +146,8 @@ public class DB {
 		
 		return list;
 	}
+	
+	
 	
 	public ArrayList<Message> getMessages(String userId){
 		ArrayList<Message> returnList = new ArrayList<Message>();

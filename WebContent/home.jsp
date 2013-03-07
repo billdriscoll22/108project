@@ -11,5 +11,12 @@ pageEncoding="ISO-8859-1"%>
 </head>
 <body>
 <h1>Welcome, <%= user.getID() %></h1>
+Here's a list of popular quizzes:<br/>
+<%
+	ArrayList<Quiz> popularQuizzes = (ArrayList<Quiz>)request.getAttribute("popularQuizzes");
+	for(Quiz q : popularQuizzes){
+		out.println(q.getQuizId() + "<br/>");
+	}
+%>
 </body>
 </html>

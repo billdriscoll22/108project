@@ -1,11 +1,18 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.*;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import frontend.*;
+
+import sql.DB;
 
 /**
  * Servlet implementation class HomeServlet
@@ -13,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/HomeServlet")
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final int NUM_QUIZZES = 5;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -29,8 +37,13 @@ public class HomeServlet extends HttpServlet {
 		System.out.println("hitting home servlet get"); 
 		if(request.getSession().getAttribute("user") == null)
 			request.getRequestDispatcher("/login.html").forward(request, response);
-		else
+		else{
+			ServletContext context = request.getServletContext();
+			DB db = (DB) context.getAttribute("db");
+			ArrayList<Quiz> popularQuizzes = db.getPopularQuizzes(NUM_QUIZZES);
+			request.setAttribute("popularQuizzes", popularQuizzes);
 			request.getRequestDispatcher("/home.jsp").forward(request, response);
+		}
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

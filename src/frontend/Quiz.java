@@ -29,6 +29,7 @@ public class Quiz {
 		isShuffled = false;
 	}
 	
+	
 	public String getQuizId(){
 		return quizId;
 	}
@@ -37,6 +38,7 @@ public class Quiz {
 		questions.add(question);
 		numQuestions++;
 	}
+	
 	
 	// returns the next question in the quiz, or null if all questions have been
 	// given out
