@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import sql.DB;
+import frontend.QuestionResponse;
 import frontend.Quiz;
 import frontend.User;
 
@@ -48,6 +50,9 @@ public class QuizCreateServlet extends HttpServlet {
 		DB db = (DB) context.getAttribute("db");
 		
 		if(request.getParameter("init").equals("Create Quiz")) {
+			
+			// Creates quiz object with basic specifications, directs user to quiz_create_add_question.jsp
+			
 			String quizId = request.getParameter("quizId");
 			boolean isRandom = request.getParameter("order").equals("random");
 			boolean isOnePage = request.getParameter("pages").equals("onePage");
@@ -66,9 +71,41 @@ public class QuizCreateServlet extends HttpServlet {
 			System.out.println("done");
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
 			dispatch.forward(request, response);
+		} else if(request.getParameter("init").equals("Create Question")) {
+			
+			// user picks which type of question to make, direct to type-specific .jsp (for the moment,
+			// this can be changed)
+			
+			String type = request.getParameter("questionType");
+			if(type.equals("questionResponse")) {
+				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_QR.jsp");
+				dispatch.forward(request, response);
+			}
+		} else if(request.getParameter("init").equals("No More Questions!")) {
+			
+			// this will add quiz to DB and redirect to home page -- right now just sends to login page
+			// to avoid problems with user being set in session
+			
+			RequestDispatcher dispatch = request.getRequestDispatcher("login.html");
+			dispatch.forward(request, response);
+		} else if(request.getParameter("init").equals("Add Question-Response")) {
+			
+			// adds question-response to quiz
+			
+			String question = request.getParameter("questionText");
+			String answer = request.getParameter("questionAnswer");
+			ArrayList<String> answers = new ArrayList<String>();
+			answers.add(answer);
+			
+			HttpSession session = request.getSession();
+			Quiz q = (Quiz) session.getAttribute("quiz");
+			
+			QuestionResponse qr = new QuestionResponse(question, answers, q.getNumQuestions()+1);
+			q.addQuestion(qr);
+			
+			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
+			dispatch.forward(request, response);
 		}
-		
-		
 	}
 
 }

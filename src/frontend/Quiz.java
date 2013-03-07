@@ -24,6 +24,7 @@ public class Quiz {
 		this.isImmediate = isImmediate;
 		this.dateCreated = dateCreated;
 		
+		questions = new ArrayList<Question>();
 		currQuestion = 0;
 		isShuffled = false;
 	}
@@ -51,7 +52,9 @@ public class Quiz {
 		else return questions.get(currQuestion++); // return question and increment tracking variable
 	}
 	
-	
+	public int getNumQuestions() {
+		return numQuestions;
+	}
 	
 
 }
