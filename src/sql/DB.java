@@ -365,6 +365,11 @@ public class DB {
 		sqlUpdate(query);
 	}
 	
+	/**
+	 * adds a quiz to quizzes with number of times taken set to 0
+	 * to update times_taken, use incrementQuizTimesTaken
+	 * @param quiz
+	 */
 	public void addQuiz(Quiz quiz){
 		String id = quiz.getQuizId();
 		String date = quiz.getDateCreated();
@@ -376,6 +381,20 @@ public class DB {
 		int numTimesTaken = 0;
 		String query = "INSERT INTO quizzes VALUES('" + id + "', '" + date + "', '" + creatorId + "', " + numQuestions + ", '" + isRandom + "', '" + isOnePage + "', '" + isImmediate + "', " + numTimesTaken + ");";
 		sqlUpdate(query);
+	}
+	
+	public void incrementQuizTimesTaken(Quiz quiz){
+		String query = "SELECT times_taken FROM quizzes WHERE quiz_id = '" + quiz.getQuizId() + "';";
+		ResultSet rs = getResult(query);
+		int timesTaken = 0;
+		try {
+			timesTaken = rs.getInt("times_taken");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		timesTaken++;
+		query = "UPDATE quizzes SET times_taken = " + timesTaken + ";";
 	}
 	
 	/**
