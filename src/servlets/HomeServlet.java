@@ -40,8 +40,17 @@ public class HomeServlet extends HttpServlet {
 		else{
 			ServletContext context = request.getServletContext();
 			DB db = (DB) context.getAttribute("db");
+			User currentUser = (User)request.getSession().getAttribute("user");
+			History history = currentUser.getHistory();
+			ArrayList<Quiz> recentlyCreated = currentUser.getCreatedQuizzes();
 			ArrayList<Quiz> popularQuizzes = db.getPopularQuizzes(NUM_QUIZZES);
+			ArrayList<Quiz> recentQuizzes = db.getRecentQuizzes(NUM_QUIZZES);
+			ArrayList<Achievement> achievements = currentUser.getAchievements();
+			request.setAttribute("recentlyCreated", recentlyCreated);
 			request.setAttribute("popularQuizzes", popularQuizzes);
+			request.setAttribute("recentQuizzes", recentQuizzes);
+			request.setAttribute("history", history);
+			request.setAttribute("achievements", achievements);
 			request.getRequestDispatcher("/home.jsp").forward(request, response);
 		}
 	}

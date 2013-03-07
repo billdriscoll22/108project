@@ -47,14 +47,32 @@ public class DB {
 	
 	/*Todo: implement this.*/
 	public ArrayList<Quiz> getPopularQuizzes(int limit){
-		String query = "select * from quizzes order by times_taken limit " + limit;
+		String query = "select * from quizzes order by times_taken desc limit " + limit;
 		ResultSet rs = getResult(query);
 		ArrayList<Quiz> popularQuizzes = new ArrayList<Quiz>();
 		try {
+			rs.beforeFirst();
 			while(rs.next()){
 				popularQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate"))));
-				return popularQuizzes;
 			}
+			return popularQuizzes;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<Quiz> getRecentQuizzes(int limit){
+		String query = "select * from quizzes order by date_created desc limit " + limit;
+		ResultSet rs = getResult(query);
+		ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz>();
+		try {
+			rs.beforeFirst();
+			while(rs.next()){
+				recentQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate"))));
+			}
+			return recentQuizzes;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -177,11 +195,11 @@ public class DB {
 		sqlUpdate(query);
 	}
 	
-	public History getHistory(String userId){
+	public History getHistory(String userId, int limit){
 		History history = new History(userId);
 		
 		// get all entries in the results table for this user
-		String query = "SELECT * FROM results WHERE user = '" + userId + "'";
+		String query = "SELECT * FROM results WHERE user = '" + userId + "' order by date desc limit " + limit;
 		System.out.println(query);
 		ResultSet rs = getResult(query);
 		
@@ -356,6 +374,23 @@ public class DB {
 		sqlUpdate(query);
 		query = "DELETE FROM requests WHERE source = '" + id + "' OR dest = '" + id + "';";
 		sqlUpdate(query);
+	}
+	
+	public ArrayList<Quiz> getCreatedQuizzes(String userID, int limit){
+		String query = "select * from quizzes where creator_id = '" + userID + "' order by date_created desc limit " + limit;
+		ResultSet rs = getResult(query);
+		ArrayList<Quiz> createdQuizzes = new ArrayList<Quiz>();
+		try {
+			rs.beforeFirst();
+			while(rs.next()){
+				createdQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate"))));
+			}
+			return createdQuizzes;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public void postAnnouncement(String message){
