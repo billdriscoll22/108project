@@ -228,7 +228,7 @@ public class DB {
 	public ArrayList<Achievement> getAchievements(String userId){
 		ArrayList<Achievement> list = new ArrayList<Achievement>();
 		
-		// get all entries in the results table for this user
+		// get all entries in the achievements table for this user
 		String query = "SELECT * FROM achievements WHERE user = '" + userId + "'";
 		System.out.println(query);
 		ResultSet rs = getResult(query);
