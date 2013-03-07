@@ -365,6 +365,19 @@ public class DB {
 		sqlUpdate(query);
 	}
 	
+	public void addQuiz(Quiz quiz){
+		String id = quiz.getQuizId();
+		String date = quiz.getDateCreated();
+		String creatorId = quiz.getCreatorId();
+		int numQuestions = quiz.getNumQuestions();
+		boolean isRandom = quiz.getIsRandom();
+		boolean isOnePage = quiz.getIsOnePage();
+		boolean isImmediate = quiz.getIsImmediate();
+		int numTimesTaken = 0;
+		String query = "INSERT INTO quizzes VALUES('" + id + "', '" + date + "', '" + creatorId + "', " + numQuestions + ", '" + isRandom + "', '" + isOnePage + "', '" + isImmediate + "', " + numTimesTaken + ");";
+		sqlUpdate(query);
+	}
+	
 	/**
 	 * erases any entries concerning this quiz from
 	 * question_response, picture, fill_in_the_blank,
@@ -375,11 +388,17 @@ public class DB {
 	public void removeQuiz(Quiz quiz){
 		String id = quiz.getQuizId();
 		String query = "DELETE FROM question_response WHERE quiz_id = '" + id + "';";
+		sqlUpdate(query);
 		query = "DELETE FROM picture WHERE quiz_id = '" + id + "';";
+		sqlUpdate(query);
 		query = "DELETE FROM fill_in_the_blank WHERE quiz_id = '" + id + "';";
+		sqlUpdate(query);
 		query = "DELETE FROM multiple_choice WHERE quiz_id = '" + id + "';";
+		sqlUpdate(query);
 		query = "DELETE FROM answers WHERE quiz_id = '" + id + "';";
+		sqlUpdate(query);
 		query = "DELETE FROM quizzes WHERE quiz_id = '" + id + "';";
+		sqlUpdate(query);
 	}
 	
 	/**
@@ -390,6 +409,7 @@ public class DB {
 	public void resetQuizStats(Quiz quiz){
 		String id = quiz.getQuizId();
 		String query = "DELETE FROM results WHERE quiz_id = '" + id + "';";
+		sqlUpdate(query);
 	}
 	
 	public int numQuizzes(){

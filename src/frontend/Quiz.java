@@ -29,9 +29,28 @@ public class Quiz {
 		isShuffled = false;
 	}
 	
+	public String getDateCreated(){
+		return dateCreated;
+	}
 	
 	public String getQuizId(){
 		return quizId;
+	}
+	
+	public String getCreatorId(){
+		return creatorId;
+	}
+	
+	public boolean getIsRandom(){
+		return isRandom;
+	}
+	
+	public boolean getIsOnePage(){
+		return isOnePage;
+	}
+	
+	public boolean getIsImmediate(){
+		return isImmediate;
 	}
 
 	public void addQuestion(Question question){
