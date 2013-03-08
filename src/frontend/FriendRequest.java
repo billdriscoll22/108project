@@ -10,4 +10,9 @@ public class FriendRequest extends Message {
 	public boolean getStatus(){
 		return isConfirmed;
 	}
+	
+	public String toHTML(){
+		String starter = super.toHTML();
+		return starter;
+	}
 }

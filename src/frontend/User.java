@@ -66,9 +66,6 @@ public class User {
 		return db.getFriends(this.id);
 	}
 	
-	public ArrayList<Message> getMessages(){
-		return db.getMessages(this.id);
-	}
 	
 	public History getHistory(){
 		return db.getHistory(this.id, historyLimit);
@@ -76,6 +73,14 @@ public class User {
 	
 	public ArrayList<Achievement> getAchievements(){
 		return db.getAchievements(this.id);
+	}
+	
+	public ArrayList<Challenge> getChallenges(){
+		return db.getChallenges(this.id);
+	}
+	
+	public ArrayList<Message> getNotes(){
+		return db.getNotes(this.id);
 	}
 	
 	public boolean isAdmin(){
@@ -86,9 +91,7 @@ public class User {
 		db.addAchievement(this.id, achievement);
 	}
 	
-	public ArrayList<Challenge> getChallenges(){
-		return db.getChallenges(this.id);
-	}
+	
 	
 	/**
 	 * adds a row to the friends table with this user and id

@@ -34,5 +34,12 @@ public class Message {
 		return time;
 	}
 	
+	public String toHTML(){
+		String starter = "";
+		starter += ("From: " + this.getSrc() + " at: " + this.getTime() + "<br/>");
+		starter += (this.getBody() + "<br/>");
+		return starter;
+	}
+	
 	
 }

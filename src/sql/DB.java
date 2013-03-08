@@ -166,23 +166,7 @@ public class DB {
 	}
 	
 	
-	
-	public ArrayList<Message> getMessages(String userId){
-		ArrayList<Message> returnList = new ArrayList<Message>();
-		String query = "select * from notes where dest = '" + userId  + "'";
-		ResultSet rs = getResult(query);
-		try {
-			while(rs.next()){
-				returnList.add(new Message(rs.getString("src"), rs.getString("dest"), rs.getString("body"), rs.getString("time")));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ArrayList<Message>();
-		
-		
-	}
+	/**/
 	
 	public void addResult(String id, Result result) {		
 		String query = "INSERT INTO results VALUES('" + id + "', " + "'" + result.getQuiz() + "', " 
@@ -259,6 +243,7 @@ public class DB {
 				String url = rs.getString("url");
 				list.add(new Achievement(achievement, description, url));				
 			}
+			return list;
 		} catch (SQLException e) {e.printStackTrace();
 		}
 		
@@ -280,11 +265,29 @@ public class DB {
 				Challenge c = new Challenge(src, userId, body, url, time);
 				challenges.add(c);
 			}
+			return challenges;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		return challenges;
+	}
+	
+	public ArrayList<Message> getNotes(String userId){
+		ArrayList<Message> returnList = new ArrayList<Message>();
+		String query = "select * from notes where dest = '" + userId  + "'";
+		ResultSet rs = getResult(query);
+		try {
+			while(rs.next()){
+				returnList.add(new Message(rs.getString("src"), rs.getString("dest"), rs.getString("body"), rs.getString("time")));
+			}
+			return returnList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ArrayList<Message>();
+		
 	}
 	
 	public void addFriend(String user1, String user2){

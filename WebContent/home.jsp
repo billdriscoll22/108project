@@ -43,5 +43,21 @@ for(Achievement a : achievements){
 	out.println(a.getName());
 }
 %>
+
+<h2>Your messages:</h2>
+<b>Notes:</b><br/>
+<%
+ArrayList<Message> messages = (ArrayList<Message>)request.getAttribute("notes");
+for(Message m : messages){
+	out.println(m.toHTML());
+}
+%>
+<b>Friend Requests</b><br/>
+<%
+ArrayList<FriendRequest> friendRequests = (ArrayList<FriendRequest>)request.getAttribute("friendRequests");
+for(FriendRequest f : friendRequests){
+	out.println(f.toHTML());
+}
+%>
 </body>
 </html>
