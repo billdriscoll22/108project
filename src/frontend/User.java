@@ -11,6 +11,7 @@ public class User {
 	private final String id;
 	private final DB db;
 	private final String hash;
+	private static final int historyLimit = 5;
 	
 	public User(String user, String hash, boolean isAdmin, DB db){
 		this.db = db;
@@ -26,6 +27,10 @@ public class User {
 	
 	public String getID(){
 		return id;
+	}
+	
+	public ArrayList<Quiz> getCreatedQuizzes(){
+		return db.getCreatedQuizzes(this.id, historyLimit);
 	}
 	
 	private static String hexToString(byte[] bytes) {
@@ -66,7 +71,7 @@ public class User {
 	}
 	
 	public History getHistory(){
-		return db.getHistory(this.id);
+		return db.getHistory(this.id, historyLimit);
 	}
 	
 	public ArrayList<Achievement> getAchievements(){

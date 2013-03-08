@@ -11,12 +11,37 @@ pageEncoding="ISO-8859-1"%>
 </head>
 <body>
 <h1>Welcome, <%= user.getID() %></h1>
-Here's a list of popular quizzes:<br/>
+<b>Here's a list of popular quizzes:</b><br/>
 <%
 	ArrayList<Quiz> popularQuizzes = (ArrayList<Quiz>)request.getAttribute("popularQuizzes");
 	for(Quiz q : popularQuizzes){
 		out.println(q.getQuizId() + "<br/>");
 	}
+%>
+<b>Here's a list of recent quizzes:</b> <br/>
+<%
+	ArrayList<Quiz> recentQuizzes = (ArrayList<Quiz>)request.getAttribute("recentQuizzes");
+	for(Quiz q : recentQuizzes){
+		out.println(q.getQuizId() + "<br/>");
+	}
+%>
+<%
+History history = (History)request.getAttribute("history");
+out.println(history.toString());
+%>
+<b>Quizzes you've recently created: </b><br/>
+<%
+ArrayList<Quiz> recentlyCreated = (ArrayList<Quiz>)request.getAttribute("recentlyCreated");
+for(Quiz q : recentlyCreated){
+	out.println(q.getQuizId() + "<br/>");
+}
+%>
+<b>Your achievements</b><br/>
+<%
+ArrayList<Achievement> achievements = (ArrayList<Achievement>)request.getAttribute("achievements");
+for(Achievement a : achievements){
+	out.println(a.getName());
+}
 %>
 </body>
 </html>
