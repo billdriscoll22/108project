@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import sql.DB;
+import frontend.FillInBlank;
 import frontend.MultipleChoice;
 import frontend.Picture;
 import frontend.QuestionResponse;
@@ -73,7 +74,9 @@ public class QuizCreateServlet extends HttpServlet {
 			System.out.println("done");
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
 			dispatch.forward(request, response);
-		} else if(request.getParameter("init").equals("Create Question")) {
+		} 
+		
+		else if(request.getParameter("init").equals("Create Question")) {
 			
 			// user picks which type of question to make, direct to type-specific .jsp (for the moment,
 			// this can be changed)
@@ -88,8 +91,13 @@ public class QuizCreateServlet extends HttpServlet {
 			} else if(type.equals("pictureResponse")) {
 				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_PR.jsp");
 				dispatch.forward(request, response);
+			} else if(type.equals("fillInBlank")) {
+				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_FB.jsp");
+				dispatch.forward(request, response);
 			}
-		} else if(request.getParameter("init").equals("No More Questions!")) {
+		} 
+		
+		else if(request.getParameter("init").equals("No More Questions!")) {
 			// this will add quiz to DB and redirect to home page -- right now just sends to login page
 			// to avoid problems with user being set in session
 			HttpSession session = request.getSession();
@@ -97,7 +105,9 @@ public class QuizCreateServlet extends HttpServlet {
 			db.addQuiz(quiz);
 			RequestDispatcher dispatch = request.getRequestDispatcher("login.html");
 			dispatch.forward(request, response);
-		} else if(request.getParameter("init").equals("Add Question-Response")) {
+		} 
+		
+		else if(request.getParameter("init").equals("Add Question-Response")) {
 			
 			// adds question-response to quiz
 			
@@ -114,7 +124,9 @@ public class QuizCreateServlet extends HttpServlet {
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
 			dispatch.forward(request, response);
-		} else if(request.getParameter("init").equals("Add Multiple Choice")) {
+		} 
+		
+		else if(request.getParameter("init").equals("Add Multiple Choice")) {
 			String question = request.getParameter("questionText");
 			ArrayList<String> answers = new ArrayList<String>();
 			for(int i = 0; i < 4; i++) {
@@ -130,7 +142,9 @@ public class QuizCreateServlet extends HttpServlet {
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
 			dispatch.forward(request, response);
-		} else if(request.getParameter("init").equals("Add Picture Response")) {
+		} 
+		
+		else if(request.getParameter("init").equals("Add Picture Response")) {
 			String image = request.getParameter("uploadField");
 			String question = request.getParameter("questionText");
 			ArrayList<String> answers = new ArrayList<String>();
@@ -141,6 +155,24 @@ public class QuizCreateServlet extends HttpServlet {
 			
 			Picture pr = new Picture(image, question, answers, q.getNumQuestions()+1);
 			q.addQuestion(pr);
+			
+			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
+			dispatch.forward(request, response);
+		}
+		
+		else if(request.getParameter("init").equals("Add FIB Response")) {
+			ArrayList<String> questions = new ArrayList<String>();
+			questions.add(request.getParameter("beforeText"));
+			questions.add(request.getParameter("afterText"));
+			
+			ArrayList<String> answers = new ArrayList<String>();
+			answers.add(request.getParameter("questionAnswer"));
+			
+			HttpSession session = request.getSession();
+			Quiz q = (Quiz) session.getAttribute("quiz");
+			
+			FillInBlank fib = new FillInBlank(questions, answers, q.getNumQuestions()+1);
+			q.addQuestion(fib);
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
 			dispatch.forward(request, response);

@@ -435,6 +435,8 @@ public class DB {
 		int numTimesTaken = 0;
 		String query = "INSERT INTO quizzes VALUES('" + id + "', '" + date + "', '" + creatorId + "', " + numQuestions + ", " + isRandom + ", " + isOnePage + ", " + isImmediate + ", " + numTimesTaken + ");";
 		sqlUpdate(query);
+		
+		// add each question as well
 	}
 	
 	public void incrementQuizTimesTaken(Quiz quiz){
