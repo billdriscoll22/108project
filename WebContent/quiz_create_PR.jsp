@@ -15,8 +15,13 @@
 Enter question text: 
 <br>
 <textarea name="questionText"></textarea><br><br>
+Enter Picture URL:<br>
+<input type="text" name="uploadField" /><br><br>
+<!--
 Choose an image file to upload:<br>
 <input type="file" name="uploadField" /><br><br>
+  -->
+  
 Answer: <input type="text" name="questionAnswer"><br><br>
 <input type="submit" name="init" value="Add Picture Response">
 </form>
