@@ -132,6 +132,22 @@ public class User {
 	public void setAdminStatus(boolean status){
 		db.setAdminStatus(this.id, status);
 	}
+	
+	// returns true if the user has a pending friend request from "username"
+	public boolean hasRequestFrom(String username){
+		ArrayList<FriendRequest> requests = getFriendRequests();
+		
+		// check all requests
+		for(FriendRequest r : requests){
+			if(r.getSrc().equals(username)) return true;
+		}
+		
+		return false;
+	}
+	
+	public ArrayList<Quiz> getQuizzes(){
+		return db.getCreatedQuizzes(id, Integer.MAX_VALUE);
+	}
 }
 
 

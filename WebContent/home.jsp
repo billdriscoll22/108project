@@ -8,7 +8,17 @@ pageEncoding="ISO-8859-1"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta http-equiv="Pragma" content="no-cache">
+
+<!-- Styling -->
+<style type="text/css">
+#friend_panel {
+	float: right;
+}
+
+</style>
+
 </head>
+
 <body>
 <h1>Welcome <%= user.getID() %></h1>
 <b>Here's a list of popular quizzes:</b><br/>
@@ -60,13 +70,26 @@ for(FriendRequest f : friendRequests){
 }
 %>
 
-<br><h2>Announcements</h2>
+<h2>Announcements</h2>
 <%
 ArrayList<Announcement> announcements = (ArrayList<Announcement>)request.getAttribute("announcements");
 for(Announcement a : announcements){
 	out.println(a.getMessage());
 }
 %>
+
+<div id="friend_panel">
+<h2>Friends</h2>
+
+<form action="UserSearchServlet" method="post">
+Find Friends: <input type="text" name="name">
+<input type="submit" value="Go!" /><br>
+</form>
+
+<h3>Recent Activity</h3>
+</div>
+
+
 
 </body>
 </html>
