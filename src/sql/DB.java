@@ -343,7 +343,8 @@ public class DB {
 	
 
 	public void setAdminStatus(String id, boolean status) {
-		String query = "UPDATE users SET isAdmin = '" + status + "' WHERE id = '" + id + "'";
+		int stat = status == true ? 1 : 0;
+		String query = "UPDATE users SET isAdmin = '" + stat + "' WHERE id = '" + id + "'";
 		System.out.println(query);
 		sqlUpdate(query);		
 	}

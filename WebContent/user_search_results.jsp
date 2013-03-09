@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<h1 style="text-align: center;">Search Results For <%= name %></h1>
+<h1 style="text-align: center;"><%= name %></h1>
 
 
 <%
@@ -22,8 +22,24 @@
 if(account == null)
 out.println("Sorry. No matches for that user name");
 else {
-	// show name and friendship status
-	out.println("<h2>" + name + "</h2>");
+	// if admin, allow option to change user's admin setting
+	if(user.isAdmin()){
+		if(account.isAdmin()){
+			out.println("<form action='SetAdminServlet' method='post'>" + 
+					"<input type='submit' value='Remove Admin Privileges' />" +
+					"<input type='hidden' name='target' value='" + name +"'>" +
+					"<input type='hidden' name='bool' value='false'>" +
+					"</form>");
+		}
+		
+		else if(!account.isAdmin()){
+			out.println("<form action='SetAdminServlet' method='post'>" + 
+					"<input type='submit' value='Grant Admin Privileges' />" +
+					"<input type='hidden' name='target' value='" + name +"'>" +
+					"<input type='hidden' name='bool' value='true'>" +
+					"</form>");
+		}
+	}
 	
 	// option to send message
 	out.println("<form action='CreateMessageServlet' method='post'>" + 

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.*, frontend.*"%>
+<%@ page import="java.util.*, frontend.*, sql.*"%>
 <% User user = (User)session.getAttribute("user"); %>
+<% DB db = (DB)application.getAttribute("db"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -81,7 +82,9 @@ for(FriendRequest f : friendRequests){
 <%
 ArrayList<Announcement> announcements = (ArrayList<Announcement>)request.getAttribute("announcements");
 for(Announcement a : announcements){
-	out.println(a.getMessage());
+	// provide admin option to delete announcement
+	
+	out.println("<p><span style='color:red;'>" + a.getDate() + ": </span>" + a.getMessage() + "</p>");
 }
 %>
 
@@ -94,6 +97,30 @@ Find Friends: <input type="text" name="name">
 </form>
 
 <h3>Recent Activity</h3>
+</div>
+
+<div id="administration_panel">
+<h2>Administration</h2>
+
+<!-- Result Message -->
+<p style="font-style:italic; color:red;">
+<%
+String message = (String)request.getAttribute("admin_message");
+if(message != null) out.println(message);
+%>
+</p>
+
+<!-- Post announcement -->
+<form action="PostAnnouncementServlet" method="post">
+<TEXTAREA rows="6" cols="20" name="txt"></TEXTAREA>
+<input type="submit" value="Post Announcement" /><br>
+</form>
+
+<!-- Site Statistics -->
+<H3>Site Statistics</H3>
+<p> Number of quizzes created: <%= db.numQuizzes() %> </p>
+<p> Number of users: <%= db.numUsers() %> </p> 
+
 </div>
 
 
