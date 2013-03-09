@@ -254,8 +254,12 @@ public class DB {
 	public ArrayList<Challenge> getChallenges(String userId){
 		String query = "SELECT * FROM challenges WHERE destination='" + userId + "'";
 		ArrayList<Challenge> challenges = new ArrayList<Challenge>();
-		try {
-			ResultSet rs = getResult(query);
+		ResultSet rs = getResult(query);
+		
+		// rs will be null if there are no challenges
+		if(rs == null) return challenges;
+		
+		try {			
 			rs.beforeFirst();
 			while(rs.next()) {
 				String src = rs.getString("src");
@@ -266,9 +270,7 @@ public class DB {
 				challenges.add(c);
 			}
 			return challenges;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		} catch (SQLException e) {e.printStackTrace();}
 		
 		return challenges;
 	}
@@ -277,16 +279,17 @@ public class DB {
 		ArrayList<Message> returnList = new ArrayList<Message>();
 		String query = "select * from notes where dest = '" + userId  + "'";
 		ResultSet rs = getResult(query);
+		
+		// check for null
+		if(rs == null) return returnList;
+		
 		try {
 			while(rs.next()){
 				returnList.add(new Message(rs.getString("src"), rs.getString("dest"), rs.getString("body"), rs.getString("time")));
 			}
-			return returnList;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ArrayList<Message>();
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		return returnList;
 		
 	}
 	
