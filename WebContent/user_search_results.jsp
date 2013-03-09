@@ -27,12 +27,18 @@ else {
 	
 	// check if they are already friends. offer option to remove friend
 	if(user.getFriends().contains(name)){
-		out.println("<form action='RemoveFriendServlet' method='post'><input type='submit' value='Remove Friend' /></form>");
+		out.println("<form action='RemoveFriendServlet' method='post'>" + 
+		"<input type='submit' value='Remove Friend' />" +
+		"<input type='hidden' name='target' value='" + name +"'>" +
+		"</form>");
 	}
 	
 	// check if a friend request has been offered
 	else if(user.hasRequestFrom(name)){
-		out.println("<form action='AcceptFriendServlet' method='post'><input type='submit' value='Accept Friend Request' /></form>");
+		out.println("<form action='AcceptFriendServlet' method='post'>" + 
+				"<input type='submit' value='Accept Friend Request' />" +
+				"<input type='hidden' name='target' value='" + name +"'>" +
+				"</form>");
 	}
 	
 	// check if a friend request has already been sent
@@ -42,7 +48,10 @@ else {
 	
 	// offer to send friend request
 	else {
-		out.println("<form action='RequestFriendServlet' method='post'><input type='submit' value='Send Friend Request' /></form>");
+		out.println("<form action='RequestFriendServlet' method='post'>" + 
+				"<input type='submit' value='Send Friend Request' />" +
+				"<input type='hidden' name='target' value='" + name +"'>" +
+				"</form>");
 	}
 	// end friendship status
 	out.println("</h2>");

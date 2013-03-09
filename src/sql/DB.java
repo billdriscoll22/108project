@@ -284,7 +284,7 @@ public class DB {
 	public void addFriend(String user1, String user2){
 		String query = "INSERT INTO friends VALUES('" + user1 + "', '" + user2 + "');";
 		sqlUpdate(query);
-		query = "UPDATE requests SET isConfirmed = true WHERE source = '" + user1 + "' AND dest = '" + user2 + "';";
+		query = "UPDATE requests SET isConfirmed = true WHERE source = '" + user2 + "' AND dest = '" + user1 + "';";
 		sqlUpdate(query);
 	}
 
