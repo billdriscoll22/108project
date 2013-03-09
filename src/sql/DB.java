@@ -284,7 +284,7 @@ public class DB {
 		try {
 			rs.beforeFirst();
 			while(rs.next()){
-				returnList.add(new Message(rs.getString("src"), rs.getString("dest"), rs.getString("body"), rs.getString("time")));
+				returnList.add(new Message(rs.getString("source"), rs.getString("dest"), rs.getString("text"), rs.getString("date")));
 			}
 		} catch (SQLException e) {e.printStackTrace();}
 		System.out.println("<<<<<<<<<<<< "+returnList.size());
