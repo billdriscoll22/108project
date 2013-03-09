@@ -21,6 +21,11 @@ pageEncoding="ISO-8859-1"%>
 
 <body>
 <h1>Welcome <%= user.getID() %></h1>
+
+<form style='text-align:center;' action="quiz_create_init.jsp" method="post">
+<input type="submit" value="Create A Quiz" />
+</form>
+
 <b>Here's a list of popular quizzes:</b><br/>
 <%
 	ArrayList<Quiz> popularQuizzes = (ArrayList<Quiz>)request.getAttribute("popularQuizzes");
