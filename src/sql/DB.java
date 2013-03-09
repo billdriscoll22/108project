@@ -11,6 +11,7 @@ import java.util.*;
 import javax.servlet.RequestDispatcher;
 
 import frontend.Achievement;
+import frontend.Announcement;
 import frontend.Challenge;
 import frontend.FriendRequest;
 import frontend.History;
@@ -57,7 +58,6 @@ public class DB {
 			}
 			return popularQuizzes;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -74,7 +74,6 @@ public class DB {
 			}
 			return recentQuizzes;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -100,7 +99,6 @@ public class DB {
 			ResultSet rs = stmt.executeQuery(query);
 			return rs;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -112,7 +110,6 @@ public class DB {
 			stmt = con.createStatement();
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 	}
@@ -151,14 +148,13 @@ public class DB {
 	public ArrayList<String> getFriends(String userId){
 		String query = "SELECT id2 FROM friends WHERE id1 = '" + userId + "';";
 		ArrayList<String> list = new ArrayList<String>();
+		ResultSet rs = getResult(query);
+		
 		try {
-			ResultSet rs = getResult(query);
-			rs.beforeFirst();
 			while (rs.next()){
 				list.add(rs.getString("id2"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -166,23 +162,7 @@ public class DB {
 	}
 	
 	
-	
-	public ArrayList<Message> getMessages(String userId){
-		ArrayList<Message> returnList = new ArrayList<Message>();
-		String query = "select * from notes where dest = '" + userId  + "'";
-		ResultSet rs = getResult(query);
-		try {
-			while(rs.next()){
-				returnList.add(new Message(rs.getString("src"), rs.getString("dest"), rs.getString("body"), rs.getString("time")));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ArrayList<Message>();
-		
-		
-	}
+	/**/
 	
 	public void addResult(String id, Result result) {		
 		String query = "INSERT INTO results VALUES('" + id + "', " + "'" + result.getQuiz() + "', " 
@@ -236,7 +216,6 @@ public class DB {
 			rs.absolute(1);
 			isAdmin = rs.getBoolean("isAdmin");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println(isAdmin);
@@ -259,6 +238,7 @@ public class DB {
 				String url = rs.getString("url");
 				list.add(new Achievement(achievement, description, url));				
 			}
+			return list;
 		} catch (SQLException e) {e.printStackTrace();
 		}
 		
@@ -267,11 +247,11 @@ public class DB {
 	
 	
 	public ArrayList<Challenge> getChallenges(String userId){
-		String query = "SELECT * FROM challenges WHERE destination='" + userId + "'";
+		String query = "SELECT * FROM challenges WHERE dest ='" + userId + "'";
 		ArrayList<Challenge> challenges = new ArrayList<Challenge>();
-		try {
-			ResultSet rs = getResult(query);
-			rs.beforeFirst();
+		ResultSet rs = getResult(query);
+
+		try {			
 			while(rs.next()) {
 				String src = rs.getString("src");
 				String body = rs.getString("body");
@@ -280,11 +260,25 @@ public class DB {
 				Challenge c = new Challenge(src, userId, body, url, time);
 				challenges.add(c);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		} catch (SQLException e) {e.printStackTrace();}
 		
 		return challenges;
+	}
+	
+	public ArrayList<Message> getNotes(String userId){
+		ArrayList<Message> returnList = new ArrayList<Message>();
+		String query = "select * from notes where dest = '" + userId  + "'";
+		System.out.println(query);
+		ResultSet rs = getResult(query);		
+		
+		try {
+			while(rs.next()){
+				returnList.add(new Message(rs.getString("src"), rs.getString("dest"), rs.getString("body"), rs.getString("time")));
+			}
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		return returnList;
+		
 	}
 	
 	public void addFriend(String user1, String user2){
@@ -308,9 +302,9 @@ public class DB {
 	public ArrayList<FriendRequest> getFriendRequests(String id) {
 		String query = "SELECT * FROM requests WHERE dest = '" + id + "';";
 		ArrayList<FriendRequest> list = new ArrayList<FriendRequest>();
+		ResultSet rs = getResult(query);
+		
 		try {
-			ResultSet rs = getResult(query);
-			rs.beforeFirst();
 			while (rs.next()){
 				String source = rs.getString("source");
 				boolean isConfirmed = rs.getBoolean("isConfirmed");
@@ -320,7 +314,6 @@ public class DB {
 				list.add(fr);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -381,23 +374,34 @@ public class DB {
 		ResultSet rs = getResult(query);
 		ArrayList<Quiz> createdQuizzes = new ArrayList<Quiz>();
 		try {
-			rs.beforeFirst();
 			while(rs.next()){
 				createdQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate"))));
 			}
-			return createdQuizzes;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return createdQuizzes;
 	}
 	
 	public void postAnnouncement(String message){
-		Date date = new Date();
-		String dateAsStr = date.toString();
-		String query = "INSERT INTO announcements VALUES('" + message + "', '" + dateAsStr + "');";
+		String query = "INSERT INTO announcements VALUES('" + message + "', '" + new Date().toString() + "');";
 		sqlUpdate(query);
+	}
+	
+	public ArrayList<Announcement> getAnnouncements(){
+		ArrayList<Announcement> list = new ArrayList<Announcement>();
+		String query = "select * from announcements";		
+		ResultSet rs = getResult(query);
+		
+		try {
+			while(rs.next()){
+				list.add(new Announcement(rs.getString("text"), rs.getString("date")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 	
 	/**
@@ -474,7 +478,6 @@ public class DB {
 			rs.previous();
 			return rs.getRow();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0;
@@ -488,9 +491,9 @@ public class DB {
 			rs.previous();
 			return rs.getRow();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return 0;
 	}
 	

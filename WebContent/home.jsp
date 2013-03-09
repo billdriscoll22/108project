@@ -10,7 +10,7 @@ pageEncoding="ISO-8859-1"%>
 <meta http-equiv="Pragma" content="no-cache">
 </head>
 <body>
-<h1>Welcome, <%= user.getID() %></h1>
+<h1>Welcome <%= user.getID() %></h1>
 <b>Here's a list of popular quizzes:</b><br/>
 <%
 	ArrayList<Quiz> popularQuizzes = (ArrayList<Quiz>)request.getAttribute("popularQuizzes");
@@ -43,5 +43,30 @@ for(Achievement a : achievements){
 	out.println(a.getName());
 }
 %>
+
+<h2>Your Messages:</h2>
+<b>Notes:</b><br/>
+<%
+ArrayList<Message> messages = (ArrayList<Message>)request.getAttribute("notes");
+for(Message m : messages){
+	out.println(m.toHTML());
+}
+%>
+<b>Friend Requests</b><br/>
+<%
+ArrayList<FriendRequest> friendRequests = (ArrayList<FriendRequest>)request.getAttribute("friendRequests");
+for(FriendRequest f : friendRequests){
+	out.println(f.toHTML());
+}
+%>
+
+<br><h2>Announcements</h2>
+<%
+ArrayList<Announcement> announcements = (ArrayList<Announcement>)request.getAttribute("announcements");
+for(Announcement a : announcements){
+	out.println(a.getMessage());
+}
+%>
+
 </body>
 </html>
