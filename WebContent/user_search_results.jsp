@@ -35,8 +35,8 @@ else {
 	boolean areFriends = user.getFriends().contains(name);
 	if(areFriends){		
 		// challenge
-		out.println("<form action='SendChallengeServlet' method='post'>" + 
-		"<input type='submit' value='Send Message' />" +
+		out.println("<form action='CreateChallengeServlet' method='post'>" + 
+		"<input type='submit' value='Challenge to a Quiz' />" +
 		"<input type='hidden' name='target' value='" + name +"'>" +
 		"</form>");
 		
