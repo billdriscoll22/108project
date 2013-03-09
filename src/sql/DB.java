@@ -46,6 +46,18 @@ public class DB {
 		return con;
 	}
 	
+	// returns true if a quiz exists with the given name
+	public boolean isQuizAvailable(String quizName){
+		String query = "SELECT * FROM quizzes WHERE quiz_id = '" + quizName + "'";
+		ResultSet rs = getResult(query);
+		
+		try {
+			if(rs.next()) return true;
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		return false;
+	}
+	
 	/*Todo: implement this.*/
 	public ArrayList<Quiz> getPopularQuizzes(int limit){
 		String query = "select * from quizzes order by times_taken desc limit " + limit;

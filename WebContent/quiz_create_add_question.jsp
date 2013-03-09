@@ -17,8 +17,8 @@ What type of question?<br><br>
 <input type="radio" name="questionType" value="fillInBlank">Fill in the Blank<br>
 <input type="radio" name="questionType" value="questionResponse">Question Response<br>
 <input type="radio" name="questionType" value="pictureResponse">Picture Response<br>
-<br><br>
-<input type="submit" name="init"  value="Create Question" /><br>
+<br>
+<input type="submit" name="init"  value="Create Question" /><br><br>
 <input type="submit" name="init"  value="No More Questions!" />
 
 </form>

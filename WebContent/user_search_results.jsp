@@ -23,10 +23,24 @@ if(account == null)
 out.println("Sorry. No matches for that user name");
 else {
 	// show name and friendship status
-	out.println("<h2>" + name + ": ");
+	out.println("<h2>" + name + "</h2>");
 	
-	// check if they are already friends. offer option to remove friend
-	if(user.getFriends().contains(name)){
+	// option to send message
+	out.println("<form action='CreateMessageServlet' method='post'>" + 
+	"<input type='submit' value='Send Message' />" +
+	"<input type='hidden' name='target' value='" + name +"'>" +
+	"</form>");
+	
+	// check if they are already friends. offer option to remove friend and send challenge
+	boolean areFriends = user.getFriends().contains(name);
+	if(areFriends){		
+		// challenge
+		out.println("<form action='CreateChallengeServlet' method='post'>" + 
+		"<input type='submit' value='Challenge to a Quiz' />" +
+		"<input type='hidden' name='target' value='" + name +"'>" +
+		"</form>");
+		
+		// remove friend
 		out.println("<form action='RemoveFriendServlet' method='post'>" + 
 		"<input type='submit' value='Remove Friend' />" +
 		"<input type='hidden' name='target' value='" + name +"'>" +
@@ -35,8 +49,14 @@ else {
 	
 	// check if a friend request has been offered
 	else if(user.hasRequestFrom(name)){
+		// accept friend request
 		out.println("<form action='AcceptFriendServlet' method='post'>" + 
 				"<input type='submit' value='Accept Friend Request' />" +
+				"<input type='hidden' name='target' value='" + name +"'>" +
+				"</form>");
+		// decline friend request
+		out.println("<form action='RemoveFriendServlet' method='post'>" + 
+				"<input type='submit' value='Decline Friend Request' />" +
 				"<input type='hidden' name='target' value='" + name +"'>" +
 				"</form>");
 	}
@@ -53,28 +73,31 @@ else {
 				"<input type='hidden' name='target' value='" + name +"'>" +
 				"</form>");
 	}
-	// end friendship status
-	out.println("</h2>");
 	
-	// list quizes this user has created
-	out.println("<h3>" + name + "'s quizzes</h2>");
-	ArrayList<Quiz> quizzes = account.getQuizzes();
-	for(Quiz q : quizzes){
-		out.println(q.getQuizId() + "<br>");
+	// if you are friends, show user information
+	
+	if(areFriends){
+		// list quizes this user has created
+		out.println("<h3>" + name + "'s quizzes</h2>");
+		ArrayList<Quiz> quizzes = account.getQuizzes();
+		for(Quiz q : quizzes){
+			out.println(q.getQuizId() + "<br>");
+		}
+		
+		// list achievements
+		out.println("<h3>" + name + "'s achievements</h2>");
+		ArrayList<Achievement> achievements = account.getAchievements();
+		for(Achievement a : achievements){
+			out.println(a.toString());
+		}
+		
+		
+		// list history
+		out.println("<br><h3>" + name + "'s history</h2>");
+		History h = account.getHistory();
+		out.println(h.toString());
+	
 	}
-	
-	// list achievements
-	out.println("<h3>" + name + "'s achievements</h2>");
-	ArrayList<Achievement> achievements = account.getAchievements();
-	for(Achievement a : achievements){
-		out.println(a.toString());
-	}
-	
-	
-	// list history
-	out.println("<br><h3>" + name + "'s history</h2>");
-	History h = account.getHistory();
-	out.println(h.toString());
 }
 
 %>
