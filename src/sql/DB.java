@@ -366,8 +366,8 @@ public class DB {
 	 * and any quizzes created by the user remain
 	 * @param user
 	 */
-	public void removeUser(User user){
-		String id = user.getID();
+	public void removeUser(String username){
+		String id = username;
 		String query = "DELETE FROM users WHERE id = '"+ id + "';";
 		sqlUpdate(query);
 		query = "DELETE FROM friends WHERE id1 = id OR id2 = '" + id + "';";

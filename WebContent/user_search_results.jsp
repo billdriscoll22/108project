@@ -22,8 +22,14 @@
 if(account == null)
 out.println("Sorry. No matches for that user name");
 else {
-	// if admin, allow option to change user's admin setting
+	// if admin, allow option to change admin setting or delete account
 	if(user.isAdmin()){
+		// button to delete user
+			out.println("<form action='RemoveUserServlet' method='post'>" + 
+					"<input type='submit' value='Delete User' />" +
+					"<input type='hidden' name='target' value='" + name +"'>" +
+					"</form>");
+		
 		if(account.isAdmin()){
 			out.println("<form action='SetAdminServlet' method='post'>" + 
 					"<input type='submit' value='Remove Admin Privileges' />" +
