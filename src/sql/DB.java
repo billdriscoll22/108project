@@ -269,14 +269,25 @@ public class DB {
 		ArrayList<Message> returnList = new ArrayList<Message>();
 		String query = "select * from notes where dest = '" + userId  + "'";
 		System.out.println(query);
-		ResultSet rs = getResult(query);		
+		ResultSet rs = getResult(query);
+		try {
+			rs.last();
+			int q = rs.getRow();
+			System.out.println("THE ROW NUMBER IS: "+q);
+			rs.first();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		
 		try {
+			rs.beforeFirst();
 			while(rs.next()){
 				returnList.add(new Message(rs.getString("src"), rs.getString("dest"), rs.getString("body"), rs.getString("time")));
 			}
 		} catch (SQLException e) {e.printStackTrace();}
-		
+		System.out.println("<<<<<<<<<<<< "+returnList.size());
 		return returnList;
 		
 	}
@@ -418,7 +429,7 @@ public class DB {
 		boolean isOnePage = quiz.getIsOnePage();
 		boolean isImmediate = quiz.getIsImmediate();
 		int numTimesTaken = 0;
-		String query = "INSERT INTO quizzes VALUES('" + id + "', '" + date + "', '" + creatorId + "', " + numQuestions + ", '" + isRandom + "', '" + isOnePage + "', '" + isImmediate + "', " + numTimesTaken + ");";
+		String query = "INSERT INTO quizzes VALUES('" + id + "', '" + date + "', '" + creatorId + "', " + numQuestions + ", " + isRandom + ", " + isOnePage + ", " + isImmediate + ", " + numTimesTaken + ");";
 		sqlUpdate(query);
 	}
 	

@@ -50,6 +50,7 @@ for(Achievement a : achievements){
 ArrayList<Message> messages = (ArrayList<Message>)request.getAttribute("notes");
 for(Message m : messages){
 	out.println(m.toHTML());
+	System.out.println(">>>>>>>>>>>> "+m.getBody());
 }
 %>
 <b>Friend Requests</b><br/>
