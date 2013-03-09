@@ -252,15 +252,11 @@ public class DB {
 	
 	
 	public ArrayList<Challenge> getChallenges(String userId){
-		String query = "SELECT * FROM challenges WHERE destination='" + userId + "'";
+		String query = "SELECT * FROM challenges WHERE dest ='" + userId + "'";
 		ArrayList<Challenge> challenges = new ArrayList<Challenge>();
 		ResultSet rs = getResult(query);
-		
-		// rs will be null if there are no challenges
-		if(rs == null) return challenges;
-		
+
 		try {			
-			rs.beforeFirst();
 			while(rs.next()) {
 				String src = rs.getString("src");
 				String body = rs.getString("body");
@@ -269,7 +265,6 @@ public class DB {
 				Challenge c = new Challenge(src, userId, body, url, time);
 				challenges.add(c);
 			}
-			return challenges;
 		} catch (SQLException e) {e.printStackTrace();}
 		
 		return challenges;
@@ -278,10 +273,8 @@ public class DB {
 	public ArrayList<Message> getNotes(String userId){
 		ArrayList<Message> returnList = new ArrayList<Message>();
 		String query = "select * from notes where dest = '" + userId  + "'";
-		ResultSet rs = getResult(query);
-		
-		// check for null
-		if(rs == null) return returnList;
+		System.out.println(query);
+		ResultSet rs = getResult(query);		
 		
 		try {
 			while(rs.next()){

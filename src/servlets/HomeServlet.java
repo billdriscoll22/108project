@@ -49,6 +49,7 @@ public class HomeServlet extends HttpServlet {
 			ArrayList<Challenge> challenges = currentUser.getChallenges();
 			ArrayList<FriendRequest> friendRequests = currentUser.getFriendRequests();
 			ArrayList<Achievement> achievements = currentUser.getAchievements();
+			request.setAttribute("notes", notes);
 			request.setAttribute("challenges", challenges);
 			request.setAttribute("friendRequests", friendRequests);
 			request.setAttribute("achievements", achievements);
