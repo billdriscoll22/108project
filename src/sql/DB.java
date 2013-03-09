@@ -13,9 +13,14 @@ import javax.servlet.RequestDispatcher;
 import frontend.Achievement;
 import frontend.Announcement;
 import frontend.Challenge;
+import frontend.FillInBlank;
 import frontend.FriendRequest;
 import frontend.History;
 import frontend.Message;
+import frontend.MultipleChoice;
+import frontend.Picture;
+import frontend.Question;
+import frontend.QuestionResponse;
 import frontend.Quiz;
 import frontend.Result;
 import frontend.User;
@@ -436,7 +441,19 @@ public class DB {
 		String query = "INSERT INTO quizzes VALUES('" + id + "', '" + date + "', '" + creatorId + "', " + numQuestions + ", " + isRandom + ", " + isOnePage + ", " + isImmediate + ", " + numTimesTaken + ");";
 		sqlUpdate(query);
 		
-		// add each question as well
+		// TODO!!!! add each question as well
+		ArrayList<Question> questions = quiz.getQuestions();
+		for(Question q : questions){
+			if(q instanceof MultipleChoice){
+				//query = "INSERT INTO multiple_choice VALUES('" + id + "', '" + q.getNumber() + "')";
+			} else if(q instanceof QuestionResponse){
+				
+			} else if(q instanceof Picture){
+				
+			} else if(q instanceof FillInBlank){
+				
+			} 
+		}
 	}
 	
 	public void incrementQuizTimesTaken(Quiz quiz){

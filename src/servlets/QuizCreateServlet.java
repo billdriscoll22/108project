@@ -85,13 +85,19 @@ public class QuizCreateServlet extends HttpServlet {
 			if(type.equals("questionResponse")) {
 				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_QR.jsp");
 				dispatch.forward(request, response);
-			} else if(type.equals("multipleChoice")) {
+			} 
+			
+			else if(type.equals("multipleChoice")) {
 				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_MC.jsp");
 				dispatch.forward(request, response);
-			} else if(type.equals("pictureResponse")) {
+			} 
+			
+			else if(type.equals("pictureResponse")) {
 				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_PR.jsp");
 				dispatch.forward(request, response);
-			} else if(type.equals("fillInBlank")) {
+			} 
+			
+			else if(type.equals("fillInBlank")) {
 				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_FB.jsp");
 				dispatch.forward(request, response);
 			}

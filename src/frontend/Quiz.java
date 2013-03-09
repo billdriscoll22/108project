@@ -58,6 +58,11 @@ public class Quiz {
 		numQuestions++;
 	}
 	
+	// returns the arraylist of questions
+	public ArrayList<Question> getQuestions() {
+		return questions;
+	}
+	
 	
 	// returns the next question in the quiz, or null if all questions have been
 	// given out
