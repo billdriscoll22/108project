@@ -58,6 +58,7 @@ for(Achievement a : achievements){
 <b>Notes:</b><br/>
 <%
 ArrayList<Message> messages = (ArrayList<Message>)request.getAttribute("notes");
+System.out.println("THERE ARE "+messages.size()+" MESSAGES");
 for(Message m : messages){
 	out.println(m.toHTML());
 	System.out.println(">>>>>>>>>>>> "+m.getBody());

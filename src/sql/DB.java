@@ -52,7 +52,8 @@ public class DB {
 		ResultSet rs = getResult(query);
 		ArrayList<Quiz> popularQuizzes = new ArrayList<Quiz>();
 		try {
-			rs.beforeFirst();
+			int q = rs.getRow();
+			System.out.println("QWERTYUIOPQWERTYUIOPQWERTYUIO" + q);
 			while(rs.next()){
 				popularQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate"))));
 			}
@@ -268,26 +269,15 @@ public class DB {
 	public ArrayList<Message> getNotes(String userId){
 		ArrayList<Message> returnList = new ArrayList<Message>();
 		String query = "select * from notes where dest = '" + userId  + "'";
-		System.out.println(query);
 		ResultSet rs = getResult(query);
-		try {
-			rs.last();
-			int q = rs.getRow();
-			System.out.println("THE ROW NUMBER IS: "+q);
-			rs.first();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 		
 		try {
-			rs.beforeFirst();
+			System.out.println("THE ROW IS "+rs.getRow());
 			while(rs.next()){
-				returnList.add(new Message(rs.getString("src"), rs.getString("dest"), rs.getString("body"), rs.getString("time")));
+				returnList.add(new Message(rs.getString("source"), rs.getString("dest"), rs.getString("text"), rs.getString("date")));
 			}
 		} catch (SQLException e) {e.printStackTrace();}
-		System.out.println("<<<<<<<<<<<< "+returnList.size());
 		return returnList;
 		
 	}
@@ -385,6 +375,7 @@ public class DB {
 		ResultSet rs = getResult(query);
 		ArrayList<Quiz> createdQuizzes = new ArrayList<Quiz>();
 		try {
+			rs.beforeFirst();
 			while(rs.next()){
 				createdQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate"))));
 			}
