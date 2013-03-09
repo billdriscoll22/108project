@@ -10,31 +10,42 @@ pageEncoding="ISO-8859-1"%>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta http-equiv="Pragma" content="no-cache">
 
-<!-- Styling -->
-<style type="text/css">
-#friend_panel {
-	float: right;
-}
 
-</style>
+<!-- Styling -->
+<link rel="stylesheet" type="text/css" href="home_layout.css" />
 
 </head>
 
 <body>
-<h1>Welcome <%= user.getID() %></h1>
 
-<form style='text-align:center;' action="quiz_create_init.jsp" method="post">
-<input type="submit" value="Create A Quiz" />
-</form>
+<div id="header_panel">
+	<h1 style="text-align:center;">Welcome to Quizzombie</h1>
+</div>
 
-<b>Here's a list of popular quizzes:</b><br/>
+
+
+<div id="user_panel">
+<H2>User Panel</H2>
+
+<!-- Name and Logout option -->
+<form  action="LogoutServlet" method="post">
+<%= user.getID() %>
+<input type="submit" value="Logout" />
+</form><br>
+
+<!-- Create a Quiz -->
+<form  action="quiz_create_init.jsp" method="post">
+<input type="submit" value="Create A Quiz!" />
+</form><br>
+
+<b>Popular Quizzes:</b><br/>
 <%
 	ArrayList<Quiz> popularQuizzes = (ArrayList<Quiz>)request.getAttribute("popularQuizzes");
 	for(Quiz q : popularQuizzes){
 		out.println(q.getQuizId() + "<br/>");
 	}
 %>
-<b>Here's a list of recent quizzes:</b> <br/>
+<b>New Quizzes:</b> <br/>
 <%
 	ArrayList<Quiz> recentQuizzes = (ArrayList<Quiz>)request.getAttribute("recentQuizzes");
 	for(Quiz q : recentQuizzes){
@@ -45,14 +56,14 @@ pageEncoding="ISO-8859-1"%>
 History history = (History)request.getAttribute("history");
 out.println(history.toString());
 %>
-<b>Quizzes you've recently created: </b><br/>
+<b>Your New Quizzes: </b><br/>
 <%
 ArrayList<Quiz> recentlyCreated = (ArrayList<Quiz>)request.getAttribute("recentlyCreated");
 for(Quiz q : recentlyCreated){
 	out.println(q.getQuizId() + "<br/>");
 }
 %>
-<b>Your achievements</b><br/>
+<b>Your Achievements</b><br/>
 <%
 ArrayList<Achievement> achievements = (ArrayList<Achievement>)request.getAttribute("achievements");
 for(Achievement a : achievements){
@@ -60,33 +71,43 @@ for(Achievement a : achievements){
 }
 %>
 
-<h2>Your Messages:</h2>
-<b>Notes:</b><br/>
-<%
-ArrayList<Message> messages = (ArrayList<Message>)request.getAttribute("notes");
-System.out.println("THERE ARE "+messages.size()+" MESSAGES");
-for(Message m : messages){
-	out.println(m.toHTML());
-	System.out.println(">>>>>>>>>>>> "+m.getBody());
-}
-%>
-<b>Friend Requests</b><br/>
-<%
-ArrayList<FriendRequest> friendRequests = (ArrayList<FriendRequest>)request.getAttribute("friendRequests");
-for(FriendRequest f : friendRequests){
-	out.println(f.toHTML());
-}
-%>
+</div>
 
-<h2>Announcements</h2>
-<%
-ArrayList<Announcement> announcements = (ArrayList<Announcement>)request.getAttribute("announcements");
-for(Announcement a : announcements){
-	// provide admin option to delete announcement
-	
-	out.println("<p><span style='color:red;'>" + a.getDate() + ": </span>" + a.getMessage() + "</p>");
-}
-%>
+
+
+
+<div id="message_panel">
+	<h2>Your Messages:</h2>
+	<b>Notes:</b><br/>
+	<%
+	ArrayList<Message> messages = (ArrayList<Message>)request.getAttribute("notes");
+	System.out.println("THERE ARE "+messages.size()+" MESSAGES");
+	for(Message m : messages){
+		out.println(m.toHTML());
+		System.out.println(">>>>>>>>>>>> "+m.getBody());
+	}
+	%>
+	<b>Friend Requests</b><br/>
+	<%
+	ArrayList<FriendRequest> friendRequests = (ArrayList<FriendRequest>)request.getAttribute("friendRequests");
+	for(FriendRequest f : friendRequests){
+		out.println(f.toHTML());
+	}
+	%>
+</div>
+
+<div id="announcement_panel">
+	<h2>Announcements</h2>
+	<%
+	ArrayList<Announcement> announcements = (ArrayList<Announcement>)request.getAttribute("announcements");
+	for(Announcement a : announcements){
+		// provide admin option to delete announcement
+		
+		out.println("<p><span style='color:red;'>" + a.getDate() + ": </span>" + a.getMessage() + "</p>");
+	}
+	%>
+</div>
+
 
 <div id="friend_panel">
 <h2>Friends</h2>
@@ -112,7 +133,7 @@ if(message != null) out.println(message);
 
 <!-- Post announcement -->
 <form action="PostAnnouncementServlet" method="post">
-<TEXTAREA rows="6" cols="20" name="txt"></TEXTAREA>
+<TEXTAREA rows="6" cols="20" name="txt"></TEXTAREA><br>
 <input type="submit" value="Post Announcement" /><br>
 </form>
 

@@ -1,0 +1,34 @@
+@CHARSET "ISO-8859-1";
+
+
+#header_panel {
+	clear:both;
+	float: center;
+}
+#user_panel {
+	float: left;
+	width:200px;
+	padding:10px;
+}
+#message_panel {
+	float: right;
+	width:200px;
+	padding:10px;
+}
+#announcement_panel {
+	float: right;
+	width:200px;
+	padding:10px;
+}
+
+#friend_panel {
+	float: center;
+	width:200px;
+	padding:10px;
+}
+#administration_panel {
+	float: right;
+	width:200px;
+	padding:10px;
+}
+
