@@ -41,6 +41,7 @@ public class HomeServlet extends HttpServlet {
 			ServletContext context = request.getServletContext();
 			DB db = (DB) context.getAttribute("db");
 			User currentUser = (User)request.getSession().getAttribute("user");
+			
 			History history = currentUser.getHistory();
 			ArrayList<Quiz> recentlyCreated = currentUser.getCreatedQuizzes();
 			ArrayList<Quiz> popularQuizzes = db.getPopularQuizzes(NUM_QUIZZES);
@@ -49,6 +50,10 @@ public class HomeServlet extends HttpServlet {
 			ArrayList<Challenge> challenges = currentUser.getChallenges();
 			ArrayList<FriendRequest> friendRequests = currentUser.getFriendRequests();
 			ArrayList<Achievement> achievements = currentUser.getAchievements();
+			ArrayList<Announcement> announcements = db.getAnnouncements();
+			
+			// set attributes
+			request.setAttribute("announcements", announcements);
 			request.setAttribute("notes", notes);
 			request.setAttribute("challenges", challenges);
 			request.setAttribute("friendRequests", friendRequests);
@@ -58,6 +63,7 @@ public class HomeServlet extends HttpServlet {
 			request.setAttribute("recentQuizzes", recentQuizzes);
 			request.setAttribute("history", history);
 			request.setAttribute("achievements", achievements);
+			
 			request.getRequestDispatcher("/home.jsp").forward(request, response);
 		}
 	}

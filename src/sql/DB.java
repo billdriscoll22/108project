@@ -11,6 +11,7 @@ import java.util.*;
 import javax.servlet.RequestDispatcher;
 
 import frontend.Achievement;
+import frontend.Announcement;
 import frontend.Challenge;
 import frontend.FriendRequest;
 import frontend.History;
@@ -57,7 +58,6 @@ public class DB {
 			}
 			return popularQuizzes;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -74,7 +74,6 @@ public class DB {
 			}
 			return recentQuizzes;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -100,7 +99,6 @@ public class DB {
 			ResultSet rs = stmt.executeQuery(query);
 			return rs;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -112,7 +110,6 @@ public class DB {
 			stmt = con.createStatement();
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 	}
@@ -151,14 +148,13 @@ public class DB {
 	public ArrayList<String> getFriends(String userId){
 		String query = "SELECT id2 FROM friends WHERE id1 = '" + userId + "';";
 		ArrayList<String> list = new ArrayList<String>();
+		ResultSet rs = getResult(query);
+		
 		try {
-			ResultSet rs = getResult(query);
-			rs.beforeFirst();
 			while (rs.next()){
 				list.add(rs.getString("id2"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -220,7 +216,6 @@ public class DB {
 			rs.absolute(1);
 			isAdmin = rs.getBoolean("isAdmin");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println(isAdmin);
@@ -307,9 +302,9 @@ public class DB {
 	public ArrayList<FriendRequest> getFriendRequests(String id) {
 		String query = "SELECT * FROM requests WHERE dest = '" + id + "';";
 		ArrayList<FriendRequest> list = new ArrayList<FriendRequest>();
+		ResultSet rs = getResult(query);
+		
 		try {
-			ResultSet rs = getResult(query);
-			rs.beforeFirst();
 			while (rs.next()){
 				String source = rs.getString("source");
 				boolean isConfirmed = rs.getBoolean("isConfirmed");
@@ -319,7 +314,6 @@ public class DB {
 				list.add(fr);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -380,23 +374,34 @@ public class DB {
 		ResultSet rs = getResult(query);
 		ArrayList<Quiz> createdQuizzes = new ArrayList<Quiz>();
 		try {
-			rs.beforeFirst();
 			while(rs.next()){
 				createdQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate"))));
 			}
-			return createdQuizzes;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return createdQuizzes;
 	}
 	
 	public void postAnnouncement(String message){
-		Date date = new Date();
-		String dateAsStr = date.toString();
-		String query = "INSERT INTO announcements VALUES('" + message + "', '" + dateAsStr + "');";
+		String query = "INSERT INTO announcements VALUES('" + message + "', '" + new Date().toString() + "');";
 		sqlUpdate(query);
+	}
+	
+	public ArrayList<Announcement> getAnnouncements(){
+		ArrayList<Announcement> list = new ArrayList<Announcement>();
+		String query = "select * from announcements";		
+		ResultSet rs = getResult(query);
+		
+		try {
+			while(rs.next()){
+				list.add(new Announcement(rs.getString("text"), rs.getString("date")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 	
 	/**
@@ -473,7 +478,6 @@ public class DB {
 			rs.previous();
 			return rs.getRow();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0;
@@ -487,9 +491,9 @@ public class DB {
 			rs.previous();
 			return rs.getRow();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return 0;
 	}
 	
