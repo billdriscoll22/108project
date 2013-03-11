@@ -12,6 +12,14 @@ public class QuestionResponse extends Question{
 		this.questionNumber = questionNumber;
 	}
 	
+	public ArrayList<String> getAnswers(){
+		return answers;
+	}
+	
+	public String getQuestion(){
+		return question;
+	}
+	
 	public String toHTML(){
 		StringBuffer html = new StringBuffer();
 		html.append("<p>" + questionNumber + ". " + question + "</p>");

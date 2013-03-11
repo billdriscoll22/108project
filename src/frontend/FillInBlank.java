@@ -16,6 +16,18 @@ public class FillInBlank extends Question {
 		this.questionNumber = questionNumber;
 	}
 	
+	public ArrayList<String> getAnswers(){
+		return answers;
+	}
+	
+	public ArrayList<String> getQuestions(){
+		return questions;
+	}
+	
+	public String getQuestion(){
+		return null;
+	}
+	
 	public String toHTML(){
 		StringBuffer html = new StringBuffer();
 		html.append("<p>" + questionNumber + ". " + questions.get(0) + " ________ " + questions.get(1) + "</p>");

@@ -14,6 +14,18 @@ public class MultipleChoice extends Question {
 		this.questionNumber = questionNumber;
 	}
 	
+	public String getQuestion(){
+		return question;
+	}
+	
+	public String getCorrectAnswer(){
+		return correctAnswer;
+	}
+	
+	public ArrayList<String> getAnswers(){
+		return answers;
+	}
+	
 	public String toHTML(){
 		StringBuffer html = new StringBuffer();
 		html.append("<p>" + questionNumber + ". " + question + "</p>");

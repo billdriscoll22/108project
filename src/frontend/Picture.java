@@ -14,6 +14,18 @@ public class Picture extends Question {
 		this.questionNumber = questionNumber;
 	}
 	
+	public ArrayList<String> getAnswers(){
+		return answers;
+	}
+	
+	public String getUrl(){
+		return url;
+	}
+	
+	public String getQuestion(){
+		return question;
+	}
+	
 	public String toHTML(){
 		StringBuffer html = new StringBuffer();
 		html.append("<p>" + questionNumber + ". " + question + "</p>");

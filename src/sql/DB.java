@@ -444,14 +444,42 @@ public class DB {
 		// TODO!!!! add each question as well
 		ArrayList<Question> questions = quiz.getQuestions();
 		for(Question q : questions){
+			int questionNum = q.getNumber();
+			/*ArrayList<String> answers = q.getAnswers();
+			for (String a : answers){
+				query = "INSERT INTO answers VALUES('" + id + "', '" + questionNum + "', '" + a + "');";
+			}*/
 			if(q instanceof MultipleChoice){
-				//query = "INSERT INTO multiple_choice VALUES('" + id + "', '" + q.getNumber() + "')";
+				ArrayList<String> answers = q.getAnswers();
+				query = "INSERT INTO multiple_choice VALUES('" + id + "', '" + questionNum + "', '" + q.getQuestion() + "', '" + answers.get(0) + "', '" + answers.get(1) + "', '" + answers.get(2) + "', '" + answers.get(3) + "')";
+				sqlUpdate(query);
+				query = "INSERT INTO answers VALUES('" + id + "', " + questionNum + ", '" + ((MultipleChoice) q).getCorrectAnswer() + "');";
+				sqlUpdate(query);
 			} else if(q instanceof QuestionResponse){
-				
+				query = "INSERT INTO question_response VALUES('" + id + "', '" + questionNum + "', '" + q.getQuestion() + "')";
+				sqlUpdate(query);
+				ArrayList<String> answers = q.getAnswers();
+				for (String a : answers){
+					query = "INSERT INTO answers VALUES('" + id + "', '" + questionNum + "', '" + a + "');";
+					sqlUpdate(query);
+				}
 			} else if(q instanceof Picture){
-				
+				query = "INSERT INTO picture VALUES('" + id + "', '" + questionNum + "', '" + q.getQuestion() + "', '" + ((Picture) q).getUrl() + "')";
+				sqlUpdate(query);
+				ArrayList<String> answers = q.getAnswers();
+				for (String a : answers){
+					query = "INSERT INTO answers VALUES('" + id + "', '" + questionNum + "', '" + a + "');";
+					sqlUpdate(query);
+				}
 			} else if(q instanceof FillInBlank){
-				
+				ArrayList questionsArray = ((FillInBlank) q).getQuestions();
+				query = "INSERT INTO fill_in_the_blank VALUES('" + id + "', '" + questionNum + "', '" + questionsArray.get(0) + "', '" + questionsArray.get(1) + "')";
+				sqlUpdate(query);
+				ArrayList<String> answers = q.getAnswers();
+				for (String a : answers){
+					query = "INSERT INTO answers VALUES('" + id + "', '" + questionNum + "', '" + a + "');";
+					sqlUpdate(query);
+				}
 			} 
 		}
 	}
