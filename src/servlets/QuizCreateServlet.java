@@ -67,9 +67,10 @@ public class QuizCreateServlet extends HttpServlet {
 			Date clearDate = new Date(dateOnly);
 			String date = clearDate.toString();
 			
-			//String creatorId = ((User) request.getAttribute("user")).getID();
-			String creatorId = "test";
+			
+			//String creatorId = "test";
 			HttpSession session = request.getSession();
+			String creatorId = ((User) session.getAttribute("user")).getID();
 			session.setAttribute("quiz", new Quiz(quizId, creatorId, date, isRandom, isOnePage, isImmediate));
 			System.out.println("done");
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
