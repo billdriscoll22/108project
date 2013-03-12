@@ -585,6 +585,34 @@ public class DB {
 		}
 		
 		
+		//extracts info from multiple_choice table, building each question with info from 
+		//answers as well
+		query = "SELECT * FROM multiple_choice WHERE quiz_id = '" + quizId + "';";
+		rs = getResult(query);
+		try {
+			rs.beforeFirst();
+			while (rs.next()){
+				int questionNum = rs.getInt("question_num");
+				String question = rs.getString("question");
+				ArrayList<String> answers = new ArrayList<String>();
+				answers.add(0, rs.getString("a"));
+				answers.add(1, rs.getString("b"));
+				answers.add(2, rs.getString("c"));
+				answers.add(3, rs.getString("d"));
+				String questionQuery = "SELECT * FROM answers WHERE quiz_id = '" + quizId + "' AND question_num = " + questionNum + ";";
+				ResultSet questionRS = getResult(questionQuery);
+				questionRS.first();
+				String correctAnswer = questionRS.getString("answer");
+				
+				MultipleChoice MC = new MultipleChoice(question, answers, correctAnswer, questionNum);
+				quiz.addQuestion(MC);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	return quiz;
 	}
 	

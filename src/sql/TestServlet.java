@@ -23,6 +23,7 @@ import frontend.Result;
 import frontend.Quiz;
 import frontend.FillInBlank;
 import frontend.QuestionResponse;
+import frontend.MultipleChoice;
 /**
  * Servlet implementation class TestServlet
  */
@@ -57,11 +58,14 @@ public class TestServlet extends HttpServlet {
 				ArrayList<String> FIB_questions = ((FillInBlank) q).getQuestions();
 				System.out.println("question = : " + FIB_questions.get(0) + " _________ " + FIB_questions.get(1));
 			} else {
-				System.out.println(q.getQuestion());
+				System.out.println("Question: "+q.getQuestion());
 			}
 			ArrayList<String> answers = q.getAnswers();
 			for (String a : answers){
 				System.out.println(a);
+			}
+			if (q instanceof MultipleChoice){
+				System.out.println("Answer is: "+((MultipleChoice) q).getCorrectAnswer());
 			}
 			
 		}
