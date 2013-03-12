@@ -3,6 +3,7 @@ package sql;
 import java.io.IOException;
 
 
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,13 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import frontend.FriendRequest;
 import frontend.Message;
+import frontend.Question;
 import frontend.User;
 import frontend.Achievement;
 import frontend.History;
 import frontend.Result;
 import frontend.Quiz;
-//>>>>>>> b465a61f2f9d9bd5a806786c495e0fcebe603710
-
+import frontend.FillInBlank;
+import frontend.QuestionResponse;
 /**
  * Servlet implementation class TestServlet
  */
@@ -42,10 +44,28 @@ public class TestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DB db = new DB();
 		//db.addUser("matt", "lavan", false);
-		Quiz quiz = new Quiz("quizId", "creatorId", "dateCreated", true, false, true);
-		db.addQuiz(quiz);
-		Message message = new Message("bill", "bill_test", "this is a message!","now");
-		db.sendMessage(message);
+		//Quiz quiz = new Quiz("quizId", "creatorId", "dateCreated", true, false, true);
+		//db.addQuiz(quiz);
+		//Message message = new Message("bill", "bill_test", "this is a message!","now");
+		//db.sendMessage(message);
+		Quiz quiz = db.getQuiz("rofl");
+		System.out.println("BEGIN TEST");
+		System.out.println("quiz ID: " + quiz.getQuizId() + " creator: " + quiz.getCreatorId() + " date: " + quiz.getDateCreated());
+		ArrayList<Question> questions = quiz.getQuestions();
+		for (Question q : questions){
+			if (q instanceof FillInBlank){
+				ArrayList<String> FIB_questions = ((FillInBlank) q).getQuestions();
+				System.out.println("question = : " + FIB_questions.get(0) + " _________ " + FIB_questions.get(1));
+			} else {
+				System.out.println(q.getQuestion());
+			}
+			ArrayList<String> answers = q.getAnswers();
+			for (String a : answers){
+				System.out.println(a);
+			}
+			
+		}
+		db.removeQuiz(quiz);
 		//User ml = new User("matt", "lavan", false, db);
 		//db.addUser("bill", "the drill", false);
 		//db.sendFriendRequest("matt", "bill");
