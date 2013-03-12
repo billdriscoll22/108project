@@ -13,10 +13,19 @@
 
 <%
 DB db = (DB)application.getAttribute("db"); 
-Quiz q = db.getQuiz("do you know synergy?");
+Quiz q = db.getQuiz("conor");
 ArrayList<Question> questions = q.getQuestions();
+out.println("<br>");
+out.println(((  (FillInBlank)questions.get(0)  ).getQuestions()).get(0)); //first half of the question
 
+%>
 
+<%!
+private static void printQuestions(ArrayList<Question> questions) {
+	for(Question q : questions) {
+		
+	}
+}
 
 %>
 
