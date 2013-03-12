@@ -81,6 +81,23 @@ public class DB {
 		return null;
 	}
 	
+	public ArrayList<Quiz> getQuizzes(){
+		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
+		String query = "SELECT * FROM quizzes;";
+		ResultSet rs = getResult(query);
+		try {
+			while (rs.next()){
+				String quizId = rs.getString("quiz_id");
+				Quiz quiz = this.getQuiz(quizId);
+				quizzes.add(quiz);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return quizzes;
+	}
+	
 	public ArrayList<Quiz> getRecentQuizzes(int limit){
 		String query = "select * from quizzes order by date_created desc limit " + limit;
 		ResultSet rs = getResult(query);
