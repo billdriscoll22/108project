@@ -38,6 +38,12 @@ pageEncoding="ISO-8859-1"%>
 <input type="submit" value="Create A Quiz!" />
 </form><br>
 
+<!-- View all Quizzes -->
+<form  action="ListQuizzesServlet" method="post">
+<input type="submit" value="View All Quizzes" />
+</form><br>
+
+
 <b>Popular Quizzes:</b><br/>
 <%
 	ArrayList<Quiz> popularQuizzes = (ArrayList<Quiz>)request.getAttribute("popularQuizzes");
