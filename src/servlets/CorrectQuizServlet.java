@@ -81,7 +81,7 @@ public class CorrectQuizServlet extends HttpServlet {
 		user.addResult(result);
 
 		// send to quiz result page
-		request.getRequestDispatcher("QuizResultServlet?user=" + user.getID() +"&quiz=" + quizID).forward(request, response);
+		request.getRequestDispatcher("QuizResultServlet?quiz=" + quizID).forward(request, response);
 
 		
 		

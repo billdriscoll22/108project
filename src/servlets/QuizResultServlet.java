@@ -66,8 +66,30 @@ public class QuizResultServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/* Get request takes userId and quizID parameters and 
+		 * directs to a jsp to show the results for that user on that quiz
+		 */
 		
-	
+		ServletContext context = request.getServletContext();
+		DB db = (DB) context.getAttribute("db");
+		
+		// parameters
+		String quizID = request.getParameter("quiz");
+		
+		// set quiz attribute
+		Quiz quiz = db.getQuiz(quizID);
+		request.setAttribute("quiz", quiz);
+		
+		// set user attribute
+		User user = (User) request.getSession().getAttribute("user");
+		request.setAttribute("user", user);
+		
+		// set result
+		Result result = user.getResult(quizID);
+		request.setAttribute("result", result);
+		
+		
+		request.getRequestDispatcher("quiz_results.jsp").forward(request, response);	
 	}
 
 }
