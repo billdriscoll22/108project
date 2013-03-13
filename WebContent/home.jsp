@@ -94,12 +94,22 @@ for(Achievement a : achievements){
 	<b>Notes:</b><br/>
 	<%
 	ArrayList<Message> messages = (ArrayList<Message>)request.getAttribute("notes");
-	System.out.println("THERE ARE "+messages.size()+" MESSAGES");
+	out.println("You have "+messages.size()+" messages!");
 	for(Message m : messages){
 		out.println(m.toHTML());
-		System.out.println(">>>>>>>>>>>> "+m.getBody());
+		System.out.println(">>>>>>>>>>>> "+ m.getBody());
 	}
 	%>
+	
+	<b>Challenges:</b><br/>
+	<%
+	ArrayList<Challenge> challenges = (ArrayList<Challenge>)request.getAttribute("challenges");
+	for(Challenge c : challenges){
+		out.println(c.getSrc() + " got " + c.getScore() + "% on " + c.toLink());
+		out.println(">>> "+ c.getBody());
+	}
+	%>
+	
 	<b>Friend Requests</b><br/>
 	<%
 	ArrayList<FriendRequest> friendRequests = (ArrayList<FriendRequest>)request.getAttribute("friendRequests");

@@ -57,7 +57,7 @@ public class SendChallengeServlet extends HttpServlet {
 		
 		// else send challenge
 		else {
-			db.sendMessage(new Challenge(currentUser.getID(), dest, txt, quiz, new Date().toString()));
+			db.sendMessage(new Challenge(currentUser.getID(), dest, txt, quiz, new Date().toString(), 0.0));
 			request.getRequestDispatcher("/send_challenge.jsp").forward(request, response);
 		}
 	

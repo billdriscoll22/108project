@@ -25,8 +25,8 @@ CHAR(64) --- CHAR(64) --- boolean --- CHAR(64)
 
 /********** challenges Table ****************/
 
-|***source***|***dest***|***URL***|***score***|***time***|
-CHAR(64) --- CHAR(64) --- CHAR(64) --- int --- CHAR(64)
+|***source***|***dest***|***score***|***time***|***text***|***quiz_id***|
+CHAR(64) --- CHAR(64) --- int --- CHAR(64) --- CHAR(255) --- CHAR(64)
 
 /*******************************************/
 

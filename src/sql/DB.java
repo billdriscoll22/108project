@@ -313,11 +313,12 @@ public class DB {
 
 		try {			
 			while(rs.next()) {
-				String src = rs.getString("src");
-				String body = rs.getString("body");
-				String url = rs.getString("url");
+				String src = rs.getString("source");
+				String body = rs.getString("text");
+				String quizId = rs.getString("quiz_id");
 				String time = rs.getString("time");
-				Challenge c = new Challenge(src, userId, body, url, time);
+				int score = rs.getInt("score");
+				Challenge c = new Challenge(src, userId, body, quizId, time, score);
 				challenges.add(c);
 			}
 		} catch (SQLException e) {e.printStackTrace();}
@@ -401,7 +402,15 @@ public class DB {
 		String dest = message.getDest();
 		String body = message.getBody();
 		String time = message.getTime();
-		String query = "INSERT INTO notes VALUES('" + src + "', '" + dest + "', '" + body + "', '" + time + "');";
+		String query = null;
+		if(message instanceof Challenge){
+			String quizId = ((Challenge)message).getQuiz();
+			int score = (int)((Challenge)message).getScore();
+			query = "INSERT INTO challenges VALUES('" + src + "', '" + dest + "', '" + score + "', '" + time + "', '" + body + "', '" + quizId + "')";
+		} else {
+			query = "INSERT INTO notes VALUES('" + src + "', '" + dest + "', '" + body + "', '" + time + "')";
+		}
+		System.out.println(query);
 		sqlUpdate(query);
 	}
 
