@@ -26,7 +26,7 @@ public class History {
 	public String toString(){
 		String result = "<b>Recent quiz taking activity</b><br/>";
 		for(Result r : results){
-			result += r.getPercentCorrect() + "% correct on quiz " + r.getQuiz() + " on " + r.getDateTaken() +"<br/>";
+			result += r.getPercentCorrect() + "% correct on quiz " + r.getResultLink() + " on " + r.getDateTaken() +"<br/>";
 		}
 		
 		return result;

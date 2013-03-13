@@ -29,6 +29,11 @@ public class Quiz {
 		isShuffled = false;
 	}
 	
+	// returns an html link to view the results for this user
+	public String getResultLink(){
+		return "<a href='QuizResultServlet?quiz=" + quizId + "'>" + quizId + "</a>" ;
+	}
+	
 	// returns html code to create a link to this quiz's page
 	public String toLink(){
 		return "<a href='QuizViewServlet?quizID=" + quizId + "'>" + quizId + "</a>" ;

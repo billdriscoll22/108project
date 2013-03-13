@@ -6,14 +6,21 @@ public class Result {
 	private final int numQuestions; // the total amount of questions asked
 	private final int numCorrect; // the number of questions answered correctly
 	private final String date; // date when the quiz was taken
+	private final String userId;
 	
-	public Result(String quiz, int timeUsed, int numQuestions, int numCorrect, String date){
+	public Result(String quiz, String userId, int timeUsed, int numQuestions, int numCorrect, String date){
 		quizID = quiz;
 		elapsedTime = timeUsed;
 		this.numQuestions = numQuestions;
 		this.numCorrect = numCorrect;
-		this.date = date;		
+		this.date = date;	
+		this.userId = userId;
 	}
+	
+	// returns an html link to view the results for this user
+		public String getResultLink(){
+			return "<a href='QuizResultServlet?quiz=" + quizID + "'>" + quizID + "</a>" ;
+		}
 	
 	public String getQuiz(){
 		return quizID;

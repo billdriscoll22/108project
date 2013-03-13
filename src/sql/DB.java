@@ -251,7 +251,7 @@ public class DB {
 				int questions = rs.getInt("questions");
 				int	correct = rs.getInt("correct");
 				String date = rs.getString("date");
-				Result r = new Result(quiz, time, questions, correct, date);
+				Result r = new Result(quiz, userId, time, questions, correct, date);
 				history.addResult(r);
 			}
 		} catch (SQLException e) {e.printStackTrace();}

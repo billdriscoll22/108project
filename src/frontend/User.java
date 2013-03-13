@@ -93,6 +93,17 @@ public class User {
 		db.addAchievement(this.id, achievement);
 	}
 	
+	// returns the result object of a specic quiz,
+	// and null if none found
+	public Result getResult(String quizID){
+		History h = getHistory();
+		for(Result r : h.getResults()){
+			if(r.getQuiz().equals(quizID)) return r;
+		}
+		
+		return null;
+	}
+	
 	
 	
 	/**

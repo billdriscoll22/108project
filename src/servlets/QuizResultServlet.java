@@ -9,23 +9,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 
 import sql.DB;
-import frontend.Challenge;
-import frontend.Message;
+import frontend.Quiz;
+import frontend.Result;
 import frontend.User;
 
 /**
- * Servlet implementation class SendChallengeServelet
+ * Servlet implementation class QuizResultServlet
  */
-@WebServlet("/SendChallengeServlet")
-public class SendChallengeServlet extends HttpServlet {
+@WebServlet("/QuizResultServlet")
+public class QuizResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SendChallengeServlet() {
+    public QuizResultServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,26 +36,38 @@ public class SendChallengeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		/* Get request takes userId and quizID parameters and 
+		 * directs to a jsp to show the results for that user on that quiz
+		 */
+		
+		ServletContext context = request.getServletContext();
+		DB db = (DB) context.getAttribute("db");
+		
+		// parameters
+		String quizID = request.getParameter("quiz");
+		
+		// set quiz attribute
+		Quiz quiz = db.getQuiz(quizID);
+		request.setAttribute("quiz", quiz);
+		
+		// set user attribute
+		User user = (User) request.getSession().getAttribute("user");
+		request.setAttribute("user", user);
+		
+		// set result
+		Result result = user.getResult(quizID);
+		request.setAttribute("result", result);
+		
+		
+		request.getRequestDispatcher("quiz_results.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String dest = request.getParameter("friend");
-		User currentUser = (User)request.getSession().getAttribute("user");
-		String txt = request.getParameter("txt");
-		String quiz = request.getParameter("quiz");
 		
-		ServletContext context = request.getServletContext();
-		DB db = (DB) context.getAttribute("db");
-		
-		db.sendMessage(new Challenge(currentUser.getID(), dest, txt, quiz, new Date().toString(), currentUser.getResult(quiz).getPercentCorrect()));
-		request.getRequestDispatcher("/send_challenge.jsp").forward(request, response);
-			
-		
-		
+	
 	}
 
 }

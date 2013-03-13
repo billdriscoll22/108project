@@ -56,11 +56,6 @@ else {
 	// check if they are already friends. offer option to remove friend and send challenge
 	boolean areFriends = user.getFriends().contains(name);
 	if(areFriends){		
-		// challenge
-		out.println("<form action='CreateChallengeServlet' method='post'>" + 
-		"<input type='submit' value='Challenge to a Quiz' />" +
-		"<input type='hidden' name='target' value='" + name +"'>" +
-		"</form>");
 		
 		// remove friend
 		out.println("<form action='RemoveFriendServlet' method='post'>" + 

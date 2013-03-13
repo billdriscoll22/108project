@@ -7,7 +7,7 @@
 <title>Challenge Sent</title>
 </head>
 <body>
-<h1 style='text-align:center;'><%= "Your challenged " + request.getParameter("target") + " to take the quiz " + request.getParameter("quiz")%> </h1>
+<h1 style='text-align:center;'><%= "Your challenged " + request.getParameter("friend") + " to take the quiz " + request.getParameter("quiz")%> </h1>
 
 <p style='text-align:center;'>
 	<%=request.getParameter("txt") %>

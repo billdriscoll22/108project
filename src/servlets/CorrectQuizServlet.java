@@ -77,14 +77,11 @@ public class CorrectQuizServlet extends HttpServlet {
 		
 		// create and store result
 		User user = (User)request.getSession().getAttribute("user");
-		Result result = new Result(quizID, timeUsed, numQuestions, numCorrect, startTime.toString());
+		Result result = new Result(quizID, user.getID(), timeUsed, numQuestions, numCorrect, startTime.toString());
 		user.addResult(result);
-		
-		// store results and forward
-		request.setAttribute("quiz", quiz);
-		request.setAttribute("result", result);
-		
-		request.getRequestDispatcher("quiz_results.jsp").forward(request, response);
+
+		// send to quiz result page
+		request.getRequestDispatcher("QuizResultServlet?user=" + user.getID() +"&quiz=" + quizID).forward(request, response);
 
 		
 		
