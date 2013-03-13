@@ -29,6 +29,11 @@ public class Quiz {
 		isShuffled = false;
 	}
 	
+	// returns html code to create a link to this quiz's page
+	public String toLink(){
+		return "<a href='QuizViewServlet?quizID=" + quizId + "'>" + quizId + "</a>" ;
+	}
+	
 	public String getDateCreated(){
 		return dateCreated;
 	}

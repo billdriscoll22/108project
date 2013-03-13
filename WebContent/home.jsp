@@ -54,7 +54,7 @@ pageEncoding="ISO-8859-1"%>
 <%
 	ArrayList<Quiz> popularQuizzes = (ArrayList<Quiz>)request.getAttribute("popularQuizzes");
 	for(Quiz q : popularQuizzes){
-		out.println(q.getQuizId() + "<br/>");
+		out.println(q.toLink() + "<br/>");
 	}
 %>
 <b>New Quizzes:</b> <br/>
