@@ -30,6 +30,7 @@ pageEncoding="ISO-8859-1"%>
 <!-- Name and Logout option -->
 <form  action="LogoutServlet" method="post">
 <%= user.getID() %>
+<img src = "http://stanfordflipside.com/images/139not.png">
 <input type="submit" value="Logout" />
 </form><br>
 
