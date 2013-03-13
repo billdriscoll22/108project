@@ -122,8 +122,9 @@ public class DB {
 		}
 	}
 	
-	public void addUser(String user, String hash, boolean isAdmin){
-		String query = "INSERT INTO users VALUES('" + user + "', " + "'" + hash + "', " + isAdmin + ", 'NULL');";
+	public void addUser(String user, String hash, boolean isAdmin, String imageURL){
+		String query = "INSERT INTO users VALUES('" + user + "', " + "'" + hash + "', " + isAdmin
+				+ ", '" + imageURL + "');";
 		System.out.println(query);
 		sqlUpdate(query);
 	}

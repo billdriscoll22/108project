@@ -56,13 +56,26 @@ public class AccountCreationServlet extends HttpServlet {
 			dispatch.forward(request, response);
 			
 		} else {
-			// add new user to database
-			String hash = Hash.getHash(password);
-			db.addUser(id, hash, false);
-			
-			// set session user object
-			HttpSession session = request.getSession();
-			session.setAttribute("user", new User(id, hash, false, db, "http://stanfordflipside.com/images/139not.png"));
+			String imageURL = request.getParameter("profileImage");
+			if(imageURL == "Image URL") {
+				// add new user to database
+				String hash = Hash.getHash(password);
+				String defaultUserImage = "http://stanfordflipside.com/images/139not.png";
+				
+				db.addUser(id, hash, false, defaultUserImage);
+				
+				// set session user object
+				HttpSession session = request.getSession();
+				session.setAttribute("user", new User(id, hash, false, db, defaultUserImage));
+			} else {
+				// add new user to database
+				String hash = Hash.getHash(password);
+				db.addUser(id, hash, false, imageURL);
+				
+				// set session user object
+				HttpSession session = request.getSession();
+				session.setAttribute("user", new User(id, hash, false, db, imageURL));
+			}
 			
 			// forward to home page
 			RequestDispatcher dispatch = request.getRequestDispatcher("/HomeServlet");
