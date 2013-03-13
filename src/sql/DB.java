@@ -425,6 +425,11 @@ public class DB {
 		sqlUpdate(query);
 	}
 	
+	public void removeAnnouncement(String message){
+		String query = "DELETE FROM announcements WHERE text = '" + message + "';";
+		sqlUpdate(query);
+	}
+	
 	public ArrayList<Announcement> getAnnouncements(){
 		ArrayList<Announcement> list = new ArrayList<Announcement>();
 		String query = "select * from announcements";		
