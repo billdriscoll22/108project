@@ -62,7 +62,7 @@ public class AccountCreationServlet extends HttpServlet {
 			
 			// set session user object
 			HttpSession session = request.getSession();
-			session.setAttribute("user", new User(id, hash, false, db));
+			session.setAttribute("user", new User(id, hash, false, db, "http://stanfordflipside.com/images/139not.png"));
 			
 			// forward to home page
 			RequestDispatcher dispatch = request.getRequestDispatcher("/HomeServlet");

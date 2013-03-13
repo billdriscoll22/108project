@@ -28,9 +28,14 @@ pageEncoding="ISO-8859-1"%>
 <H2>User Panel</H2>
 
 <!-- Name and Logout option -->
+<%= user.getID() %><br>
+<!% user.setProfPicture("http://stanfordflipside.com/images/139not.png"); %>
+<img src='<%= user.getProfPicture() %> ' height="150" />
+<form  action="ProfPictureServlet" method="post">
+<input type="text" name="pictureURL" value="Image URL" />
+<input type="submit" name="Change Profile Image" />
+</form>
 <form  action="LogoutServlet" method="post">
-<%= user.getID() %>
-<img src = "http://stanfordflipside.com/images/139not.png">
 <input type="submit" value="Logout" />
 </form><br>
 

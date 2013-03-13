@@ -12,11 +12,13 @@ public class User {
 	private final DB db;
 	private final String hash;
 	private static final int historyLimit = 5;
+	private String profPicture;
 	
-	public User(String user, String hash, boolean isAdmin, DB db){
+	public User(String user, String hash, boolean isAdmin, DB db, String profPicture){
 		this.db = db;
 		this.id = user;
 		this.hash = hash;
+		this.profPicture = profPicture; //default user picture
 		//String hash = hash(password);
 		//db.addUser(user, hash, isAdmin);
 	}
@@ -147,6 +149,15 @@ public class User {
 	
 	public ArrayList<Quiz> getQuizzes(){
 		return db.getCreatedQuizzes(id, Integer.MAX_VALUE);
+	}
+	
+	public String getProfPicture() {
+		return profPicture;
+	}
+	
+	public void setProfPicture(String url) {
+		this.profPicture = url;
+		db.setUserImage(this.id, url);
 	}
 }
 

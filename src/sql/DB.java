@@ -127,6 +127,24 @@ public class DB {
 		sqlUpdate(query);
 	}
 	
+	public void setUserImage(String userID, String image) {
+		String query = "UPDATE users SET image_url='" + image + "' WHERE id='" + userID + "'";
+		sqlUpdate(query);
+	}
+	
+	public String getUserImage(String userID) {
+		String query = "SELECT image_url FROM users WHERE id = '" + userID + "';";
+		ResultSet rs = getResult(query);
+		String image = "";
+		try {
+			rs.next();
+			image = rs.getString("image_url");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return image;
+	}
+	
 	private ResultSet getResult(String query){
 		Statement stmt;
 		try {
@@ -172,7 +190,12 @@ public class DB {
 			isAdmin = rs.getBoolean("isAdmin");
 		} catch (SQLException e) {e.printStackTrace();}
 		
-		return new User(id, hash, isAdmin, this);		
+		String image = "";
+		try {
+			image = rs.getString("image_url");
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		return new User(id, hash, isAdmin, this, image);		
 	}
 	
 	public void addIsTaken(String quizID){
