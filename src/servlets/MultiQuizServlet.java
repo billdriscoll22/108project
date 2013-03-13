@@ -59,7 +59,17 @@ public class MultiQuizServlet extends HttpServlet {
 		
 		// otherwise grade last question
 		else {
-			int questionNum = Integer.parseInt((String)request.getParameter("questionNum"));
+			// get question number
+			int questionNum = 0;
+			try {
+			    questionNum =  new Integer((String)request.getParameter("questionNum"));
+			  } catch (NumberFormatException e) {
+			    // something went wrong
+				// reset quiz status and send home
+				session.setAttribute("multiQuiz", null);
+				 request.getRequestDispatcher("take_multi_page_quiz.jsp").forward(request, response);
+			  }
+			
 			String answer = request.getParameter(new Integer(questionNum).toString());
 			Question q = quiz.getQuestionNum(questionNum);			
 			if(q.isCorrect(answer)) {
@@ -82,6 +92,9 @@ public class MultiQuizServlet extends HttpServlet {
 			int score = (Integer)session.getAttribute("multiQuizScore");
 			Result r = new Result(quiz.getQuizId(), user.getID(), 1000, quiz.getNumQuestions(), score, new Date().toString());
 			user.addResult(r);
+			
+			// reset quiz status
+			session.setAttribute("multiQuiz", null);
 
 			// send to quiz result page
 			request.getRequestDispatcher("QuizResultServlet?quiz=" + quiz.getQuizId()).forward(request, response);
@@ -90,7 +103,7 @@ public class MultiQuizServlet extends HttpServlet {
 		// otherwise forward to next question
 		else {
 			request.setAttribute("question", q);
-			request.getRequestDispatcher("take_single_quiz.jsp").forward(request, response);
+			request.getRequestDispatcher("take_multi_page_quiz.jsp").forward(request, response);
 		}
 		
 		
