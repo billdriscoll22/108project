@@ -218,6 +218,17 @@ public class DB {
 			e.printStackTrace();
 		}
 		
+		query = "SELECT id1 FROM friends WHERE id2 = '" + userId + "';";
+		rs = getResult(query);
+		
+		try {
+			while (rs.next()){
+				list.add(rs.getString("id1"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return list;
 	}
 	
@@ -345,6 +356,7 @@ public class DB {
 	public void addFriend(String user1, String user2){
 		String query = "INSERT INTO friends VALUES('" + user1 + "', '" + user2 + "');";
 		sqlUpdate(query);
+		
 		query = "UPDATE requests SET isConfirmed = true WHERE source = '" + user2 + "' AND dest = '" + user1 + "';";
 		sqlUpdate(query);
 	}
