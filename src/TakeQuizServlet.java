@@ -5,21 +5,18 @@ import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import sql.DB;
 import frontend.Quiz;
 import frontend.User;
-
-import sql.DB;
 
 /**
  * Servlet implementation class TakeQuizServlet
  */
-@WebServlet("/TakeQuizServlet")
 public class TakeQuizServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

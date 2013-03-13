@@ -86,6 +86,16 @@ public class Quiz {
 	public int getNumQuestions() {
 		return numQuestions;
 	}
+
+	// returns the question with this number
+	// no error handling right now, user takes all responsibility
+	// for passing valid number
+	public Question getQuestionNum(int number) {
+		for(Question q : questions){
+			if(q.getNumber() == number) return q;
+		}
+		return null;
+	}
 	
 
 }

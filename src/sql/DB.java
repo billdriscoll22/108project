@@ -123,7 +123,8 @@ public class DB {
 	}
 	
 	public void addUser(String user, String hash, boolean isAdmin){
-		String query = "INSERT INTO users VALUES('" + user + "', " + "'" + hash + "', " + isAdmin + ");";
+		String query = "INSERT INTO users VALUES('" + user + "', " + "'" + hash + "', " + isAdmin + ", 'NULL');";
+		System.out.println(query);
 		sqlUpdate(query);
 	}
 	
@@ -517,7 +518,7 @@ public class DB {
 					sqlUpdate(query);
 				}
 			} else if(q instanceof FillInBlank){
-				ArrayList questionsArray = ((FillInBlank) q).getQuestions();
+				ArrayList<String> questionsArray = ((FillInBlank) q).getQuestions();
 				query = "INSERT INTO fill_in_the_blank VALUES('" + id + "', '" + questionNum + "', '" + questionsArray.get(0) + "', '" + questionsArray.get(1) + "')";
 				sqlUpdate(query);
 				ArrayList<String> answers = q.getAnswers();

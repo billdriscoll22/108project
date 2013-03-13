@@ -61,7 +61,7 @@ pageEncoding="ISO-8859-1"%>
 <%
 	ArrayList<Quiz> recentQuizzes = (ArrayList<Quiz>)request.getAttribute("recentQuizzes");
 	for(Quiz q : recentQuizzes){
-		out.println(q.getQuizId() + "<br/>");
+		out.println(q.toLink() + "<br/>");
 	}
 %>
 <%
@@ -72,7 +72,7 @@ out.println(history.toString());
 <%
 ArrayList<Quiz> recentlyCreated = (ArrayList<Quiz>)request.getAttribute("recentlyCreated");
 for(Quiz q : recentlyCreated){
-	out.println(q.getQuizId() + "<br/>");
+	out.println(q.toLink() + "<br/>");
 }
 %>
 <b>Your Achievements</b><br/>

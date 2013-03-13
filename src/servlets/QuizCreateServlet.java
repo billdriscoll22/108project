@@ -110,7 +110,7 @@ public class QuizCreateServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			Quiz quiz = (Quiz) session.getAttribute("quiz");
 			db.addQuiz(quiz);
-			RequestDispatcher dispatch = request.getRequestDispatcher("login.html");
+			RequestDispatcher dispatch = request.getRequestDispatcher("HomeServlet");
 			dispatch.forward(request, response);
 		} 
 		
