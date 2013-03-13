@@ -17,9 +17,7 @@ Quiz q = db.getQuiz(quizId);
 <body>
 <h1> <%= quizId %> </h1>
 
-<%
 
-%>
 
 </body>
 </html>

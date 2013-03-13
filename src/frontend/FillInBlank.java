@@ -20,6 +20,9 @@ public class FillInBlank extends Question {
 		return answers;
 	}
 	
+	// Use getQuestions, not getQuestion since you need to return an ArrayList of the parts of the question,
+	// not just a single String.
+	
 	public ArrayList<String> getQuestions(){
 		return questions;
 	}
