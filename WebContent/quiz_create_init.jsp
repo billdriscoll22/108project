@@ -29,6 +29,9 @@ When is the quiz graded?<br>
 <input type="radio" name="whenGraded" value="atEnd">At the End of the Quiz
 <br><br>
 
+Profile Image:<input type="text" name="imageURL" value="Image URL" /><br><br>
+Quiz Description: <br><textarea name="quizDescription"></textarea>
+
 <input type="submit" name="init"  value="Create Quiz" />
 </form>
 

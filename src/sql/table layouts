@@ -114,6 +114,7 @@ answer CHAR(255)
  /****************quizzes***********/
 
 |***quiz_id***|***date_created***|***creator_id***|***num_questions***|***is_random***|***is_one_page***|***is_immediate***|***times_taken***|
+|***image_url CHAR(255)***|***description CHAR(255)***|
 
 
 quiz_id CHAR(64) - unique name of the quiz

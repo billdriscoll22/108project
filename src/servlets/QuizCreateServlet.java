@@ -61,6 +61,9 @@ public class QuizCreateServlet extends HttpServlet {
 			boolean isRandom = request.getParameter("order").equals("random");
 			boolean isOnePage = request.getParameter("pages").equals("onePage");
 			boolean isImmediate = request.getParameter("whenGraded").equals("immediate");
+			String image = request.getParameter("imageURL");
+			String imageURL = (image == "Image URL") ? "http://www.apassionforafrica.com/wp-content/uploads/2013/02/Quiz.jpg" : image;
+			String description = request.getParameter("description");
 			
 			long millisInDay = 60 * 60 * 24 * 1000;
 			long currentTime = new Date().getTime();
@@ -68,11 +71,10 @@ public class QuizCreateServlet extends HttpServlet {
 			Date clearDate = new Date(dateOnly);
 			String date = clearDate.toString();
 			
-			
 			//String creatorId = "test";
 			HttpSession session = request.getSession();
 			String creatorId = ((User) session.getAttribute("user")).getID();
-			session.setAttribute("quiz", new Quiz(quizId, creatorId, date, isRandom, isOnePage, isImmediate));
+			session.setAttribute("quiz", new Quiz(quizId, creatorId, date, isRandom, isOnePage, isImmediate, imageURL, description));
 			System.out.println("done");
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
 			dispatch.forward(request, response);

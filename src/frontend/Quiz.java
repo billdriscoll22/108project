@@ -15,14 +15,18 @@ public class Quiz {
 	private final boolean isImmediate;
 	private int currQuestion; // keep track of the next question to give out
 	private boolean isShuffled; // keep track of whether or not the questions have been shuffled yet
+	private String imageURL;
+	private String description;
 	
-	public Quiz(String quizId, String creatorId, String dateCreated, boolean isRandom, boolean isOnePage, boolean isImmediate){
+	public Quiz(String quizId, String creatorId, String dateCreated, boolean isRandom, boolean isOnePage, boolean isImmediate, String imageURL, String description){
 		this.quizId = quizId;
 		this.creatorId = creatorId;
 		this.isRandom = isRandom;
 		this.isOnePage = isOnePage;
 		this.isImmediate = isImmediate;
 		this.dateCreated = dateCreated;
+		this.imageURL = imageURL;
+		this.description = description;
 		
 		questions = new ArrayList<Question>();
 		currQuestion = 0;
@@ -71,6 +75,14 @@ public class Quiz {
 	// returns the arraylist of questions
 	public ArrayList<Question> getQuestions() {
 		return questions;
+	}
+	
+	public String getImageURL() {
+		return imageURL;
+	}
+	
+	public String getDescription() {
+		return description;
 	}
 	
 	

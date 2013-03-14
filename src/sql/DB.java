@@ -72,7 +72,7 @@ public class DB {
 			int q = rs.getRow();
 			System.out.println("QWERTYUIOPQWERTYUIOPQWERTYUIO" + q);
 			while(rs.next()){
-				popularQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate"))));
+				popularQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate")), rs.getString("image_url"), rs.getString("description")));
 			}
 			return popularQuizzes;
 		} catch (SQLException e) {
@@ -105,7 +105,7 @@ public class DB {
 		try {
 			rs.beforeFirst();
 			while(rs.next()){
-				recentQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate"))));
+				recentQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate")), rs.getString("image_url"), rs.getString("description")));
 			}
 			return recentQuizzes;
 		} catch (SQLException e) {
@@ -458,7 +458,7 @@ public class DB {
 		try {
 			rs.beforeFirst();
 			while(rs.next()){
-				createdQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate"))));
+				createdQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate")), rs.getString("image_url"), rs.getString("description")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -506,7 +506,11 @@ public class DB {
 		boolean isOnePage = quiz.getIsOnePage();
 		boolean isImmediate = quiz.getIsImmediate();
 		int numTimesTaken = 0;
-		String query = "INSERT INTO quizzes VALUES('" + id + "', '" + date + "', '" + creatorId + "', " + numQuestions + ", " + isRandom + ", " + isOnePage + ", " + isImmediate + ", " + numTimesTaken + ");";
+		String imageURL = quiz.getImageURL();
+		String description = quiz.getDescription();
+		String query = "INSERT INTO quizzes VALUES('" + id + "', '" + date + "', '" + creatorId + "', " 
+				+ numQuestions + ", " + isRandom + ", " + isOnePage + ", " + isImmediate + ", " 
+				+ numTimesTaken + ", '" + imageURL + "', '" + description + "');";
 		sqlUpdate(query);
 		
 		// TODO!!!! add each question as well
@@ -562,6 +566,8 @@ public class DB {
 		boolean isRandom = false;
 		boolean isOnePage = false;
 		boolean isImmediate = false;
+		String imageURL = "";
+		String description = "";
 		try {
 			rs.first();
 			creatorId = rs.getString("creator_id");
@@ -569,11 +575,13 @@ public class DB {
 			isRandom = rs.getBoolean("is_random");
 			isOnePage = rs.getBoolean("is_one_page");
 			isImmediate = rs.getBoolean("is_immediate");
+			imageURL = rs.getString("image_url");
+			description = rs.getString("description");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Quiz quiz = new Quiz(quizId, creatorId, dateCreated, isRandom, isOnePage, isImmediate);
+		Quiz quiz = new Quiz(quizId, creatorId, dateCreated, isRandom, isOnePage, isImmediate, imageURL, description);
 		
 		//extracts info from fill_in_the_blank table, building each question with info from 
 		//answers as well
