@@ -14,6 +14,7 @@ pageEncoding="ISO-8859-1"%>
 
 <!-- Styling -->
 <link rel="stylesheet" type="text/css" href="home_layout.css" />
+<link rel="stylesheet" type="text/css" href="basic_layout.css" />
 
 </head>
 
