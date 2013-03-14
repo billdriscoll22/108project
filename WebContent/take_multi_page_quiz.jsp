@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ page import="java.util.*, frontend.*, sql.*"%>
-    <% Quiz quiz = (Quiz)request.getAttribute("quiz"); %>
+    <% Quiz quiz = (Quiz)session.getAttribute("multiQuiz"); %>
     <% Question q = (Question)request.getAttribute("nextQuestion"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -13,6 +13,15 @@
 
 <h1 style='text-align:center;'><%= quiz.getQuizId() %></h1>
 
+<h3 style='text-align:center;color:red;'>
+<%
+// display feedback from last question if applicable
+String feedback = (String)request.getAttribute("feedback");
+if(feedback != null){
+	out.println(feedback);
+}
+%>
+</h3>
 <form action="MultiQuizServlet" method="post">
 
 <%	

@@ -77,10 +77,19 @@ public class MultiQuizServlet extends HttpServlet {
 			  }
 			
 			String answer = request.getParameter(new Integer(questionNum).toString());
-			Question q = quiz.getQuestionNum(questionNum);			
+			Question q = quiz.getQuestionNum(questionNum);
+			String result = "incorrect. Acceptable answers were: " + q.getAnswers().toString();
 			if(q.isCorrect(answer)) {
+				result = "correct!";
 				Integer oldScore = (Integer) session.getAttribute("multiQuizScore");
 				session.setAttribute("multiQuizScore", oldScore + 1);
+			}
+			
+			// if immediate feedback, send feedback message
+			if(quiz.getIsImmediate()){
+				request.setAttribute("feedback", "Your answer \"" + answer + "\" was " + result);
+			} else {
+				request.setAttribute("feedback", null);
 			}
 		}
 		
