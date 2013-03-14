@@ -22,7 +22,7 @@ Choose an image file to upload:<br>
 <input type="file" name="uploadField" /><br><br>
   -->
   
-Answer: <input type="text" name="questionAnswer"><br><br>
+Possible correct answers (separated by ":"): <input type="text" name="questionAnswer"><br><br>
 <input type="submit" name="init" value="Add Picture Response">
 </form>
 
