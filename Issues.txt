@@ -1,0 +1,55 @@
+REQUIRED:
+
+Only letting multipage have immediate feedback.
+
+Allowing creator to enter multiple answers
+
+Test random questions.
+
+Quiz completion time.
+
+Quiz top scores. All time and within the last day
+
+Recent user performances on the quiz. Statistics summary.
+
+User pages.
+Mostly done, needs testing. -eh
+
+History Summary Page for each user.
+
+Immediate feedback for multipage quizes.
+
+Adding achievements
+
+Layout.
+
+Administration: Remove quiz button on quiz view page. Clear quiz history button.
+(Mostly done, 8/13. -eh. db.clearQuizHistory(String quizId) needs to be implemented,
+and testing still needs to be done.
+
+User performance display on quiz page.
+
+Dealing with multiple results from the same quiz. Right now the result page only grabs one result.
+
+Switch all friend mentions to links to their profile view
+I added a User.getProfileLink() method to do this easily.
+
+ReadMe!
+
+EXTENSIONS:
+
+Good name?
+
+More question types?
+
+Quiz description / picture
+
+Quiz search.
+
+Let users go back/ cancel during quiz creation and question adding
+
+Quiz Categories.
+
+More info on quiz results page. Answers to each question. Comparison to friends. 
+
+Quiz reviews and ratings.
