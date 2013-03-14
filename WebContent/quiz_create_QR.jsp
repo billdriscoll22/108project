@@ -16,7 +16,8 @@ Enter question text:
 <br>
 <textarea name="questionText"></textarea><br><br>
 Possible correct answers (separated by ":"): <br><input type="text" name="questionAnswer"><br>
-<input type="submit" name="init" value="Add Question-Response">
+<input type="submit" name="init" value="Add Question-Response"><br><br>
+<input type="submit" name="init" value="Cancel Question">
 </form>
 
 

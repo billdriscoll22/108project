@@ -3,6 +3,7 @@ REQUIRED:
 Only letting multipage have immediate feedback.
 
 Allowing creator to enter multiple answers
+done -cd
 
 Test random questions.
 
@@ -47,6 +48,7 @@ Good name?
 More question types?
 
 Quiz description / picture
+done -cd
 
 Quiz search.
 

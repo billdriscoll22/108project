@@ -33,9 +33,10 @@ When is the quiz graded?<br>
 <br><br>
 
 Profile Image:<input type="text" name="imageURL" value="Image URL" /><br><br>
-Quiz Description: <br><textarea name="description"></textarea>
+Quiz Description: <br><textarea name="description"></textarea><br><br>
 
-<input type="submit" name="init"  value="Create Quiz" />
+<input type="submit" name="init"  value="Create Quiz" /><br><br>
+<input type="submit" name="init"  value="Cancel" />
 </form>
 
 </body>

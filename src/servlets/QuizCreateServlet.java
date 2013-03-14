@@ -86,6 +86,11 @@ public class QuizCreateServlet extends HttpServlet {
 			}
 		} 
 		
+		else if(request.getParameter("init").equals("Cancel")) {
+			RequestDispatcher dispatch = request.getRequestDispatcher("HomeServlet");
+			dispatch.forward(request, response);
+		}
+		
 		else if(request.getParameter("init").equals("Create Question")) {
 			
 			// user picks which type of question to make, direct to type-specific .jsp (for the moment,
@@ -192,6 +197,11 @@ public class QuizCreateServlet extends HttpServlet {
 			FillInBlank fib = new FillInBlank(questions, answers, q.getNumQuestions()+1);
 			q.addQuestion(fib);
 			
+			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
+			dispatch.forward(request, response);
+		}
+		
+		else if(request.getParameter("init").equals("Cancel Question")) {
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
 			dispatch.forward(request, response);
 		}

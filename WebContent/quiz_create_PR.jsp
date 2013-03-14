@@ -23,7 +23,8 @@ Choose an image file to upload:<br>
   -->
   
 Possible correct answers (separated by ":"): <input type="text" name="questionAnswer"><br><br>
-<input type="submit" name="init" value="Add Picture Response">
+<input type="submit" name="init" value="Add Picture Response"> <br><br>
+<input type="submit" name="init" value="Cancel Question">
 </form>
 
 </body>

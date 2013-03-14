@@ -20,7 +20,8 @@ Enter text after blank:
   
 Possible correct answers (separated by ":"): <input type="text" name="questionAnswer"><br><br>
 
-<input type="submit" name="init" value="Add FIB Response">
+<input type="submit" name="init" value="Add FIB Response"><br><br>
+<input type="submit" name="init" value="Cancel Question">
 </form>
 
 </body>

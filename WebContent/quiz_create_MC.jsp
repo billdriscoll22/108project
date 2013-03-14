@@ -24,7 +24,8 @@ Correct answer:<br>
 <input type="radio" name="correctAnswer" value="mcAnswer1">Answer 2<br>
 <input type="radio" name="correctAnswer" value="mcAnswer2">Answer 3<br>
 <input type="radio" name="correctAnswer" value="mcAnswer3">Answer 4<br>
-<input type="submit" name="init" value="Add Multiple Choice">
+<input type="submit" name="init" value="Add Multiple Choice"><br><br>
+<input type="submit" name="init" value="Cancel Question">
 </form>
 </body>
 </html>
