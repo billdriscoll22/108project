@@ -51,6 +51,7 @@ pageEncoding="ISO-8859-1"%>
 			<!-- Create a Quiz -->
 			<form  action="quiz_create_init.jsp" method="post">
 			<input type="submit" value="Create A Quiz!" />
+			<% session.setAttribute("multi", false); %>
 			</form><br>
 			
 			

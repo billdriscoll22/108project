@@ -69,15 +69,21 @@ public class QuizCreateServlet extends HttpServlet {
 			long currentTime = new Date().getTime();
 			long dateOnly = (currentTime / millisInDay) * millisInDay;
 			Date clearDate = new Date(dateOnly);
-			String date = clearDate.toString();
+			String date = clearDate.toString();	
 			
-			//String creatorId = "test";
 			HttpSession session = request.getSession();
-			String creatorId = ((User) session.getAttribute("user")).getID();
-			session.setAttribute("quiz", new Quiz(quizId, creatorId, date, isRandom, isOnePage, isImmediate, imageURL, description));
-			System.out.println("done");
-			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
-			dispatch.forward(request, response);
+			
+			if(isOnePage && isImmediate) {
+				session.setAttribute("multi", true);
+				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_init.jsp");
+				dispatch.forward(request, response);
+			} else {
+				String creatorId = ((User) session.getAttribute("user")).getID();
+				session.setAttribute("quiz", new Quiz(quizId, creatorId, date, isRandom, isOnePage, isImmediate, imageURL, description));
+				System.out.println("done");
+				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
+				dispatch.forward(request, response);
+			}
 		} 
 		
 		else if(request.getParameter("init").equals("Create Question")) {

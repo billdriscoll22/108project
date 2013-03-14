@@ -9,7 +9,10 @@
 <title>Create a Quiz</title>
 </head>
 <body>
+
 <h1> Create a New Quiz </h1>
+
+<% if((Boolean)session.getAttribute("multi")) out.println("<h2> Remember, only multi-page quizzes can be graded immediately </h2>"); %>
 
 <form action="QuizCreateServlet" method="post">
 Name of quiz: <input type="text" name="quizId"><br><br>
@@ -25,7 +28,7 @@ One page or multiple pages?<br>
 <br><br>
 
 When is the quiz graded?<br>
-<input type="radio" name="whenGraded" value="immediate">Immediately<br>
+<input type="radio" name="whenGraded" value="immediate">Immediately (multi-page only)<br>
 <input type="radio" name="whenGraded" value="atEnd">At the End of the Quiz
 <br><br>
 
