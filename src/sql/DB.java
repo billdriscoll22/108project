@@ -290,6 +290,7 @@ public class DB {
 				+ result.getNumCorrect() + ", '"
 				+ result.getDateTaken() + "'"
 				+ ")";
+		System.out.println(query);
 		sqlUpdate(query);
 	}
 	
@@ -513,6 +514,22 @@ public class DB {
 		ArrayList<Result> results = new ArrayList<Result>();
 		try {
 			rs.beforeFirst();
+			while(rs.next()){
+				results.add(new Result(rs.getString("quiz"), rs.getString("user"), Integer.parseInt(rs.getString("time")), Integer.parseInt(rs.getString("questions")), Integer.parseInt(rs.getString("correct")), rs.getString("date")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return results;
+	}
+	
+	// gets the specific result set for a quiz
+	public ArrayList<Result> getQuizResults(String quizId, String userId){
+		String query = "select * from results where user = '" + userId + "' AND quiz = '" + quizId + "'";
+		ResultSet rs = getResult(query);
+		ArrayList<Result> results = new ArrayList<Result>();
+		
+		try {
 			while(rs.next()){
 				results.add(new Result(rs.getString("quiz"), rs.getString("user"), Integer.parseInt(rs.getString("time")), Integer.parseInt(rs.getString("questions")), Integer.parseInt(rs.getString("correct")), rs.getString("date")));
 			}

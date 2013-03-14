@@ -51,6 +51,8 @@ public class MultiQuizServlet extends HttpServlet {
 		
 		// check if a multi page quiz is already under way
 		Quiz quiz = (Quiz) session.getAttribute("multiQuiz");
+		
+		//if not, create a fresh quiz
 		if(quiz == null){
 			// start a new quiz
 			quiz = db.getQuiz(request.getParameter("quizID"));
@@ -63,12 +65,13 @@ public class MultiQuizServlet extends HttpServlet {
 			// get question number
 			int questionNum = 0;
 			try {
-			    questionNum =  new Integer((String)request.getParameter("questionNum"));
+			    String numStr = (String)request.getParameter("questionNum");
+				questionNum =  new Integer(numStr);
 			  } catch (NumberFormatException e) {
 			    // something went wrong
 				// reset quiz status and send home
 				session.setAttribute("multiQuiz", null);
-				 request.getRequestDispatcher("take_multi_page_quiz.jsp").forward(request, response);
+				request.getRequestDispatcher("take_multi_page_quiz.jsp").forward(request, response);
 			  }
 			
 			String answer = request.getParameter(new Integer(questionNum).toString());
@@ -94,6 +97,7 @@ public class MultiQuizServlet extends HttpServlet {
 			Result r = new Result(quiz.getQuizId(), user.getID(), 1000, quiz.getNumQuestions(), score, new Date().toString());
 			user.addResult(r);
 			Achievement.updateAchievements(user, "take", quiz, db);
+			
 			// reset quiz status
 			session.setAttribute("multiQuiz", null);
 
@@ -103,7 +107,6 @@ public class MultiQuizServlet extends HttpServlet {
 		
 		// otherwise forward to next question
 		else {
-			request.setAttribute("question", q);
 			request.getRequestDispatcher("take_multi_page_quiz.jsp").forward(request, response);
 		}
 		

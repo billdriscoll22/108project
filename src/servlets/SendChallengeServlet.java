@@ -49,7 +49,7 @@ public class SendChallengeServlet extends HttpServlet {
 		ServletContext context = request.getServletContext();
 		DB db = (DB) context.getAttribute("db");
 		
-		db.sendMessage(new Challenge(currentUser.getID(), dest, txt, quiz, new Date().toString(), currentUser.getResult(quiz).getPercentCorrect()));
+		db.sendMessage(new Challenge(currentUser.getID(), dest, txt, quiz, new Date().toString(), currentUser.getBestScore(quiz)));
 		request.getRequestDispatcher("/send_challenge.jsp").forward(request, response);
 			
 		

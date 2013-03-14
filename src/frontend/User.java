@@ -40,9 +40,8 @@ public class User {
 		return db.getCreatedQuizzes(this.id, historyLimit);
 	}
 	
-	public ArrayList<Result> getResults(){
-		return db.getResults(this.id, Integer.MAX_VALUE);
-	}
+
+
 	
 	private static String hexToString(byte[] bytes) {
 		StringBuffer buff = new StringBuffer();
@@ -102,17 +101,38 @@ public class User {
 		db.addAchievement(this.id, achievement);
 	}
 	
-	// returns the result object of a specic quiz,
-	// and null if none found
-	public Result getResult(String quizID){
-		History h = getHistory();
-		for(Result r : h.getResults()){
-			if(r.getQuiz().equals(quizID)) return r;
-		}
-		
-		return null;
+	// returns the list of result objects of a specific quiz,
+	public ArrayList<Result> getResult(String quizId){
+		return db.getQuizResults(quizId, id);
 	}
 	
+	// gets results for all quizes taken
+	public ArrayList<Result> getResults(){
+		return db.getResults(this.id, Integer.MAX_VALUE);
+	}
+	
+	// returns the best score a user has gotten on a quiz
+	// in terms of percent correct
+	// and 0 if they haven't taken it
+	public int getBestScore(String quizId){
+		ArrayList<Result> results = getResult(quizId);
+		int bestScore = 0;
+		for(Result r : results){
+			if(r.getPercentCorrect() > bestScore) bestScore = (int) r.getPercentCorrect();
+		}
+		
+		return bestScore;
+	}
+	
+	public int getWorstScore(String quizId){
+		//TODO
+		return 999;
+	}
+	
+	public int getAverageScore(String quizId){
+		//TODO
+		return 999;
+	}
 	
 	
 	/**

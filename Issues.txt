@@ -35,6 +35,7 @@ Switch all friend mentions to links to their profile view
 I added a User.getProfileLink() method to do this easily.
 
 ReadMe!
+- I created one in the main directory. We should all work on adding to this when we can. -eh
 
 EXTENSIONS:
 
