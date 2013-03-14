@@ -1,34 +1,78 @@
 @CHARSET "ISO-8859-1";
 
-
-#header_panel {
-	clear:both;
-	float: center;
+body{
+	margin: 0px;
 }
-#user_panel {
-	float: left;
-	width:200px;
-	padding:10px;
+#header-panel {
+	text-align: center;
+	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
 }
-#message_panel {
-	float: right;
-	width:200px;
-	padding:10px;
-}
-#announcement_panel {
-	float: right;
-	width:200px;
-	padding:10px;
+#header-panel-wrapper{
+	background-color: rgb(95, 197, 119);
 }
 
-#friend_panel {
-	float: center;
-	width:200px;
-	padding:10px;
-}
-#administration_panel {
-	float: right;
-	width:200px;
-	padding:10px;
+#content{
+	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 0px;
+	border-style: solid;
+	border-width: 0px 1px 0px 0px;
+	border-color: green;
+	
 }
 
+#content{
+	background-color: white;
+}
+
+#content-wrapper{
+	background-image: linear-gradient(bottom, rgb(161,158,156) 33%, rgb(199,199,199) 65%);
+	background-image: -o-linear-gradient(bottom, rgb(161,158,156) 33%, rgb(199,199,199) 65%);
+	background-image: -moz-linear-gradient(bottom, rgb(161,158,156) 33%, rgb(199,199,199) 65%);
+	background-image: -webkit-linear-gradient(bottom, rgb(161,158,156) 33%, rgb(199,199,199) 65%);
+	background-image: -ms-linear-gradient(bottom, rgb(161,158,156) 33%, rgb(199,199,199) 65%);
+	border-style: solid;
+	border-width: 1px 0px 0px 0px;
+	border-color: black;
+}
+
+#user-info{
+	font-size: 12px;
+	width: 598px;
+	border-style: solid;
+	border-width: 0px 1px 0px 1px;
+	border-color: green;
+	display: inline-block
+}
+#other-info{
+	margin-left: auto;
+	margin-right: auto;
+	width: 580px;
+	margin-top: 10px;
+	border-style: none!important;
+	
+}
+#other-info-wrapper{
+	vertical-align: top;
+	font-size: 12px;
+	display: inline-block;
+	width: 590px;
+
+	height: 100%;
+	background-color: white;
+}
+
+#other-info li{
+	font-size: 12px!important;
+}
+
+#user-info{
+	text-align: center;
+	background-color: white;
+}
+
+.ui-widget-content{
+}

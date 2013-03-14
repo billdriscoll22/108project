@@ -15,161 +15,181 @@ pageEncoding="ISO-8859-1"%>
 <!-- Styling -->
 <link rel="stylesheet" type="text/css" href="home_layout.css" />
 <link rel="stylesheet" type="text/css" href="basic_layout.css" />
+<link rel="stylesheet" type="text/css" href="jquery-ui-1.10.1.custom/css/smoothness/jquery-ui-1.10.1.custom.css" />
+ <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+ <script src="jquery-ui-1.10.1.custom/js/jquery-ui-1.10.1.custom.min.js"></script>
+ <script>
+	$(function(){
+		$("#other-info").tabs();
+	});
+</script>
 
 </head>
 
 <body>
 
-<div id="header_panel">
-	<h1 style="text-align:center;">Welcome to Quizzombie</h1>
+<div id="header-panel-wrapper">
+	<div id="header-panel">
+		<img src="quizzombie.png" />
+	</div>
+</div>
+<div id="content-wrapper">
+	<div id="content">
+		<div id="user-info">
+			<!-- Name and Logout option -->
+			<h2><%= user.getID() %></h2>
+			<!% user.setProfPicture("http://stanfordflipside.com/images/139not.png"); %>
+			<img src='<%= user.getProfPicture() %> ' height="150" />
+			<form  action="ProfPictureServlet" method="post">
+			<input type="text" name="pictureURL" value="Image URL" />
+			<input type="submit" value="Change profile picture" name="Change Profile Image" />
+			</form>
+			<form  action="LogoutServlet" method="post">
+			<input type="submit" value="Logout" />
+			</form><br>
+			
+			<!-- Create a Quiz -->
+			<form  action="quiz_create_init.jsp" method="post">
+			<input type="submit" value="Create A Quiz!" />
+			</form><br>
+			
+			<!-- View all Quizzes -->
+			<form  action="ListQuizzesServlet" method="post">
+			<input type="submit" value="View All Quizzes" />
+			</form><br>
+			
+			
+			<b>Popular Quizzes:</b><br/>
+			<%
+				ArrayList<Quiz> popularQuizzes = (ArrayList<Quiz>)request.getAttribute("popularQuizzes");
+				for(Quiz q : popularQuizzes){
+					out.println(q.toLink() + "<br/>");
+				}
+			%>
+			<b>New Quizzes:</b> <br/>
+			<%
+				ArrayList<Quiz> recentQuizzes = (ArrayList<Quiz>)request.getAttribute("recentQuizzes");
+				for(Quiz q : recentQuizzes){
+					out.println(q.toLink() + "<br/>");
+				}
+			%>
+			<%
+			History history = (History)request.getAttribute("history");
+			out.println(history.toString());
+			%>
+			<b>Your New Quizzes: </b><br/>
+			<%
+			ArrayList<Quiz> recentlyCreated = (ArrayList<Quiz>)request.getAttribute("recentlyCreated");
+			for(Quiz q : recentlyCreated){
+				out.println(q.toLink() + "<br/>");
+			}
+			%>
+			<b>Your Achievements</b><br/>
+			<%
+			ArrayList<Achievement> achievements = (ArrayList<Achievement>)request.getAttribute("achievements");
+			for(Achievement a : achievements){
+				out.println(a.getName());
+				out.println("<br/>");
+				out.println(a.getDescription());
+				out.println("<img src='" +a.getURL() + "' style='height: 20px'/>");
+			}
+			%>
+		</div><!-- User info -->
+		<div id="other-info-wrapper">
+			<div id="other-info">
+				 <ul>
+		    		<li><a href="#messages">Messages</a></li>
+		    		<li><a href="#announcements">Announcements</a></li>
+		    		<li><a href="#friends">Friends</a></li>
+		    		<li><a href="#administration">Administration</a></li>
+		 		 </ul>
+				<div id="messages">
+					<h2>Your Messages:</h2>
+					<b>Notes:</b><br/>
+					<%
+					ArrayList<Message> messages = (ArrayList<Message>)request.getAttribute("notes");
+					out.println("You have "+messages.size()+" messages!");
+					for(Message m : messages){
+						out.println(m.toHTML());
+						System.out.println(">>>>>>>>>>>> "+ m.getBody());
+					}
+					%>
+					
+					<b>Challenges:</b><br/>
+					<%
+					ArrayList<Challenge> challenges = (ArrayList<Challenge>)request.getAttribute("challenges");
+					for(Challenge c : challenges){
+						out.println(c.getSrc() + " got " + c.getScore() + "% on " + c.toLink());
+						out.println(">>> "+ c.getBody());
+					}
+					%>
+					
+					<b>Friend Requests</b><br/>
+					<%
+					ArrayList<FriendRequest> friendRequests = (ArrayList<FriendRequest>)request.getAttribute("friendRequests");
+					for(FriendRequest f : friendRequests){
+						out.println(f.toHTML());
+					}
+					%>
+				</div><!-- messages -->
+				<div id="announcements">
+					<h2>Announcements</h2>
+					<%
+					ArrayList<Announcement> announcements = (ArrayList<Announcement>)request.getAttribute("announcements");
+					for(Announcement a : announcements){
+						// provide admin option to delete announcement
+						out.println("<p><span style='color:red;'>" + a.getDate() + ": </span>" + a.getMessage() + "</p>");
+					}
+					%>
+				</div><!-- announcements -->
+				<div id="friends">
+					<h2>Friends</h2>
+					
+					<form action="UserSearchServlet" method="post">
+					Find Friends: <input type="text" name="name">
+					<input type="submit" value="Go!" /><br>
+					</form>
+					
+					<h3>Recent Activity</h3>
+				</div><!-- friends -->
+				<div id="administration">
+					<h2>Administration</h2>
+					
+					<!-- Result Message -->
+					<p style="font-style:italic; color:red;">
+					<%
+					String message = (String)request.getAttribute("admin_message");
+					if(message != null) out.println(message);
+					%>
+					</p>
+					
+					<!-- Post announcement -->
+					<form action="PostAnnouncementServlet" method="post">
+					<TEXTAREA rows="6" cols="20" name="txt"></TEXTAREA><br>
+					<input type="submit" value="Post Announcement" /><br>
+					</form>
+					
+					<!-- Site Statistics -->
+					<H3>Site Statistics</H3>
+					<p> Number of quizzes created: <%= db.numQuizzes() %> </p>
+					<p> Number of users: <%= db.numUsers() %> </p> 
+				</div><!-- administration -->
+			</div>
+		</div>
+	</div>
 </div>
 
 
 
-<div id="user_panel">
-<H2>User Panel</H2>
-
-<!-- Name and Logout option -->
-<%= user.getID() %><br>
-<!% user.setProfPicture("http://stanfordflipside.com/images/139not.png"); %>
-<img src='<%= user.getProfPicture() %> ' height="150" />
-<form  action="ProfPictureServlet" method="post">
-<input type="text" name="pictureURL" value="Image URL" />
-<input type="submit" name="Change Profile Image" />
-</form>
-<form  action="LogoutServlet" method="post">
-<input type="submit" value="Logout" />
-</form><br>
-
-<!-- Create a Quiz -->
-<form  action="quiz_create_init.jsp" method="post">
-<input type="submit" value="Create A Quiz!" />
-</form><br>
-
-<!-- View all Quizzes -->
-<form  action="ListQuizzesServlet" method="post">
-<input type="submit" value="View All Quizzes" />
-</form><br>
-
-
-<b>Popular Quizzes:</b><br/>
-<%
-	ArrayList<Quiz> popularQuizzes = (ArrayList<Quiz>)request.getAttribute("popularQuizzes");
-	for(Quiz q : popularQuizzes){
-		out.println(q.toLink() + "<br/>");
-	}
-%>
-<b>New Quizzes:</b> <br/>
-<%
-	ArrayList<Quiz> recentQuizzes = (ArrayList<Quiz>)request.getAttribute("recentQuizzes");
-	for(Quiz q : recentQuizzes){
-		out.println(q.toLink() + "<br/>");
-	}
-%>
-<%
-History history = (History)request.getAttribute("history");
-out.println(history.toString());
-%>
-<b>Your New Quizzes: </b><br/>
-<%
-ArrayList<Quiz> recentlyCreated = (ArrayList<Quiz>)request.getAttribute("recentlyCreated");
-for(Quiz q : recentlyCreated){
-	out.println(q.toLink() + "<br/>");
-}
-%>
-<b>Your Achievements</b><br/>
-<%
-ArrayList<Achievement> achievements = (ArrayList<Achievement>)request.getAttribute("achievements");
-for(Achievement a : achievements){
-	out.println(a.getName());
-	out.println("<br/>");
-	out.println(a.getDescription());
-	out.println("<img src='" +a.getURL() + "'/>");
-}
-%>
-
-</div>
-
-
-
-
-<div id="message_panel">
-	<h2>Your Messages:</h2>
-	<b>Notes:</b><br/>
-	<%
-	ArrayList<Message> messages = (ArrayList<Message>)request.getAttribute("notes");
-	out.println("You have "+messages.size()+" messages!");
-	for(Message m : messages){
-		out.println(m.toHTML());
-		System.out.println(">>>>>>>>>>>> "+ m.getBody());
-	}
-	%>
-	
-	<b>Challenges:</b><br/>
-	<%
-	ArrayList<Challenge> challenges = (ArrayList<Challenge>)request.getAttribute("challenges");
-	for(Challenge c : challenges){
-		out.println(c.getSrc() + " got " + c.getScore() + "% on " + c.toLink());
-		out.println(">>> "+ c.getBody());
-	}
-	%>
-	
-	<b>Friend Requests</b><br/>
-	<%
-	ArrayList<FriendRequest> friendRequests = (ArrayList<FriendRequest>)request.getAttribute("friendRequests");
-	for(FriendRequest f : friendRequests){
-		out.println(f.toHTML());
-	}
-	%>
-</div>
-
-<div id="announcement_panel">
-	<h2>Announcements</h2>
-	<%
-	ArrayList<Announcement> announcements = (ArrayList<Announcement>)request.getAttribute("announcements");
-	for(Announcement a : announcements){
-		// provide admin option to delete announcement
-		
-		out.println("<p><span style='color:red;'>" + a.getDate() + ": </span>" + a.getMessage() + "</p>");
-	}
-	%>
-</div>
-
-
-<div id="friend_panel">
-<h2>Friends</h2>
-
+<<<<<<< Updated upstream
 <form action="UserSearchServlet" method="post">
 Find Friends: <input type="text" name="search_term">
 <input type="submit" value="Go!" /><br>
 </form>
+=======
+>>>>>>> Stashed changes
 
-<h3>Recent Activity</h3>
-</div>
 
-<div id="administration_panel">
-<h2>Administration</h2>
-
-<!-- Result Message -->
-<p style="font-style:italic; color:red;">
-<%
-String message = (String)request.getAttribute("admin_message");
-if(message != null) out.println(message);
-%>
-</p>
-
-<!-- Post announcement -->
-<form action="PostAnnouncementServlet" method="post">
-<TEXTAREA rows="6" cols="20" name="txt"></TEXTAREA><br>
-<input type="submit" value="Post Announcement" /><br>
-</form>
-
-<!-- Site Statistics -->
-<H3>Site Statistics</H3>
-<p> Number of quizzes created: <%= db.numQuizzes() %> </p>
-<p> Number of users: <%= db.numUsers() %> </p> 
-
-</div>
 
 
 
