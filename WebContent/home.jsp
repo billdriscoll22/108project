@@ -37,7 +37,7 @@ pageEncoding="ISO-8859-1"%>
 	<div id="content">
 		<div id="user-info">
 			<!-- Name and Logout option -->
-			<h2><%= user.getID() %></h2>
+			<h1><%= user.getID() %></h1>
 			<!% user.setProfPicture("http://stanfordflipside.com/images/139not.png"); %>
 			<img src='<%= user.getProfPicture() %> ' height="150" />
 			<form  action="ProfPictureServlet" method="post">
@@ -53,47 +53,35 @@ pageEncoding="ISO-8859-1"%>
 			<input type="submit" value="Create A Quiz!" />
 			</form><br>
 			
-			<!-- View all Quizzes -->
-			<form  action="ListQuizzesServlet" method="post">
-			<input type="submit" value="View All Quizzes" />
-			</form><br>
 			
-			
-			<b>Popular Quizzes:</b><br/>
-			<%
-				ArrayList<Quiz> popularQuizzes = (ArrayList<Quiz>)request.getAttribute("popularQuizzes");
-				for(Quiz q : popularQuizzes){
-					out.println(q.toLink() + "<br/>");
-				}
-			%>
-			<b>New Quizzes:</b> <br/>
-			<%
-				ArrayList<Quiz> recentQuizzes = (ArrayList<Quiz>)request.getAttribute("recentQuizzes");
-				for(Quiz q : recentQuizzes){
-					out.println(q.toLink() + "<br/>");
-				}
-			%>
 			<%
 			History history = (History)request.getAttribute("history");
 			out.println(history.toString());
 			%>
-			<b>Your New Quizzes: </b><br/>
+			<br/>
+			<b>Recent quiz making activity </b><br/>
 			<%
 			ArrayList<Quiz> recentlyCreated = (ArrayList<Quiz>)request.getAttribute("recentlyCreated");
 			for(Quiz q : recentlyCreated){
 				out.println(q.toLink() + "<br/>");
 			}
 			%>
-			<b>Your Achievements</b><br/>
-			<%
-			ArrayList<Achievement> achievements = (ArrayList<Achievement>)request.getAttribute("achievements");
-			for(Achievement a : achievements){
-				out.println(a.getName());
-				out.println("<br/>");
-				out.println(a.getDescription());
-				out.println("<img src='" +a.getURL() + "' style='height: 20px'/>");
-			}
-			%>
+			<br/>
+			<div id ="achievements">
+				<h2>Your Achievements</h2>
+				<%
+				ArrayList<Achievement> achievements = (ArrayList<Achievement>)request.getAttribute("achievements");
+				for(Achievement a : achievements){
+					out.println("<img src='" +a.getURL() + "' style='height: 20px'/>");
+					out.println("<b>");
+					out.println(a.getName());
+					out.println(": ");
+					out.println("</b>");
+					out.println(a.getDescription());
+					out.println("<br/>");
+				}
+				%>
+			</div>
 		</div><!-- User info -->
 		<div id="other-info-wrapper">
 			<div id="other-info">
@@ -102,6 +90,7 @@ pageEncoding="ISO-8859-1"%>
 		    		<li><a href="#announcements">Announcements</a></li>
 		    		<li><a href="#friends">Friends</a></li>
 		    		<li><a href="#administration">Administration</a></li>
+		    		<li><a href="#quizzes">Quizzes</a></li>
 		 		 </ul>
 				<div id="messages">
 					<h2>Your Messages:</h2>
@@ -174,24 +163,31 @@ pageEncoding="ISO-8859-1"%>
 					<p> Number of quizzes created: <%= db.numQuizzes() %> </p>
 					<p> Number of users: <%= db.numUsers() %> </p> 
 				</div><!-- administration -->
+				<div id="quizzes">
+					<b>Popular Quizzes:</b><br/>
+					<%
+						ArrayList<Quiz> popularQuizzes = (ArrayList<Quiz>)request.getAttribute("popularQuizzes");
+						for(Quiz q : popularQuizzes){
+							out.println(q.toLink() + "<br/>");
+						}
+					%>
+					<b>New Quizzes:</b> <br/>
+					<%
+						ArrayList<Quiz> recentQuizzes = (ArrayList<Quiz>)request.getAttribute("recentQuizzes");
+						for(Quiz q : recentQuizzes){
+							out.println(q.toLink() + "<br/>");
+						}
+					%>
+					<br/>
+						<!-- View all Quizzes -->
+					<form  action="ListQuizzesServlet" method="post">
+					<input type="submit" value="View All Quizzes" />
+					</form><br>
+			
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-
-
-<<<<<<< Updated upstream
-<form action="UserSearchServlet" method="post">
-Find Friends: <input type="text" name="search_term">
-<input type="submit" value="Go!" /><br>
-</form>
-=======
->>>>>>> Stashed changes
-
-
-
-
-
 </body>
 </html>
