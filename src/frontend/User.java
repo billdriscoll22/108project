@@ -170,6 +170,7 @@ public class User {
 		this.profPicture = url;
 		db.setUserImage(this.id, url);
 	}
+	
 }
 
 

@@ -81,6 +81,9 @@ for(Quiz q : recentlyCreated){
 ArrayList<Achievement> achievements = (ArrayList<Achievement>)request.getAttribute("achievements");
 for(Achievement a : achievements){
 	out.println(a.getName());
+	out.println("<br/>");
+	out.println(a.getDescription());
+	out.println("<img src='" +a.getURL() + "'/>");
 }
 %>
 

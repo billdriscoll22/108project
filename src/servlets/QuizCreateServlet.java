@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import sql.DB;
+import frontend.Achievement;
 import frontend.FillInBlank;
 import frontend.MultipleChoice;
 import frontend.Picture;
@@ -110,6 +111,8 @@ public class QuizCreateServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			Quiz quiz = (Quiz) session.getAttribute("quiz");
 			db.addQuiz(quiz);
+			User user = ((User) session.getAttribute("user"));
+			Achievement.updateAchievements(user, "create");
 			RequestDispatcher dispatch = request.getRequestDispatcher("HomeServlet");
 			dispatch.forward(request, response);
 		} 
