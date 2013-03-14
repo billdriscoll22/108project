@@ -17,7 +17,7 @@ import sql.DB;
 /**
  * Servlet implementation class HomeServlet
  */
-@WebServlet(urlPatterns={"/myServlet", "/index.html"}, asyncSupported=true) 
+@WebServlet(urlPatterns={"/HomeServlet", "/index.html"}, asyncSupported=true) 
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final int NUM_QUIZZES = 5;
