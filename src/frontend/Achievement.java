@@ -2,6 +2,8 @@ package frontend;
 
 import java.util.*;
 
+import sql.DB;
+
 public class Achievement {
 	private String achievement;
 	private String description;
@@ -10,15 +12,15 @@ public class Achievement {
 	private static final String AMATEUR_AUTHOR = "Amateur Author";
 	private static final String ACHIEVEMENT_URL = "http://media.tumblr.com/tumblr_mc42yyr7zz1qi53q4.png";
 	private static final String PROLIFIC_AUTHOR = "Prolific Author";
-	private static final String PROLIFIC_AUTHOR_DESCRIPTION = "You've created five quizzes. You think you're hot stuff?";
+	private static final String PROLIFIC_AUTHOR_DESCRIPTION = "You have created five quizzes. You think you are hot stuff?";
 	private static final String PRODIGIOUS_AUTHOR = "Prodigious Author";
-	private static final String PRODIGIOUS_AUTHOR_DESCRIPTION = "You've created ten quizzes.  You're definitely hot stuff.";
+	private static final String PRODIGIOUS_AUTHOR_DESCRIPTION = "You have created ten quizzes.  You are definitely hot stuff.";
 	private static final String QUIZ_MACHINE = "Quiz Machine";
-	private static final String QUIZ_MACHINE_DESCRIPTION = "You've taken ten quizzes.  Don't get too full of yourself.";
+	private static final String QUIZ_MACHINE_DESCRIPTION = "You have taken ten quizzes.  Do not get too full of yourself.";
 	private static final String I_AM_THE_GREATEST = "I am the greatest";
 	private static final String I_AM_THE_GREATEST_DESCRIPTION = "You got the highest score on a quiz.  Savor the moment.";
-	private static final String PRACTICE_MAKES_PERFECT = "Practice Makes Perfect";
-	private static final String PRACTICE_MAKES_PERFECT_DESCRIPTION = "You took a quiz in practice mode.  Almost ready for the big leagues.";
+	/*private static final String PRACTICE_MAKES_PERFECT = "Practice Makes Perfect";
+	private static final String PRACTICE_MAKES_PERFECT_DESCRIPTION = "You took a quiz in practice mode.  Almost ready for the big leagues.";*/
 	
 	public Achievement(String achievement, String description,  String url){
 		this.achievement = achievement;
@@ -42,7 +44,7 @@ public class Achievement {
 		return achievement + ": " + description + " (" + url + ")";
 	}
 	
-	public static void updateAchievements(User user, String type){
+	public static void updateAchievements(User user, String type, Quiz quiz, DB db){
 		if(type.equals("create")){
 			ArrayList<Quiz> createdQuizzes = user.getQuizzes();
 			int numCreated = createdQuizzes.size();
@@ -58,6 +60,29 @@ public class Achievement {
 			else if(numCreated == 10){
 				Achievement achievement = new Achievement(Achievement.PRODIGIOUS_AUTHOR, Achievement.PRODIGIOUS_AUTHOR_DESCRIPTION, Achievement.ACHIEVEMENT_URL);
 				user.addAchievement(achievement);
+			}
+		}
+		/*Need to take into account them already getting it*/
+		else if(type.equals("take")){
+			ArrayList<Result> results = user.getResults();
+			if(results.size() == 10){
+				Achievement achievement = new Achievement(Achievement.QUIZ_MACHINE, Achievement.QUIZ_MACHINE_DESCRIPTION, Achievement.ACHIEVEMENT_URL);
+				user.addAchievement(achievement);
+			}
+			ArrayList<Achievement> currentAchievements = user.getAchievements();
+			boolean hasAchievement = false;
+			for(Achievement a : currentAchievements){
+				if(a.getName().equals(Achievement.I_AM_THE_GREATEST))
+					hasAchievement = true;
+			}
+			if(!hasAchievement){
+				ArrayList<Result> quizResults = db.getTopResults(quiz.getQuizId(), 1);
+				if(quizResults.size() != 0){
+					if(quizResults.get(0).getUserId().equals(user.getID())){
+						Achievement achievement = new Achievement(Achievement.I_AM_THE_GREATEST, Achievement.I_AM_THE_GREATEST_DESCRIPTION, Achievement.ACHIEVEMENT_URL);
+						user.addAchievement(achievement);
+					}
+				}
 			}
 		}
 	}

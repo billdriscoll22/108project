@@ -3,6 +3,7 @@ package sql;
 /*hi*/
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -47,6 +48,18 @@ public class DB {
 		}
 	}
 	
+	private PreparedStatement getPreparedStatement(String query){
+		System.out.println(query);
+		try {
+			PreparedStatement pstmt = con.prepareStatement(query);
+			return pstmt;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static Connection getConnection() {
 		return con;
 	}
@@ -55,7 +68,6 @@ public class DB {
 	public boolean isQuizAvailable(String quizName){
 		String query = "SELECT * FROM quizzes WHERE quiz_id = '" + quizName + "'";
 		ResultSet rs = getResult(query);
-		
 		try {
 			if(rs.next()) return true;
 		} catch (SQLException e) {e.printStackTrace();}
@@ -70,7 +82,6 @@ public class DB {
 		ArrayList<Quiz> popularQuizzes = new ArrayList<Quiz>();
 		try {
 			int q = rs.getRow();
-			System.out.println("QWERTYUIOPQWERTYUIOPQWERTYUIO" + q);
 			while(rs.next()){
 				popularQuizzes.add(new Quiz(rs.getString("quiz_id"), rs.getString("creator_id"), rs.getString("date_created"), Boolean.parseBoolean(rs.getString("is_random")), Boolean.parseBoolean(rs.getString("is_one_page")), Boolean.parseBoolean(rs.getString("is_immediate")), rs.getString("image_url"), rs.getString("description")));
 			}
@@ -125,7 +136,6 @@ public class DB {
 	public void addUser(String user, String hash, boolean isAdmin, String imageURL){
 		String query = "INSERT INTO users VALUES('" + user + "', " + "'" + hash + "', " + isAdmin
 				+ ", '" + imageURL + "');";
-		System.out.println(query);
 		sqlUpdate(query);
 	}
 	
@@ -148,10 +158,10 @@ public class DB {
 	}
 	
 	private ResultSet getResult(String query){
-		Statement stmt;
+		PreparedStatement pstmt;
 		try {
-			stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
+			pstmt = getPreparedStatement(query);
+			ResultSet rs = pstmt.executeQuery();
 			return rs;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -160,10 +170,10 @@ public class DB {
 	}
 	
 	private void sqlUpdate(String query){
-		Statement stmt;
+		PreparedStatement pstmt;
 		try {
-			stmt = con.createStatement();
-			stmt.executeUpdate(query);
+			pstmt = getPreparedStatement(query);
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
@@ -173,7 +183,6 @@ public class DB {
 	public User getUser(String id){
 		// execute query
 		String query = "SELECT * FROM users WHERE id = '" + id + "'";
-		System.out.println(query);
 		ResultSet rs = getResult(query);
 		
 		// check if result is empty
@@ -242,7 +251,6 @@ public class DB {
 				+ result.getNumCorrect() + ", '"
 				+ result.getDateTaken() + "'"
 				+ ")";
-		System.out.println(query);
 		sqlUpdate(query);
 	}
 	
@@ -251,7 +259,6 @@ public class DB {
 		
 		// get all entries in the results table for this user
 		String query = "SELECT * FROM results WHERE user = '" + userId + "' order by date desc limit " + limit;
-		System.out.println(query);
 		ResultSet rs = getResult(query);
 		
 		// add each result to the history
@@ -276,7 +283,6 @@ public class DB {
 				+ achievement.getURL()
 				+ "')";
 		sqlUpdate(query);
-		System.out.println(query);
 	}
 	
 	public boolean getIsAdmin(String userId){
@@ -289,7 +295,6 @@ public class DB {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(isAdmin);
 		return isAdmin;
 	}
 	
@@ -298,7 +303,6 @@ public class DB {
 		
 		// get all entries in the achievements table for this user
 		String query = "SELECT * FROM achievements WHERE user = '" + userId + "'";
-		System.out.println(query);
 		ResultSet rs = getResult(query);
 		
 		// add each achievement to the list
@@ -344,7 +348,6 @@ public class DB {
 		
 		
 		try {
-			System.out.println("THE ROW IS "+rs.getRow());
 			while(rs.next()){
 				returnList.add(new Message(rs.getString("source"), rs.getString("dest"), rs.getString("text"), rs.getString("date")));
 			}
@@ -405,7 +408,6 @@ public class DB {
 	public void setAdminStatus(String id, boolean status) {
 		int stat = status == true ? 1 : 0;
 		String query = "UPDATE users SET isAdmin = '" + stat + "' WHERE id = '" + id + "'";
-		System.out.println(query);
 		sqlUpdate(query);		
 	}
 
@@ -422,7 +424,6 @@ public class DB {
 		} else {
 			query = "INSERT INTO notes VALUES('" + src + "', '" + dest + "', '" + body + "', '" + time + "')";
 		}
-		System.out.println(query);
 		sqlUpdate(query);
 	}
 
@@ -464,6 +465,38 @@ public class DB {
 			e.printStackTrace();
 		}
 		return createdQuizzes;
+	}
+	
+	/*gets the entire number of results for a user*/
+	public ArrayList<Result> getResults(String userID, int limit){
+		String query = "select * from results where user = '" + userID + "'limit " + limit;
+		ResultSet rs = getResult(query);
+		ArrayList<Result> results = new ArrayList<Result>();
+		try {
+			rs.beforeFirst();
+			while(rs.next()){
+				results.add(new Result(rs.getString("quiz"), rs.getString("user"), Integer.parseInt(rs.getString("time")), Integer.parseInt(rs.getString("questions")), Integer.parseInt(rs.getString("correct")), rs.getString("date")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return results;
+	}
+	
+	/*Gets the top n results for a quiz*/
+	public ArrayList<Result> getTopResults(String quizID, int limit){
+		String query = "select * from results where quiz = '" + quizID + "' order by correct desc, time asc limit " + limit;
+		ResultSet rs = getResult(query);
+		ArrayList<Result> results = new ArrayList<Result>();
+		try {
+			rs.beforeFirst();
+			while(rs.next()){
+				results.add(new Result(rs.getString("quiz"), rs.getString("user"), Integer.parseInt(rs.getString("time")), Integer.parseInt(rs.getString("questions")), Integer.parseInt(rs.getString("correct")), rs.getString("date")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return results;
 	}
 	
 	public void postAnnouncement(String message){

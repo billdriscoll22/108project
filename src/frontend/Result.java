@@ -42,6 +42,10 @@ public class Result {
 		return date;
 	}
 	
+	public String getUserId(){
+		return this.userId;
+	}
+	
 	public double getPercentCorrect(){
 		return (100.0 * ((double)numCorrect)/numQuestions);
 	}	

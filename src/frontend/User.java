@@ -35,6 +35,10 @@ public class User {
 		return db.getCreatedQuizzes(this.id, historyLimit);
 	}
 	
+	public ArrayList<Result> getResults(){
+		return db.getResults(this.id, Integer.MAX_VALUE);
+	}
+	
 	private static String hexToString(byte[] bytes) {
 		StringBuffer buff = new StringBuffer();
 		for (int i=0; i<bytes.length; i++) {
@@ -161,6 +165,8 @@ public class User {
 	public ArrayList<Quiz> getQuizzes(){
 		return db.getCreatedQuizzes(id, Integer.MAX_VALUE);
 	}
+	
+	
 	
 	public String getProfPicture() {
 		return profPicture;

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import sql.DB;
+import frontend.Achievement;
 import frontend.Question;
 import frontend.Quiz;
 import frontend.Result;
@@ -92,7 +93,7 @@ public class MultiQuizServlet extends HttpServlet {
 			int score = (Integer)session.getAttribute("multiQuizScore");
 			Result r = new Result(quiz.getQuizId(), user.getID(), 1000, quiz.getNumQuestions(), score, new Date().toString());
 			user.addResult(r);
-			
+			Achievement.updateAchievements(user, "take", quiz, db);
 			// reset quiz status
 			session.setAttribute("multiQuiz", null);
 

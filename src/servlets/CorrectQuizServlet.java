@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import sql.DB;
+import frontend.Achievement;
 import frontend.Question;
 import frontend.Quiz;
 import frontend.Result;
@@ -79,7 +80,7 @@ public class CorrectQuizServlet extends HttpServlet {
 		User user = (User)request.getSession().getAttribute("user");
 		Result result = new Result(quizID, user.getID(), timeUsed, numQuestions, numCorrect, startTime.toString());
 		user.addResult(result);
-
+		Achievement.updateAchievements(user, "take", quiz, db);
 		// send to quiz result page
 		request.getRequestDispatcher("QuizResultServlet?quiz=" + quizID).forward(request, response);
 

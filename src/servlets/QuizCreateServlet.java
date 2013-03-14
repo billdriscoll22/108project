@@ -114,7 +114,7 @@ public class QuizCreateServlet extends HttpServlet {
 			Quiz quiz = (Quiz) session.getAttribute("quiz");
 			db.addQuiz(quiz);
 			User user = ((User) session.getAttribute("user"));
-			Achievement.updateAchievements(user, "create");
+			Achievement.updateAchievements(user, "create", null, null);
 			RequestDispatcher dispatch = request.getRequestDispatcher("HomeServlet");
 			dispatch.forward(request, response);
 		} 
