@@ -13,7 +13,7 @@ Quiz top scores. All time and within the last day
 Recent user performances on the quiz. Statistics summary.
 
 User pages.
-Mostly done, needs testing. -eh
+*Mostly done, needs testing. -eh
 
 History Summary Page for each user.
 
@@ -24,15 +24,18 @@ Adding achievements
 Layout.
 
 Administration: Remove quiz button on quiz view page. Clear quiz history button.
-(Mostly done, 8/13. -eh. db.clearQuizHistory(String quizId) needs to be implemented,
+*(Mostly done, 8/13. -eh. db.clearQuizHistory(String quizId) needs to be implemented,
 and testing still needs to be done.
 
 User performance display on quiz page.
 
 Dealing with multiple results from the same quiz. Right now the result page only grabs one result.
+*Updated results page to show all history for that quiz. Could be cleaned up, and score methods
+*for user class need to be implemented -eh
 
 Switch all friend mentions to links to their profile view
-I added a User.getProfileLink() method to do this easily.
+*I added a User.getProfileLink() method to do this easily, but need to go through and update all friend 
+references. -eh
 
 ReadMe!
 - I created one in the main directory. We should all work on adding to this when we can. -eh

@@ -213,7 +213,7 @@ public class DB {
 	 // return null if there are no matches
 		public ArrayList<User> searchUsers(String fragment){
 			// execute query
-			String query = "SELECT * FROM users WHERE id = '%" + fragment + "%";
+			String query = "SELECT * FROM users WHERE id LIKE '%" + fragment + "%'";
 			System.out.println(query);
 			ResultSet rs = getResult(query);
 			

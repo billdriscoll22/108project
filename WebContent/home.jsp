@@ -146,7 +146,7 @@ pageEncoding="ISO-8859-1"%>
 					<h2>Friends</h2>
 					
 					<form action="UserSearchServlet" method="post">
-					Find Friends: <input type="text" name="name">
+					Find Friends: <input type="text" name="search_term">
 					<input type="submit" value="Go!" /><br>
 					</form>
 					
@@ -181,13 +181,7 @@ pageEncoding="ISO-8859-1"%>
 
 
 
-<<<<<<< Updated upstream
-<form action="UserSearchServlet" method="post">
-Find Friends: <input type="text" name="search_term">
-<input type="submit" value="Go!" /><br>
-</form>
-=======
->>>>>>> Stashed changes
+
 
 
 

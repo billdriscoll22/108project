@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<h1 style="text-align: center;"><%= search_term %></h1>
+<h1 style="text-align: center;">Results for <%= search_term %></h1>
 
 
 <%
@@ -31,7 +31,7 @@ else {
 
 <br>
 <form style='text-align:center;' action="UserSearchServlet" method="post">
-Search again: <input type="text" name="name" value="<%= search_term %>">
+Search again: <input type="text" name="search_term" value="<%= search_term %>">
 <input type="submit" value="Go!" />
 </form>
 
