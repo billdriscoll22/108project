@@ -140,7 +140,7 @@ for(Achievement a : achievements){
 <h2>Friends</h2>
 
 <form action="UserSearchServlet" method="post">
-Find Friends: <input type="text" name="name">
+Find Friends: <input type="text" name="search_term">
 <input type="submit" value="Go!" /><br>
 </form>
 

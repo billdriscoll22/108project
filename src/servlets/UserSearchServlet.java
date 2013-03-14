@@ -39,13 +39,13 @@ public class UserSearchServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// name to lookup
-		String name = request.getParameter("name");
+		String search_term = request.getParameter("search_term");
 		
 		ServletContext context = request.getServletContext();
 		DB db = (DB) context.getAttribute("db");
 		
-		request.setAttribute("name", name);
-		request.setAttribute("account", db.getUser(name));
+		request.setAttribute("search_term", search_term);
+		request.setAttribute("results", db.searchUsers(search_term));
 		
 		request.getRequestDispatcher("/user_search_results.jsp").forward(request, response);		
 		

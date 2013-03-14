@@ -23,5 +23,10 @@ What type of question?<br><br>
 
 </form>
 
+</br>
+<form style='text-align:center;' action="HomeServlet" method="post">
+<input type="submit" value="Cancel" />
+</form>
+
 </body>
 </html>

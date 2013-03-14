@@ -31,6 +31,11 @@ public class User {
 		return id;
 	}
 	
+	// returns a html link to this user's profile
+	public String getProfileLink(){
+		return "<a href='ProfileViewServlet?user=" + id + "'>" + id + "</a>" ;
+	}
+	
 	public ArrayList<Quiz> getCreatedQuizzes(){
 		return db.getCreatedQuizzes(this.id, historyLimit);
 	}

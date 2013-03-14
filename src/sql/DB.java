@@ -209,6 +209,45 @@ public class DB {
 		return new User(id, hash, isAdmin, this, image);		
 	}
 	
+	// returns all Users whose id contains the given fragment
+	 // return null if there are no matches
+		public ArrayList<User> searchUsers(String fragment){
+			// execute query
+			String query = "SELECT * FROM users WHERE id = '%" + fragment + "%";
+			System.out.println(query);
+			ResultSet rs = getResult(query);
+			
+			ArrayList<User> matches = new ArrayList<User>();
+			try {
+				while(rs.next()){
+					// add user to list
+					String id = null;					
+					try {
+						id = rs.getString("id");
+					} catch (SQLException e) {e.printStackTrace();}
+					
+					String hash = null;					
+					try {
+						hash = rs.getString("hash");
+					} catch (SQLException e) {e.printStackTrace();}
+					
+					boolean isAdmin = false;
+					try {
+						isAdmin = rs.getBoolean("isAdmin");
+					} catch (SQLException e) {e.printStackTrace();}
+					
+					String image = null;
+					try {
+						image = rs.getString("image_url");
+					} catch (SQLException e) {e.printStackTrace();}
+					
+					matches.add(new User(id, hash, isAdmin, this, image));
+				}
+			}catch (SQLException e) {e.printStackTrace();}			
+			
+			return matches;		
+		}
+	
 	public void addIsTaken(String quizID){
 		String query = "update users set times_taken = times_taken + 1 where quiz_id = " + quizID;
 		sqlUpdate(query);
