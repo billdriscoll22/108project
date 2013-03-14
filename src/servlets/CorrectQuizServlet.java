@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import sql.DB;
 import frontend.Achievement;
+import frontend.DateHelper;
 import frontend.Question;
 import frontend.Quiz;
 import frontend.Result;
@@ -49,11 +50,9 @@ public class CorrectQuizServlet extends HttpServlet {
 		DB db = (DB) context.getAttribute("db");
 		
 		// set completion time and calculate difference
-		Date endTime = new Date();
 		HttpSession session = request.getSession();
 		Date startTime = (Date)session.getAttribute("startTime");
-		// TODO: Find the difference. Java makes this stupidly difficult
-		int timeUsed = 1000;
+		int timeUsedInSeconds = DateHelper.differenceInSeconds(startTime, new Date());
 	
 		
 		// get quiz
@@ -78,7 +77,7 @@ public class CorrectQuizServlet extends HttpServlet {
 		
 		// create and store result
 		User user = (User)request.getSession().getAttribute("user");
-		Result result = new Result(quizID, user.getID(), timeUsed, numQuestions, numCorrect, startTime.toString());
+		Result result = new Result(quizID, user.getID(), timeUsedInSeconds, numQuestions, numCorrect, startTime.toString());
 		user.addResult(result);
 		Achievement.updateAchievements(user, "take", quiz, db);
 		// send to quiz result page

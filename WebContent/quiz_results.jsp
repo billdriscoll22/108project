@@ -24,7 +24,7 @@
 // list each result for this quiz
 for(Result result : results){
 	out.println("<p>Date Taken: " + result.getDateTaken() + "</p>");
-	out.println("<p>Elapsed Time: " + result.getTimeUsed() + "</p>");
+	out.println("<p>Elapsed Time: " + result.getTimeUsed() / 60 + "Min " + result.getTimeUsed() % 60 + " Sec</p>");
 	out.println("<p>Total Number Of Questions: " + result.getNumQuestions() + "</p>");
 	out.println("<p>Number Of Questions You Answered Correctly: " + result.getNumCorrect() + "</p>");
 	out.println("<p>Percent Right: " + result.getPercentCorrect() + "</p>");

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import sql.DB;
 import frontend.Achievement;
+import frontend.DateHelper;
 import frontend.Question;
 import frontend.Quiz;
 import frontend.Result;
@@ -58,6 +59,7 @@ public class MultiQuizServlet extends HttpServlet {
 			quiz = db.getQuiz(request.getParameter("quizID"));
 			session.setAttribute("multiQuiz", quiz);
 			session.setAttribute("multiQuizScore", new Integer(0));
+			session.setAttribute("startTime", new Date());
 		}
 		
 		// otherwise grade last question
@@ -89,12 +91,14 @@ public class MultiQuizServlet extends HttpServlet {
 		
 		// if question is null, the quiz is over. show results
 		if(q == null){
-			//TODO: calculate time used
+			// get time used
+			Date startTime = (Date)session.getAttribute("startTime");			
+			int numSecondsUsed = DateHelper.differenceInSeconds(startTime, new Date());
 			
 			// make new result
 			User user = (User)request.getSession().getAttribute("user");
 			int score = (Integer)session.getAttribute("multiQuizScore");
-			Result r = new Result(quiz.getQuizId(), user.getID(), 1000, quiz.getNumQuestions(), score, new Date().toString());
+			Result r = new Result(quiz.getQuizId(), user.getID(), numSecondsUsed, quiz.getNumQuestions(), score, new Date().toString());
 			user.addResult(r);
 			Achievement.updateAchievements(user, "take", quiz, db);
 			
