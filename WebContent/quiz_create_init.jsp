@@ -30,7 +30,7 @@ When is the quiz graded?<br>
 <br><br>
 
 Profile Image:<input type="text" name="imageURL" value="Image URL" /><br><br>
-Quiz Description: <br><textarea name="quizDescription"></textarea>
+Quiz Description: <br><textarea name="description"></textarea>
 
 <input type="submit" name="init"  value="Create Quiz" />
 </form>

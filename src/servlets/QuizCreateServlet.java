@@ -62,7 +62,7 @@ public class QuizCreateServlet extends HttpServlet {
 			boolean isOnePage = request.getParameter("pages").equals("onePage");
 			boolean isImmediate = request.getParameter("whenGraded").equals("immediate");
 			String image = request.getParameter("imageURL");
-			String imageURL = (image == "Image URL") ? "http://www.apassionforafrica.com/wp-content/uploads/2013/02/Quiz.jpg" : image;
+			String imageURL = (image.equals("Image URL")) ? "http://www.apassionforafrica.com/wp-content/uploads/2013/02/Quiz.jpg" : image;
 			String description = request.getParameter("description");
 			
 			long millisInDay = 60 * 60 * 24 * 1000;
@@ -125,8 +125,10 @@ public class QuizCreateServlet extends HttpServlet {
 			
 			String question = request.getParameter("questionText");
 			String answer = request.getParameter("questionAnswer");
-			ArrayList<String> answers = new ArrayList<String>();
-			answers.add(answer);
+			ArrayList<String> answers = parseAnswers(answer);
+
+			for(String a : answers)
+				System.out.println(a);
 			
 			HttpSession session = request.getSession();
 			Quiz q = (Quiz) session.getAttribute("quiz");
@@ -159,8 +161,7 @@ public class QuizCreateServlet extends HttpServlet {
 		else if(request.getParameter("init").equals("Add Picture Response")) {
 			String image = request.getParameter("uploadField");
 			String question = request.getParameter("questionText");
-			ArrayList<String> answers = new ArrayList<String>();
-			answers.add(request.getParameter("questionAnswer"));
+			ArrayList<String> answers = parseAnswers(request.getParameter("questionAnswer"));
 			
 			HttpSession session = request.getSession();
 			Quiz q = (Quiz) session.getAttribute("quiz");
@@ -177,8 +178,7 @@ public class QuizCreateServlet extends HttpServlet {
 			questions.add(request.getParameter("beforeText"));
 			questions.add(request.getParameter("afterText"));
 			
-			ArrayList<String> answers = new ArrayList<String>();
-			answers.add(request.getParameter("questionAnswer"));
+			ArrayList<String> answers = parseAnswers(request.getParameter("questionAnswer"));
 			
 			HttpSession session = request.getSession();
 			Quiz q = (Quiz) session.getAttribute("quiz");
@@ -189,6 +189,17 @@ public class QuizCreateServlet extends HttpServlet {
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
 			dispatch.forward(request, response);
 		}
+	}
+	
+	private ArrayList<String> parseAnswers(String list) {
+		ArrayList<String> answers = new ArrayList<String>();
+		String[] temp = list.split(":");
+		for(String a : temp) {
+			if (a.charAt(0) == ' ' && a.length() > 0) a = a.substring(1);
+			if (a.length() > 1 && a.charAt(a.length()-1) == ' ' ) a = a.substring(0, a.length()-1);
+			answers.add(a);
+		}
+		return answers;
 	}
 
 }

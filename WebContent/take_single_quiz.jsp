@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<h1 style='text-align:center;'><%= quiz.getQuizId() %></h1>
+<h1 style='text-align:center;'><%= quiz.getQuizId() %>  </h1>
 
 <form action="CorrectQuizServlet" method="post">
 

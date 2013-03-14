@@ -17,6 +17,8 @@
 <body>
 
 	<h1 style='text-align: center;'><%=quiz.getQuizId()%></h1>
+	<img src='<%=quiz.getImageURL() %>' height='100' />
+<% System.out.println(quiz.getImageURL()); %>
 
 	<p>
 		Created By:
@@ -27,6 +29,9 @@
 	<p>
 		Number Of Questions:
 		<%=quiz.getNumQuestions()%></p>
+		
+	<p>
+		Description: <%=quiz.getDescription() %> </p>
 
 	<h2 style='text-align: center;'>Top Scores</h2>
 
