@@ -559,7 +559,7 @@ public class DB {
 			while (rs.next()) {
 				String source = rs.getString("source");
 				boolean isConfirmed = rs.getBoolean("isConfirmed");
-				String time = rs.getString("time");
+				String time = parseSqlDate(rs.getString("time"));
 				String body = source + " has sent you a friend request!";
 				FriendRequest fr = new FriendRequest(source, id, body,
 						isConfirmed, time);
@@ -660,6 +660,27 @@ public class DB {
 	public ArrayList<Result> getResults(String userID, int limit) {
 		String query = "select * from results where user = '" + userID
 				+ "'limit " + limit;
+		ResultSet rs = getResult(query);
+		ArrayList<Result> results = new ArrayList<Result>();
+		try {
+			rs.beforeFirst();
+			while (rs.next()) {
+				results.add(new Result(rs.getString("quiz"), rs
+						.getString("user"), Integer.parseInt(rs
+						.getString("time")), Integer.parseInt(rs
+						.getString("questions")), Integer.parseInt(rs
+						.getString("correct")), parseSqlDate(rs.getString("date"))));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return results;
+	}
+	
+	//gets the recent results for a quiz
+	public ArrayList<Result> getRecentQuizResults(String quizID, int limit){
+		String query = "select * from results where quiz = '" + quizID
+				+ "' order by date desc limit " + limit;
 		ResultSet rs = getResult(query);
 		ArrayList<Result> results = new ArrayList<Result>();
 		try {
@@ -844,7 +865,7 @@ public class DB {
 		try {
 			rs.first();
 			creatorId = rs.getString("creator_id");
-			dateCreated = rs.getString("date_created");
+			dateCreated = parseSqlDate(rs.getString("date_created"));
 			isRandom = rs.getBoolean("is_random");
 			isOnePage = rs.getBoolean("is_one_page");
 			isImmediate = rs.getBoolean("is_immediate");

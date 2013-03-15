@@ -11,6 +11,7 @@
 <%
 	ArrayList<Result> topScores = (ArrayList<Result>) request.getAttribute("topScores");
 	ArrayList<Result> top24 = (ArrayList<Result>) request.getAttribute("top24");
+	ArrayList<Result> mostRecent = (ArrayList<Result>) request.getAttribute("mostRecent");
 %>
 <%
 	ArrayList<Result> userResults = (ArrayList<Result>) request.getAttribute("userResults");
@@ -29,7 +30,7 @@
 
 	<p>
 		Created By:
-		<%=quiz.getCreatorId()%></p>
+		<a href='ProfileViewServlet?user=<%= quiz.getCreatorId()%>'><%=quiz.getCreatorId()%></a></p>
 	<p>
 		Date Created:
 		<%=quiz.getDateCreated()%></p>
@@ -56,6 +57,13 @@
 		}
 	%>
 	
+	<h2 style='text-align: center;'>Most recent results</h2>
+	<%
+		for(Result r : mostRecent){
+		out.println("<p style='text-align: center;'>" + User.getUserProfileLink(r.getUserId()) + " scored " + r.getPercentCorrect() + "% in " + 
+			r.getTimeUsed() + " seconds on " + r.getDateTaken() + "</p>");
+		}
+		%>
 	<h2 style='text-align: center;'>Top Scores Past 24 Hours</h2>
 	<%
 	for(Result r : top24){

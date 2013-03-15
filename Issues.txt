@@ -1,38 +1,20 @@
 BUGS:
 
-You should never, under any circumstances, get the same achievement more than once.  -bd
 
 In an ordered quiz I made the questions come in the order 2,1,3 every time. -eh
-
-Clearing quiz history isn't working right now. I think db method needs to be implemented?
-
-When deleting a quiz I got the error:
-java.sql.SQLException: Illegal operation on empty result set.
-at sql.DB.getQuiz(DB.java:662)
-	at servlets.RemoveQuizServlet.doPost(RemoveQuizServlet.java:47)
-Quiz never gets deleted.
-
-When you click on a quiz link from a user page (i.e. quizzes they've taken) it give a divide by zero exception.
-
-Duplicate achievements after deleting quizzes
-
+	I don't know anything about this.  Is it fixed? -BD 2:07 am
 Test random questions.
+	Also fixed/tested? -BD 2:07 am
 
 REQUIRED:
 
-Top daily quiz scores.
-
-Recent user performances on the quiz. Statistics summary.
-
-ReadMe!
-- I created one in the main directory. We should all work on adding to this when we can. -eh
+quiz create page doesn't have stats summary
 
 
 EXTENSIONS:
+	At this point I think we've done all the extensions we're gonna do. I'll finish the layout tonight adn tomorow we just do final bug checks and readme. -BD 2:07 am
 
 More question types?
-
-Quiz search.
 
 Let users go back/ cancel during quiz creation and question adding
 

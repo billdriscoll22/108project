@@ -57,6 +57,10 @@ public class QuizViewServlet extends HttpServlet {
 		ArrayList<Result> top24 = db.getLast24HourResults(quiz.getQuizId(), NUM_TOP_SCORES_TO_SHOW);
 		request.setAttribute("top24", top24);
 		
+		//Get most recent results
+		ArrayList<Result> mostRecent = db.getRecentQuizResults(quiz.getQuizId(), 5);
+		request.setAttribute("mostRecent", mostRecent);
+		
 		// get user's results for this quiz
 		User user = (User) request.getSession().getAttribute("user");
 		ArrayList<Result> userResults = db.getQuizResults(quizID, user.getID());
