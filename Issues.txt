@@ -16,6 +16,8 @@ The initial search seems to work well, but when you search again it gets fucked 
 
 REQUIRED:
 
+Allow user to accept friend request from homepage
+
 Change homepage admin panel to only be shown to admins
 
 Only letting multipage have immediate feedback.

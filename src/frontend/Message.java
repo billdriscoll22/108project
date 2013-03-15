@@ -5,10 +5,10 @@ import java.util.Date;
 import sql.DB;
 
 public class Message {
-	private final String src;
-	private final String dest;
-	private final String body;
-	private final String time;
+	protected final String src;
+	protected final String dest;
+	protected final String body;
+	protected final String time;
 	
 	public Message(String src, String dest, String body, String time){
 		this.src = src;
@@ -36,7 +36,7 @@ public class Message {
 	
 	public String toHTML(){
 		String starter = "";
-		starter += ("From: " + this.getSrc() + " at: " + this.getTime() + "<br/>");
+		starter += ("From: " + User.getUserProfileLink(this.getSrc()) + " at: " + this.getTime() + "<br/>");
 		starter += (this.getBody() + "<br/>");
 		return starter;
 	}

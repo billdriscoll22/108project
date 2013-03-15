@@ -32,6 +32,23 @@ public class User {
 		return hash;
 	}
 	
+	public boolean isFriendsWith(String userId){
+		ArrayList<String> friends =  getFriends();
+		for(String s : friends){
+			if(s.equals(userId)) return true;
+		}
+		return false;
+	}
+	
+	public boolean hasFriendRequestFrom(String userId){
+		ArrayList<FriendRequest> requests = getFriendRequests();
+		for(FriendRequest r : requests){
+			if(r.src.equals(userId)) return true;
+		}
+		
+		return false;
+	}
+	
 	public String getID(){
 		return id;
 	}

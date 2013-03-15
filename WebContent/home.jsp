@@ -127,6 +127,14 @@ pageEncoding="ISO-8859-1"%>
 					ArrayList<FriendRequest> friendRequests = (ArrayList<FriendRequest>)request.getAttribute("friendRequests");
 					for(FriendRequest f : friendRequests){
 						out.println(f.toHTML());
+						if(user.hasFriendRequestFrom(f.getSrc()) && !user.isFriendsWith(f.getSrc())){
+							out.println("<form action='AcceptFriendServlet' method='post'>" 
+									+ "<input type='submit' value='Accept' />"
+									+ "<input type='hidden' name='target' value='" + f.getSrc()
+									+ "'>" + "</form>");
+						} else if(user.isFriendsWith(f.getSrc())){
+							out.println("<span style='color:blue;font-style:italic'>Request Accepted</span>");
+						}
 					}
 					%>
 				</div><!-- messages -->

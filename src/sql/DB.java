@@ -484,7 +484,7 @@ public class DB {
 				String source = rs.getString("source");
 				boolean isConfirmed = rs.getBoolean("isConfirmed");
 				String time = rs.getString("time");
-				String body = source + " has added you as a friend!";
+				String body = source + " has sent you a friend request!";
 				FriendRequest fr = new FriendRequest(source, id, body,
 						isConfirmed, time);
 				list.add(fr);
