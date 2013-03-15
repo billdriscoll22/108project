@@ -16,7 +16,7 @@ import frontend.User;
 /**
  * Servlet implementation class UserViewServlet
  */
-@WebServlet("/UserViewServlet")
+@WebServlet("/ProfileViewServlet")
 public class ProfileViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
