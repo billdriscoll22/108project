@@ -26,6 +26,7 @@ Quiz completion time.
 *Done -eh.
 
 Quiz Search.
+*Done -eh.
 
 Quiz top scores. All time and within the last day
 Workign for all time scores
