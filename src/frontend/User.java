@@ -130,13 +130,23 @@ public class User {
 	}
 	
 	public int getWorstScore(String quizId){
-		//TODO
-		return 999;
+		ArrayList<Result> results = getResult(quizId);
+		int worstScore = 100;
+		for(Result r : results){
+			if(r.getPercentCorrect() < worstScore) worstScore = (int) r.getPercentCorrect();
+		}
+		
+		return worstScore;
 	}
 	
 	public int getAverageScore(String quizId){
-		//TODO
-		return 999;
+		ArrayList<Result> results = getResult(quizId);
+		int total = 0;
+		for(Result r : results){
+			total += r.getPercentCorrect();
+		}
+		
+		return total/results.size();
 	}
 	
 	

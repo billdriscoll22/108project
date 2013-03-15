@@ -12,6 +12,8 @@ Quiz never gets deleted.
 
 We currently allow creation of quizzes with no questions.
 
+The initial search seems to work well, but when you search again it gets fucked up.
+
 REQUIRED:
 
 Only letting multipage have immediate feedback.
