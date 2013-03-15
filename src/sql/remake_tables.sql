@@ -10,3 +10,18 @@ create table quizzes(
 	is_immediate boolean,
 	times_taken int
 );
+
+delete from users;
+delete from friends;
+delete from requests;
+delete from challenges;
+delete from notes;
+delete from announcements;
+delete from results;
+delete from achievements;
+delete from question_response;
+delete from picture;
+delete from fill_in_the_blank;
+delete from multiple_choice;
+delete from answers;
+delete from quizzes;

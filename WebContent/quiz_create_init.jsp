@@ -15,7 +15,11 @@
 <h1> Create a New Quiz </h1>
 
 <% if((Boolean)session.getAttribute("multi")) out.println("<h2 style='color:red;'> Remember, only multi-page quizzes can be graded immediately! </h2>"); %>
-
+<% if((Boolean)session.getAttribute("fixRadioInput")) out.println("<h2 style='color:red;'> Please fill in all the quiz information! </h2>"); %>
+<%
+	session.setAttribute("multi", false);
+	session.setAttribute("fixRadioInput", false);
+%>
 
 <form action="QuizCreateServlet" method="post">
 Name of quiz: <input type="text" name="quizId"><br><br>

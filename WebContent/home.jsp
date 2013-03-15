@@ -232,7 +232,8 @@ pageEncoding="ISO-8859-1"%>
 			<form  action="quiz_create_init.jsp" method="post">
 			<input type="submit" value="Create A Quiz!" />
 			<% session.setAttribute("multi", false); %>
-			<% session.setAttribute("noQuestions", false); %>	
+			<% session.setAttribute("noQuestions", false); %>
+			<% session.setAttribute("fixRadioInput", false); %>	
 			</form><br>
 				</div>
 			</div>
