@@ -155,9 +155,17 @@ pageEncoding="ISO-8859-1"%>
 					<form action="UserSearchServlet" method="post">
 					Find Friends: <input type="text" name="search_term">
 					<input type="submit" value="Go!" /><br>
-					</form>
+					</form></br>
 					
-					<h3>Recent Activity</h3>
+					<%
+					// list all friends and their history
+					ArrayList<String> friends = user.getFriends();
+					for(String f : friends){
+						out.println("<h4 style='color:blue;'>" + user.getUserProfileLink(f) + "</h4></br>");
+					}
+					%>
+					
+					
 				</div><!-- friends -->
 				<div id="administration">
 					<h2>Administration</h2>
