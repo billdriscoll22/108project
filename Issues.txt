@@ -28,7 +28,7 @@ Quiz completion time.
 Quiz Search.
 
 Quiz top scores. All time and within the last day
-*Working for all time scores.
+Workign for all time scores
 
 Recent user performances on the quiz. Statistics summary.
 
