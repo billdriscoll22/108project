@@ -9,6 +9,8 @@
 <title>Add Picture Question</title>
 </head>
 <body>
+
+<%@ include file="header_partial.jsp" %>
 <h1>Add Picture Question</h1>
 
 <form action="QuizCreateServlet" method="post">
@@ -26,6 +28,6 @@ Possible correct answers (separated by ":"): <input type="text" name="questionAn
 <input type="submit" name="init" value="Add Picture Response"> <br><br>
 <input type="submit" name="init" value="Cancel Question">
 </form>
-
+<%@include file="content_end_partial.jsp" %>
 </body>
 </html>

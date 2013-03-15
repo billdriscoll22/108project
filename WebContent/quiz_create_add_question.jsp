@@ -9,6 +9,8 @@
 <title>Add a question</title>
 </head>
 <body>
+
+<%@ include file="header_partial.jsp" %>
 <h1> Add a question </h1>
 
 <% if((Boolean)session.getAttribute("noQuestions")) out.println("<h2 style='color:red;'> You need at least one question! </h2>"); %>
@@ -29,6 +31,6 @@ What type of question?<br><br>
 <form style='text-align:center;' action="HomeServlet" method="post">
 <input type="submit" value="Cancel" />
 </form>
-
+<%@include file="content_end_partial.jsp" %>
 </body>
 </html>

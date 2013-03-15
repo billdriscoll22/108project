@@ -6,6 +6,7 @@
 <title>Create Account</title>
 </head>
 <body>
+<%@ include file="header_partial.jsp" %>
 <h1>You need to create an account to use our app</h1>
 <p>Please enter proposed name and password.</p>
 <form action="AccountCreationServlet" method="post">
@@ -14,6 +15,6 @@
 	Profile Image: <input type="text" name="profileImage" value="Image URL" /> (optional)
 	<input type="submit" value="Create" /><br><br>
 </form>
-
+<%@include file="content_end_partial.jsp" %>
 </body>
 </html>

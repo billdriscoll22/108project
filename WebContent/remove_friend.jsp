@@ -7,11 +7,13 @@
 <title>Friend Successfully Removed</title>
 </head>
 <body>
+
+<%@ include file="header_partial.jsp" %>
 <h1 style='text-align:center;'><%= (String)request.getParameter("target") %> was removed from your friend list</h1>
 
 <form style='text-align:center;' action="HomeServlet" method="post">
 <input type="submit" value="Return Home" />
 </form>
-
+<%@include file="content_end_partial.jsp" %>
 </body>
 </html>

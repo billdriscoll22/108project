@@ -9,6 +9,8 @@
 <title>Add Fill In The Blank Question</title>
 </head>
 <body>
+
+<%@ include file="header_partial.jsp" %>
 <h1>Add Fill In The Blank Question</h1>
 
 <form action="QuizCreateServlet" method="post">
@@ -23,6 +25,6 @@ Possible correct answers (separated by ":"): <input type="text" name="questionAn
 <input type="submit" name="init" value="Add FIB Response"><br><br>
 <input type="submit" name="init" value="Cancel Question">
 </form>
-
+<%@include file="content_end_partial.jsp" %>
 </body>
 </html>

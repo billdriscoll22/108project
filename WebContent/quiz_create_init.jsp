@@ -10,6 +10,8 @@
 </head>
 <body>
 
+<%@ include file="header_partial.jsp" %>
+
 <h1> Create a New Quiz </h1>
 
 <% if((Boolean)session.getAttribute("multi")) out.println("<h2 style='color:red;'> Remember, only multi-page quizzes can be graded immediately! </h2>"); %>
@@ -39,6 +41,7 @@ Quiz Description: <br><textarea name="description"></textarea><br><br>
 <input type="submit" name="init"  value="Create Quiz" /><br><br>
 <input type="submit" name="init"  value="Cancel" />
 </form>
+<%@include file="content_end_partial.jsp" %>
 
 </body>
 </html>

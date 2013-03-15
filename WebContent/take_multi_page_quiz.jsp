@@ -11,6 +11,8 @@
 </head>
 <body>
 
+<%@ include file="header_partial.jsp" %>
+
 <h1 style='text-align:center;'><%= quiz.getQuizId() %></h1>
 
 <h3 style='text-align:center;color:red;'>
@@ -37,7 +39,7 @@ if(feedback != null){
 <form style='text-align:center;' action="HomeServlet" method="post">
 <input type="submit" value="Cancel" />
 </form>
-
+<%@include file="content_end_partial.jsp" %>
 
 </body>
 </html>

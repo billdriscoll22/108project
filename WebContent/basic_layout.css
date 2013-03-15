@@ -1,3 +1,45 @@
 body{
-	font-family: Arial, Helvetica, sans-serif;
+	margin: 0px;
+}
+
+h1{
+	-webkit-margin-before: 0px!important;
+	-moz-margin-before: 0px!important;
+	margin-top: 0px!important;
+}
+#header-panel {
+	text-align: center;
+	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#header-panel-wrapper{
+	background-color: rgb(95, 197, 119);
+}
+
+#content{
+	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	border-style: solid;
+	border-width: 0px 1px 1px 1px;
+	border-color: green;
+	text-align: center;
+	
+}
+
+#content{
+	background-color: white;
+}
+
+#content-wrapper{
+		font-family: Arial, Helvetica, sans-serif;
+	background-image: linear-gradient(bottom, rgb(161,158,156) 33%, rgb(199,199,199) 65%);
+	background-image: -o-linear-gradient(bottom, rgb(161,158,156) 33%, rgb(199,199,199) 65%);
+	background-image: -moz-linear-gradient(bottom, rgb(161,158,156) 33%, rgb(199,199,199) 65%);
+	background-image: -webkit-linear-gradient(bottom, rgb(161,158,156) 33%, rgb(199,199,199) 65%);
+	background-image: -ms-linear-gradient(bottom, rgb(161,158,156) 33%, rgb(199,199,199) 65%);
+	border-style: solid;
+	border-width: 1px 0px 0px 0px;
+	border-color: black;
 }

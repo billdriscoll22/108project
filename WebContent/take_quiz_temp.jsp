@@ -15,9 +15,11 @@ Quiz q = db.getQuiz(quizId);
 <title>Take Quiz: quizId</title>
 </head>
 <body>
+
+<%@ include file="header_partial.jsp" %>
 <h1> <%= quizId %> </h1>
 
-
+<%@include file="content_end_partial.jsp" %>
 
 </body>
 </html>

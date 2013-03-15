@@ -9,6 +9,8 @@
 <title>Add Multiple Choice</title>
 </head>
 <body>
+
+<%@ include file="header_partial.jsp" %>
 <h1> Add Multiple Choice </h1>
 
 <form action="QuizCreateServlet" method="post">
@@ -27,5 +29,6 @@ Correct answer:<br>
 <input type="submit" name="init" value="Add Multiple Choice"><br><br>
 <input type="submit" name="init" value="Cancel Question">
 </form>
+<%@include file="content_end_partial.jsp" %>
 </body>
 </html>

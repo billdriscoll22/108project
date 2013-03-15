@@ -14,6 +14,8 @@
 </head>
 <body>
 
+<%@ include file="header_partial.jsp" %>
+
 <h1 style="text-align: center;">Results for <%= search_term %></h1>
 
 
@@ -38,6 +40,7 @@ Search again: <input type="text" name="search_term" value="<%= search_term %>">
 <form style='text-align:center;' action="HomeServlet" method="post">
 <input type="submit" value="Home" />
 </form>
+<%@include file="content_end_partial.jsp" %>
 
 </body>
 </html>

@@ -62,7 +62,7 @@ public class LoginServlet extends HttpServlet {
 			dispatch.forward(request, response);
 		} else {
 			// forward to incorrect info page
-			RequestDispatcher dispatch = request.getRequestDispatcher("bad_login_credentials.html");
+			RequestDispatcher dispatch = request.getRequestDispatcher("bad_login_credentials.jsp");
 			dispatch.forward(request, response);
 		}
 	}

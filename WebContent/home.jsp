@@ -14,7 +14,6 @@ pageEncoding="ISO-8859-1"%>
 
 <!-- Styling -->
 <link rel="stylesheet" type="text/css" href="home_layout.css" />
-<link rel="stylesheet" type="text/css" href="basic_layout.css" />
 <link rel="stylesheet" type="text/css" href="jquery-ui-1.10.1.custom/css/smoothness/jquery-ui-1.10.1.custom.css" />
  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
  <script src="jquery-ui-1.10.1.custom/js/jquery-ui-1.10.1.custom.min.js"></script>
@@ -27,14 +26,7 @@ pageEncoding="ISO-8859-1"%>
 </head>
 
 <body>
-
-<div id="header-panel-wrapper">
-	<div id="header-panel">
-		<img src="quizzombie.png" />
-	</div>
-</div>
-<div id="content-wrapper">
-	<div id="content">
+<%@ include file="header_partial.jsp" %>
 		<div id="user-info">
 			<!-- Name and Logout option -->
 			<h1><%= user.getProfileLink() %></h1>
@@ -245,8 +237,7 @@ pageEncoding="ISO-8859-1"%>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
+<%@include file="content_end_partial.jsp" %>
 
 </body>
 </html>

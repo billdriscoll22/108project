@@ -36,7 +36,7 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("hitting home servlet get"); 
 		if(request.getSession().getAttribute("user") == null)
-			request.getRequestDispatcher("/login.html").forward(request, response);
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		else{
 			ServletContext context = request.getServletContext();
 			DB db = (DB) context.getAttribute("db");

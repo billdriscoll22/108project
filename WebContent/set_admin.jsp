@@ -7,6 +7,8 @@
 <title>User Privileges Changed</title>
 </head>
 <body>
+
+<%@ include file="header_partial.jsp" %>
 <h1 style='text-align:center;'><%= request.getParameter("target") %> 
 <%
 if(request.getParameter("bool").equals("true"))
@@ -19,6 +21,6 @@ else
 <form style='text-align:center;' action="HomeServlet" method="post">
 <input type="submit" value="Return Home" />
 </form>
-
+<%@include file="content_end_partial.jsp" %>
 </body>
 </html>

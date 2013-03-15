@@ -7,6 +7,8 @@
 <title>Send A Message</title>
 </head>
 <body>
+
+<%@ include file="header_partial.jsp" %>
 <h1 style='text-align:center;'><%= "Send a message to " + request.getParameter("target") %></h1>
 
 <form style='text-align:center;' action="SendMessageServlet" method="post">
@@ -19,5 +21,7 @@
 <form style='text-align:center;' action="HomeServlet" method="post">
 <input type="submit" value="Return Home" />
 </form>
+<%@include file="content_end_partial.jsp" %>
 
 </body>
+</html>

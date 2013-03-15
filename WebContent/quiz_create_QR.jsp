@@ -9,6 +9,8 @@
 <title>Add Question-Response</title>
 </head>
 <body>
+
+<%@ include file="header_partial.jsp" %>
 <h1> Add Question-Response </h1>
 
 <form action="QuizCreateServlet" method="post">
@@ -21,7 +23,7 @@ Possible correct answers (separated by ":"): <br><input type="text" name="questi
 </form>
 
 
-
+<%@include file="content_end_partial.jsp" %>
 
 </body>
 </html>

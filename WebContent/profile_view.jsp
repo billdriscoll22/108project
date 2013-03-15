@@ -18,6 +18,8 @@
 </head>
 <body>
 
+<%@ include file="header_partial.jsp" %>
+
 	<h1 style="text-align: center;"><%=profile.getID()%></h1>
 	<img src="<%= profile.getProfPicture() %>" height="180" style="text-align: center;" />
 
@@ -131,6 +133,6 @@
 	<form style='text-align: center;' action="HomeServlet" method="post">
 		<input type="submit" value="Home" />
 	</form>
-
+<%@include file="content_end_partial.jsp" %>
 </body>
 </html>

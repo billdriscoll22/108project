@@ -8,6 +8,8 @@
 <title>Create Account</title>
 </head>
 <body>
+
+<%@ include file="header_partial.jsp" %>
 <h1>The Name <%= request.getParameter("username") %> Is Already In Use</h1>
 <p>Please enter another name and password.</p>
 <form action="AccountCreationServlet" method="post">
@@ -15,6 +17,7 @@
 	Password: <input type="text" name="password" />
 	<input type="submit" value="Login" /><br><br>
 </form>
+<%@include file="content_end_partial.jsp" %>
 
 </body>
 </html>

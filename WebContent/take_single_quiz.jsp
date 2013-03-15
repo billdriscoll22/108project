@@ -10,6 +10,8 @@
 </head>
 <body>
 
+<%@ include file="header_partial.jsp" %>
+
 <h1 style='text-align:center;'><%= quiz.getQuizId() %>  </h1>
 
 <form action="CorrectQuizServlet" method="post">
@@ -34,5 +36,6 @@ while(true){
 <form style='text-align:center;' action="HomeServlet" method="post">
 <input type="submit" value="Cancel" />
 </form>
+<%@include file="content_end_partial.jsp" %>
 </body>
 </html>

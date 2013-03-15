@@ -11,6 +11,8 @@
 <title>All Quizzes</title>
 </head>
 <body>
+
+<%@ include file="header_partial.jsp" %>
 <h1 style='text-align:center;'>All Quizzes</h1>
 
 <form style='text-align:center;' action="HomeServlet" method="post">
@@ -30,5 +32,6 @@ for(Quiz q : quizzes){
 <input type="submit" value="Home" />
 </form>
 
+<%@include file="content_end_partial.jsp" %>
 </body>
 </html>

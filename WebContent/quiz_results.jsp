@@ -11,6 +11,9 @@
 <title>Your results for <%= quiz.getQuizId() %></title>
 </head>
 <body>
+
+<%@ include file="header_partial.jsp" %>
+
 <h1 style='text-align:center;'>Your Results For <%= quiz.toLink() %></h1>
 
 <p>You have taken this quiz <%= results.size() %> times </p>
@@ -23,11 +26,13 @@
 <%
 // list each result for this quiz
 for(Result result : results){
+	out.println("<div style='border-style: solid; border-width: 1px 1px 1px 1px; width: 500px; margin-left: auto; margin-right: auto;'>");
 	out.println("<p>Date Taken: " + result.getDateTaken() + "</p>");
 	out.println("<p>Elapsed Time: " + result.getTimeUsed() / 60 + "Min " + result.getTimeUsed() % 60 + " Sec</p>");
 	out.println("<p>Total Number Of Questions: " + result.getNumQuestions() + "</p>");
 	out.println("<p>Number Of Questions You Answered Correctly: " + result.getNumCorrect() + "</p>");
 	out.println("<p>Percent Right: " + result.getPercentCorrect() + "</p>");
+	out.println("</div>");
 }
 %>
 
@@ -42,6 +47,6 @@ for(Result result : results){
 <form style='text-align:center;' action="HomeServlet" method="post">
 <input type="submit" value="Home" />
 </form>
-
+<%@include file="content_end_partial.jsp" %>
 </body>
 </html>
