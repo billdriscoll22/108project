@@ -2,6 +2,15 @@ BUGS:
 
 In an ordered quiz I made the questions come in the order 2,1,3 every time. -eh
 
+Clearing quiz history isn't working right now. I think db method needs to be implemented?
+
+When deleting a quiz I got the error:
+java.sql.SQLException: Illegal operation on empty result set.
+at sql.DB.getQuiz(DB.java:662)
+	at servlets.RemoveQuizServlet.doPost(RemoveQuizServlet.java:47)
+Quiz never gets deleted.
+
+We currently allow creation of quizzes with no questions.
 
 REQUIRED:
 
@@ -16,9 +25,13 @@ Test random questions.
 Quiz completion time.
 *Done -eh.
 
+Quiz Search.
+
 Quiz top scores. All time and within the last day
+*Working for all time scores.
 
 Recent user performances on the quiz. Statistics summary.
+
 
 User pages.
 *Mostly done, needs testing. -eh
@@ -39,6 +52,7 @@ Administration: Remove quiz button on quiz view page. Clear quiz history button.
 and testing still needs to be done.
 
 User performance display on quiz page.
+* Done -eh
 
 Dealing with multiple results from the same quiz. Right now the result page only grabs one result.
 *Updated results page to show all history for that quiz. Could be cleaned up, and score methods
@@ -50,6 +64,8 @@ references. -eh
 
 ReadMe!
 - I created one in the main directory. We should all work on adding to this when we can. -eh
+
+Default Place holder image for quizes and users so it doesn't look ugly when they don't enter one.
 
 EXTENSIONS:
 

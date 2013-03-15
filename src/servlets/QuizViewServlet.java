@@ -51,6 +51,11 @@ public class QuizViewServlet extends HttpServlet {
 		ArrayList<Result> topScores = db.getTopResults(quiz.getQuizId(), NUM_TOP_SCORES_TO_SHOW);
 		request.setAttribute("topScores", topScores);
 		
+		// get user's results for this quiz
+		User user = (User) request.getSession().getAttribute("user");
+		ArrayList<Result> userResults = db.getQuizResults(quizID, user.getID());
+		request.setAttribute("userResults", userResults);
+		
 		request.getRequestDispatcher("/view_quiz.jsp").forward(request, response);
 	}
 

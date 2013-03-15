@@ -11,6 +11,9 @@
 <%
 	ArrayList<Result> topScores = (ArrayList<Result>) request.getAttribute("topScores");
 %>
+<%
+	ArrayList<Result> userResults = (ArrayList<Result>) request.getAttribute("userResults");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,6 +38,22 @@
 		
 	<p>
 		Description: <%=quiz.getDescription() %> </p>
+		
+		<h2 style='text-align: center;'>Your Performance On This Quiz</h2>
+	<%
+	
+		if(userResults.isEmpty()){
+			out.println("<p style='text-align:center; color:red;'>You haven't taken this quiz yet! </p>");
+		}
+	
+		else {  // print history
+			out.println("<p style='text-align:center;'>You have taken this quiz " + userResults.size() + " times </p>");
+			out.println("<p style='text-align:center;'>High Score: " +  user.getBestScore(quiz.getQuizId()) + "  </p>");
+			out.println("<p style='text-align:center;'>Low Score: " +  user.getWorstScore(quiz.getQuizId()) + "  </p>");
+			out.println("<p style='text-align:center;'>Average Score: " +  user.getAverageScore(quiz.getQuizId()) + " </p>");
+			out.println("<p style='text-align:center;font-weight:bold;'>See your complete history for " + userResults.get(0).getResultLink() + " </p>");
+		}
+	%>
 
 	<h2 style='text-align: center;'>Top Scores</h2>
 	<%
