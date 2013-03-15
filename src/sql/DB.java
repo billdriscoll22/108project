@@ -54,7 +54,6 @@ public class DB {
 	}
 
 	private PreparedStatement getPreparedStatement(String query) {
-		System.out.println(query);
 		try {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			return pstmt;
@@ -321,7 +320,6 @@ public class DB {
 	public ArrayList<User> searchUsers(String fragment) {
 		// execute query
 		String query = "SELECT * FROM users WHERE id LIKE '%" + fragment + "%'";
-		System.out.println(query);
 		ResultSet rs = getResult(query);
 
 		ArrayList<User> matches = new ArrayList<User>();
@@ -405,7 +403,6 @@ public class DB {
 				+ result.getQuiz() + "', " + result.getTimeUsed() + ", "
 				+ result.getNumQuestions() + ", " + result.getNumCorrect()
 				+ ", '" + result.getDateTaken() + "'" + ")";
-		System.out.println(query);
 		sqlUpdate(query);
 	}
 

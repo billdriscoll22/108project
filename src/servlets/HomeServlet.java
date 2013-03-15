@@ -34,7 +34,6 @@ public class HomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hitting home servlet get"); 
 		if(request.getSession().getAttribute("user") == null)
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		else{
@@ -69,7 +68,6 @@ public class HomeServlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hitting home servlet post");
 		doGet(request, response);
 	}
 	
