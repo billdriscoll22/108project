@@ -95,7 +95,6 @@ pageEncoding="ISO-8859-1"%>
 					out.println("<br/>");
 					for(Message m : messages){
 						out.println(m.toHTML());
-						System.out.println(">>>>>>>>>>>> "+ m.getBody());
 					}
 					%>
 					

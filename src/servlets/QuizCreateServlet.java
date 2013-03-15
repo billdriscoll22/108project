@@ -86,7 +86,6 @@ public class QuizCreateServlet extends HttpServlet {
 				} else {
 					String creatorId = ((User) session.getAttribute("user")).getID();
 					session.setAttribute("quiz", new Quiz(quizId, creatorId, date, isRandom, isOnePage, isImmediate, imageURL, description));
-					System.out.println("done");
 					RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
 					dispatch.forward(request, response);
 				}
