@@ -352,7 +352,7 @@ public class DB {
 				int time = rs.getInt("time");
 				int questions = rs.getInt("questions");
 				int correct = rs.getInt("correct");
-				String date = rs.getString("date");
+				String date = parseSqlDate(rs.getString("date"));
 				Result r = new Result(quiz, userId, time, questions, correct,
 						date);
 				history.addResult(r);
@@ -362,6 +362,10 @@ public class DB {
 		}
 
 		return history;
+	}
+	
+	private String parseSqlDate(String rawDate){
+		return new Date(Long.parseLong(rawDate)).toString();
 	}
 
 	public void addAchievement(String userId, Achievement achievement) {
@@ -439,8 +443,8 @@ public class DB {
 		try {
 			while (rs.next()) {
 				returnList.add(new Message(rs.getString("source"), rs
-						.getString("dest"), rs.getString("text"), rs
-						.getString("date")));
+						.getString("dest"), rs.getString("text"), parseSqlDate(rs
+						.getString("date"))));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -591,7 +595,7 @@ public class DB {
 						.getString("user"), Integer.parseInt(rs
 						.getString("time")), Integer.parseInt(rs
 						.getString("questions")), Integer.parseInt(rs
-						.getString("correct")), rs.getString("date")));
+						.getString("correct")), parseSqlDate(rs.getString("date"))));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -612,7 +616,7 @@ public class DB {
 						.getString("user"), Integer.parseInt(rs
 						.getString("time")), Integer.parseInt(rs
 						.getString("questions")), Integer.parseInt(rs
-						.getString("correct")), rs.getString("date")));
+						.getString("correct")), parseSqlDate(rs.getString("date"))));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -633,7 +637,7 @@ public class DB {
 						.getString("user"), Integer.parseInt(rs
 						.getString("time")), Integer.parseInt(rs
 						.getString("questions")), Integer.parseInt(rs
-						.getString("correct")), rs.getString("date")));
+						.getString("correct")), parseSqlDate(rs.getString("date"))));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -660,7 +664,7 @@ public class DB {
 
 		try {
 			while (rs.next()) {
-				list.add(new Announcement(rs.getString("text"), new Date(Long.parseLong(rs.getString("date"))).toString()));
+				list.add(new Announcement(rs.getString("text"), parseSqlDate(rs.getString("date"))));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

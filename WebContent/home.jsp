@@ -108,6 +108,7 @@ pageEncoding="ISO-8859-1"%>
 					<%
 					ArrayList<Message> messages = (ArrayList<Message>)request.getAttribute("notes");
 					out.println("You have "+messages.size()+" messages!");
+					out.println("<br/>");
 					for(Message m : messages){
 						out.println(m.toHTML());
 						System.out.println(">>>>>>>>>>>> "+ m.getBody());
