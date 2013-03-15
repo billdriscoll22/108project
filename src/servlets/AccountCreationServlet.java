@@ -43,7 +43,6 @@ public class AccountCreationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hitting account creation servlet post");
 		ServletContext context = request.getServletContext();
 		DB db = (DB) context.getAttribute("db");
 	
