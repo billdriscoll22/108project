@@ -45,7 +45,7 @@ public class RemoveQuizServlet extends HttpServlet {
 		
 		// remove quiz
 		HttpSession session = request.getSession();
-		String quizId = (String) session.getAttribute("quizID");
+		String quizId = (String) request.getParameter("target");
 		Quiz q = db.getQuiz(quizId);
 		db.clearQuizHistory(quizId);
 		db.removeQuiz(q);

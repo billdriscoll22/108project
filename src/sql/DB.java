@@ -1015,11 +1015,14 @@ public class DB {
 	 * 
 	 * @param quiz
 	 */
-	public void resetQuizStats(Quiz quiz) {
-		String id = quiz.getQuizId();
-		String query = "DELETE FROM results WHERE quiz_id = '" + id + "';";
+	
+	public void clearQuizHistory(String id) {
+		String query = "DELETE FROM results WHERE quiz='" + id +"'";
+		sqlUpdate(query);
+		query = "delete from challenges where quiz_id = '" + id + "'";
 		sqlUpdate(query);
 	}
+
 
 	public int numQuizzes() {
 		String query = "SELECT * FROM quizzes;";
@@ -1075,9 +1078,5 @@ public class DB {
 		return matches;
 	}
 	
-	public void clearQuizHistory(String id) {
-		String query = "DELETE FROM results WHERE quiz='" + id +"'";
-		sqlUpdate(query);
-	}
-
+	
 }
