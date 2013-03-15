@@ -72,7 +72,7 @@ public class CorrectQuizServlet extends HttpServlet {
 			String answer = request.getParameter(new Integer(i).toString());
 			if(q != null && q.isCorrect(answer)) numCorrect++;
 			
-			if(q == null) System.out.println("Bad question");
+			//if(q == null) System.out.println("Bad question");
 		}
 		
 		// create and store result

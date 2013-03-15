@@ -58,10 +58,6 @@ public class QuizResultServlet extends HttpServlet {
 		ArrayList<Result> results = user.getResult(quizID);
 		request.setAttribute("results", results);
 		
-		if(results.isEmpty()){
-			System.out.println("Bad result");
-		}
-		
 		
 		request.getRequestDispatcher("quiz_results.jsp").forward(request, response);
 	}

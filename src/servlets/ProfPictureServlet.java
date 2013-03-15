@@ -41,7 +41,6 @@ public class ProfPictureServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
 		String url = (String) request.getParameter("pictureURL");
-		System.out.println(url);
 		user.setProfPicture(url);
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("HomeServlet");
