@@ -23,6 +23,11 @@ public class User {
 		//db.addUser(user, hash, isAdmin);
 	}
 	
+	// takes a user id and returns a link to their profile page
+	static public String getUserProfileLink(String userId){
+		return "<a href='ProfileViewServlet?user=" + userId + "'>" + userId + "</a>" ;
+	}
+	
 	public String getHash(){
 		return hash;
 	}
@@ -33,7 +38,7 @@ public class User {
 	
 	// returns a html link to this user's profile
 	public String getProfileLink(){
-		return "<a href='ProfileViewServlet?user=" + id + "'>" + id + "</a>" ;
+		return getUserProfileLink(id);
 	}
 	
 	public ArrayList<Quiz> getCreatedQuizzes(){

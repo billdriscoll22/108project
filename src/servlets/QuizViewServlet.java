@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import frontend.Quiz;
+import frontend.Result;
 import frontend.User;
 
 import sql.DB;
@@ -34,6 +36,7 @@ public class QuizViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		ServletContext context = request.getServletContext();
 		DB db = (DB) context.getAttribute("db");
 
@@ -42,6 +45,11 @@ public class QuizViewServlet extends HttpServlet {
 		// get quiz and store in request
 		Quiz quiz = db.getQuiz(quizID);
 		request.setAttribute("quiz", quiz);
+		
+		// get top results
+		int NUM_TOP_SCORES_TO_SHOW = 5;
+		ArrayList<Result> topScores = db.getTopResults(quiz.getQuizId(), NUM_TOP_SCORES_TO_SHOW);
+		request.setAttribute("topScores", topScores);
 		
 		request.getRequestDispatcher("/view_quiz.jsp").forward(request, response);
 	}

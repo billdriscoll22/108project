@@ -8,6 +8,9 @@
 <%
 	User user = (User) session.getAttribute("user");
 %>
+<%
+	ArrayList<Result> topScores = (ArrayList<Result>) request.getAttribute("topScores");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -34,6 +37,13 @@
 		Description: <%=quiz.getDescription() %> </p>
 
 	<h2 style='text-align: center;'>Top Scores</h2>
+	<%
+		// print all top scores
+	for(Result r : topScores){
+			out.println("<p style='text-align: center;'>" + User.getUserProfileLink(r.getUserId()) + " scored " + r.getPercentCorrect() + "% in " + 
+				r.getTimeUsed() + " seconds on " + r.getDateTaken() + "</p>");
+		}
+	%>
 
 	<br>
 	<form style='text-align: center;' action='TakeQuizServlet'
@@ -46,7 +56,7 @@
 		// if admin, allow option to delete quiz
 		if (user.isAdmin()) {
 			// button to delete user
-			out.println("<form action='RemoveQuizServlet' method='post'>"
+			out.println("<form style='text-align: center;' action='RemoveQuizServlet' method='post'>"
 					+ "<input type='submit' value='Delete Quiz' />"
 					+ "<input type='hidden' name='target' value='" + quiz.getQuizId()
 					+ "'>" + "</form>");
@@ -55,7 +65,7 @@
 	// if admin, allow option to clear quiz history
 			if (user.isAdmin()) {
 				// button to delete user
-				out.println("<form action='ClearQuizHistoryServlet' method='post'>"
+				out.println("<form style='text-align: center;' action='ClearQuizHistoryServlet' method='post'>"
 						+ "<input type='submit' value='Clear History' />"
 						+ "<input type='hidden' name='target' value='" + quiz.getQuizId()
 						+ "'>" + "</form>");
