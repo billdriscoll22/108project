@@ -30,7 +30,7 @@ else {
 %>
 
 <br>
-<form style='text-align:center;' action="UserSearchServlet" method="post">
+<form style='text-align:center;' action="QuizSearchServlet" method="post">
 Search again: <input type="text" name="search_term" value="<%= search_term %>">
 <input type="submit" value="Go!" />
 </form>
