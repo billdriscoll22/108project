@@ -108,6 +108,7 @@ public class MultiQuizServlet extends HttpServlet {
 			int score = (Integer)session.getAttribute("multiQuizScore");
 			Result r = new Result(quiz.getQuizId(), user.getID(), numSecondsUsed, quiz.getNumQuestions(), score, "" + System.currentTimeMillis());
 			user.addResult(r);
+			db.addIsTaken(quiz.getQuizId());
 			Achievement.updateAchievements(user, "take", quiz, db);
 			
 			// reset quiz status

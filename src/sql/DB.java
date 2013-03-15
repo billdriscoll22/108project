@@ -84,6 +84,29 @@ public class DB {
 		return false;
 	}
 	
+	public ArrayList<Result> getLast24HourResults(String quizID, int limit){
+		long oneDay = (long)1000*60*60*24;
+		long currentMilliseconds = System.currentTimeMillis();
+		long oneDayAgo = currentMilliseconds - oneDay;
+		String oneDayString = "" + oneDayAgo;
+		String query = "select * from results where quiz = '" + quizID + "' and date > '" + oneDayString + "' order by correct desc, time asc limit " + limit;
+		ResultSet rs = getResult(query);
+		ArrayList<Result> recentResults = new ArrayList<Result>();
+		try {
+			rs.beforeFirst();
+			while (rs.next()) {
+				recentResults.add(new Result(rs.getString("quiz"), rs
+						.getString("user"), Integer.parseInt(rs
+						.getString("time")), Integer.parseInt(rs
+						.getString("questions")), Integer.parseInt(rs
+						.getString("correct")), parseSqlDate(rs.getString("date"))));
+			}
+			return recentResults;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return recentResults;
+	}
 
 	/* Todo: implement this. */
 	public ArrayList<Quiz> getPopularQuizzes(int limit) {
@@ -343,8 +366,8 @@ public class DB {
 	}
 
 	public void addIsTaken(String quizID) {
-		String query = "update users set times_taken = times_taken + 1 where quiz_id = "
-				+ quizID;
+		String query = "update quizzes set times_taken = times_taken + 1 where quiz_id = '"
+				+ quizID + "'";
 		sqlUpdate(query);
 	}
 

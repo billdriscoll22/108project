@@ -10,6 +10,7 @@
 %>
 <%
 	ArrayList<Result> topScores = (ArrayList<Result>) request.getAttribute("topScores");
+	ArrayList<Result> top24 = (ArrayList<Result>) request.getAttribute("top24");
 %>
 <%
 	ArrayList<Result> userResults = (ArrayList<Result>) request.getAttribute("userResults");
@@ -54,8 +55,16 @@
 			out.println("<p style='text-align:center;font-weight:bold;'>See your complete history for " + userResults.get(0).getResultLink() + " </p>");
 		}
 	%>
+	
+	<h2 style='text-align: center;'>Top Scores Past 24 Hours</h2>
+	<%
+	for(Result r : top24){
+		out.println("<p style='text-align: center;'>" + User.getUserProfileLink(r.getUserId()) + " scored " + r.getPercentCorrect() + "% in " + 
+			r.getTimeUsed() + " seconds on " + r.getDateTaken() + "</p>");
+	}
+	%>
 
-	<h2 style='text-align: center;'>Top Scores</h2>
+	<h2 style='text-align: center;'>Top Scores All Time</h2>
 	<%
 		// print all top scores
 	for(Result r : topScores){

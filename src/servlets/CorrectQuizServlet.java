@@ -78,6 +78,7 @@ public class CorrectQuizServlet extends HttpServlet {
 		// create and store result
 		User user = (User)request.getSession().getAttribute("user");
 		Result result = new Result(quizID, user.getID(), timeUsedInSeconds, numQuestions, numCorrect, "" + System.currentTimeMillis());
+		db.addIsTaken(quizID);
 		user.addResult(result);
 		Achievement.updateAchievements(user, "take", quiz, db);
 		// send to quiz result page

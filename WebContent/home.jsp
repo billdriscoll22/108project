@@ -113,9 +113,9 @@ pageEncoding="ISO-8859-1"%>
 					for(Challenge c : challenges){
 						out.println(c.getSrc() + " got " + c.getScore() + "% on " + c.toLink());
 						out.println(">>> "+ c.getBody());
+						out.println("<br/>");
 					}
 					%>
-					<br/>
 					<b>Friend Requests</b><br/>
 					<%
 					ArrayList<FriendRequest> friendRequests = (ArrayList<FriendRequest>)request.getAttribute("friendRequests");

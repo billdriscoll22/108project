@@ -53,10 +53,15 @@ public class QuizViewServlet extends HttpServlet {
 		ArrayList<Result> topScores = db.getTopResults(quiz.getQuizId(), NUM_TOP_SCORES_TO_SHOW);
 		request.setAttribute("topScores", topScores);
 		
+		//get top results within last 24 hours
+		ArrayList<Result> top24 = db.getLast24HourResults(quiz.getQuizId(), NUM_TOP_SCORES_TO_SHOW);
+		request.setAttribute("top24", top24);
+		
 		// get user's results for this quiz
 		User user = (User) request.getSession().getAttribute("user");
 		ArrayList<Result> userResults = db.getQuizResults(quizID, user.getID());
 		request.setAttribute("userResults", userResults);
+		
 		
 		request.getRequestDispatcher("/view_quiz.jsp").forward(request, response);
 	}
