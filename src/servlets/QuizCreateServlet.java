@@ -123,11 +123,18 @@ public class QuizCreateServlet extends HttpServlet {
 			// to avoid problems with user being set in session
 			HttpSession session = request.getSession();
 			Quiz quiz = (Quiz) session.getAttribute("quiz");
-			db.addQuiz(quiz);
-			User user = ((User) session.getAttribute("user"));
-			Achievement.updateAchievements(user, "create", null, null);
-			RequestDispatcher dispatch = request.getRequestDispatcher("HomeServlet");
-			dispatch.forward(request, response);
+			
+			if(quiz.getNumQuestions() == 0) {
+				session.setAttribute("noQuestions", true);
+				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
+				dispatch.forward(request, response);
+			} else {
+				db.addQuiz(quiz);
+				User user = ((User) session.getAttribute("user"));
+				Achievement.updateAchievements(user, "create", null, null);
+				RequestDispatcher dispatch = request.getRequestDispatcher("HomeServlet");
+				dispatch.forward(request, response);
+			}
 		} 
 		
 		else if(request.getParameter("init").equals("Add Question-Response")) {

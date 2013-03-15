@@ -11,6 +11,8 @@
 <body>
 <h1> Add a question </h1>
 
+<% if((Boolean)session.getAttribute("noQuestions")) out.println("<h2 style='color:red;'> You need at least one question! </h2>"); %>
+
 <form action="QuizCreateServlet" method="post">
 What type of question?<br><br>
 <input type="radio" name="questionType" value="multipleChoice">Multiple Choice<br>

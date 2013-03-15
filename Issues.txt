@@ -10,9 +10,7 @@ at sql.DB.getQuiz(DB.java:662)
 	at servlets.RemoveQuizServlet.doPost(RemoveQuizServlet.java:47)
 Quiz never gets deleted.
 
-We currently allow creation of quizzes with no questions.
-
-The initial search seems to work well, but when you search again it gets fucked up.
+When you click on a quiz link from a user page (i.e. quizzes they've taken) it give a divide by zero exception.
 
 REQUIRED:
 
@@ -20,22 +18,9 @@ Allow user to accept friend request from homepage
 
 Change homepage admin panel to only be shown to admins
 
-Only letting multipage have immediate feedback.
-*done -cd
-
-Allowing creator to enter multiple answers
-*done -cd
-
 Test random questions.
 
-Quiz completion time.
-*Done -eh.
-
-Quiz Search.
-*Done -eh.
-
-Quiz top scores. All time and within the last day
-Workign for all time scores
+Top daily quiz scores.
 
 Recent user performances on the quiz. Statistics summary.
 
@@ -48,18 +33,9 @@ History Summary Page for each user.
 Immediate feedback for multipage quizes.
 * Done. But last question takes you to the full results without seeing that answer -eh
 
-Adding achievements
-* bill did this
-
-Layout.
-* bill did this
-
 Administration: Remove quiz button on quiz view page. Clear quiz history button.
 *(Mostly done, 8/13. -eh. db.clearQuizHistory(String quizId) needs to be implemented,
 and testing still needs to be done.
-
-User performance display on quiz page.
-* Done -eh
 
 Dealing with multiple results from the same quiz. Right now the result page only grabs one result.
 *Updated results page to show all history for that quiz. Could be cleaned up, and score methods
@@ -76,12 +52,7 @@ Default Place holder image for quizes and users so it doesn't look ugly when the
 
 EXTENSIONS:
 
-Good name?
-
 More question types?
-
-Quiz description / picture
-done -cd
 
 Quiz search.
 

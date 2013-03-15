@@ -19,6 +19,7 @@
 <body>
 
 	<h1 style="text-align: center;"><%=profile.getID()%></h1>
+	<img src="<%= profile.getProfPicture() %>" height="180" style="text-align: center;" />
 
 
 	<%
