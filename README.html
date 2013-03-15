@@ -10,6 +10,8 @@ Extensions
 
 1. beautiful layout
 
+Speaks for itself.
+
 2. pictures (user, quiz)
 
 Users can choose images for their quizzes and user profile.
@@ -23,6 +25,15 @@ JQuery or some shit. Bill, care to elaborate?
 We added the option to search for quizzes (under the "Quizzes" tab on the home page) and for users/friends 
 (under the "Friends" tab on the home page). Both searches use SQL regular expressions to return partial 
 matches. The results pages provide links to the quizzes/users.
+
+5. error checking
+
+We added additional error-checking the keeps the site from crashing and give the user a message telling 
+them how to fix their input. The quiz creation page checks to make sure that all of the necessary information
+has been entered (i.e. no empty radio buttons), that the user does not try to create a multi-page quiz with
+immediate grading and that the user does not create a quiz with no questions. In each case, the user is allowed
+to click the submit button, but is taken back to the same page with a message exlaining what input needs to
+be fixed.
 
 
 

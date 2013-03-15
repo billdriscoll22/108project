@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 		User user = db.getUser(id);
 		
 		// check credentials
-		if(user != null && Hash.checkPassword(password, user.getHash())){
+		if(user != null && !password.equals("") && Hash.checkPassword(password, user.getHash())){
 			// set session user object
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);

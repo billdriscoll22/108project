@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -57,32 +58,38 @@ public class QuizCreateServlet extends HttpServlet {
 			
 			// Creates quiz object with basic specifications, directs user to quiz_create_add_question.jsp
 			
-			String quizId = request.getParameter("quizId");
-			boolean isRandom = request.getParameter("order").equals("random");
-			boolean isOnePage = request.getParameter("pages").equals("onePage");
-			boolean isImmediate = request.getParameter("whenGraded").equals("immediate");
-			String image = request.getParameter("imageURL");
-			String imageURL = (image.equals("Image URL")) ? "http://www.apassionforafrica.com/wp-content/uploads/2013/02/Quiz.jpg" : image;
-			String description = request.getParameter("description");
-			
-			long millisInDay = 60 * 60 * 24 * 1000;
-			long currentTime = new Date().getTime();
-			long dateOnly = (currentTime / millisInDay) * millisInDay;
-			Date clearDate = new Date(dateOnly);
-			String date = "" + System.currentTimeMillis();
-			
 			HttpSession session = request.getSession();
-			
-			if(isOnePage && isImmediate) {
-				session.setAttribute("multi", true);
+			String quizId = request.getParameter("quizId");
+			Map paramMap = request.getParameterMap();
+			if(!paramMap.containsKey("order") || !paramMap.containsKey("pages") || !paramMap.containsKey("whenGraded")) {
+				session.setAttribute("fixRadioInput", true);
 				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_init.jsp");
 				dispatch.forward(request, response);
 			} else {
-				String creatorId = ((User) session.getAttribute("user")).getID();
-				session.setAttribute("quiz", new Quiz(quizId, creatorId, date, isRandom, isOnePage, isImmediate, imageURL, description));
-				System.out.println("done");
-				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
-				dispatch.forward(request, response);
+				boolean isRandom = request.getParameter("order").equals("random");
+				boolean isOnePage = request.getParameter("pages").equals("onePage");
+				boolean isImmediate = request.getParameter("whenGraded").equals("immediate");
+				String image = request.getParameter("imageURL");
+				String imageURL = (image.equals("Image URL")) ? "http://www.apassionforafrica.com/wp-content/uploads/2013/02/Quiz.jpg" : image;
+				String description = request.getParameter("description");
+				
+				long millisInDay = 60 * 60 * 24 * 1000;
+				long currentTime = new Date().getTime();
+				long dateOnly = (currentTime / millisInDay) * millisInDay;
+				Date clearDate = new Date(dateOnly);
+				String date = "" + System.currentTimeMillis();
+				
+				if(isOnePage && isImmediate) {
+					session.setAttribute("multi", true);
+					RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_init.jsp");
+					dispatch.forward(request, response);
+				} else {
+					String creatorId = ((User) session.getAttribute("user")).getID();
+					session.setAttribute("quiz", new Quiz(quizId, creatorId, date, isRandom, isOnePage, isImmediate, imageURL, description));
+					System.out.println("done");
+					RequestDispatcher dispatch = request.getRequestDispatcher("quiz_create_add_question.jsp");
+					dispatch.forward(request, response);
+				}
 			}
 		} 
 		
