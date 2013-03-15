@@ -83,16 +83,16 @@ pageEncoding="ISO-8859-1"%>
 		<div id="other-info-wrapper">
 			<div id="other-info">
 				 <ul>
-		    		<li><a href="#messages">Messages</a></li>
+		    		<li><a href="#messages">Messages</a></li>		    		
+		    		<li><a href="#friends">Friends</a></li>		    		
+		    		<li><a href="#quizzes">Quizzes</a></li>
 		    		<li><a href="#announcements">Announcements</a></li>
-		    		<li><a href="#friends">Friends</a></li>
 		    		<% 
 		    		// only show admin panel to admins
 		    		if(user.isAdmin()){
 		    			out.println("<li><a href='#administration'>Administration</a></li>");
 		    		}
 		    		%>
-		    		<li><a href="#quizzes">Quizzes</a></li>
 		 		 </ul>
 				<div id="messages">
 					<h2>Your Messages:</h2>
