@@ -45,6 +45,8 @@ public class QuizViewServlet extends HttpServlet {
 		// get quiz and store in request
 		Quiz quiz = db.getQuiz(quizID);
 		request.setAttribute("quiz", quiz);
+		HttpSession session = request.getSession();
+		session.setAttribute("quizID", quizID);
 		
 		// get top results
 		int NUM_TOP_SCORES_TO_SHOW = 5;

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import frontend.Quiz;
 
@@ -43,8 +44,10 @@ public class RemoveQuizServlet extends HttpServlet {
 		DB db = (DB) context.getAttribute("db");
 		
 		// remove quiz
-		String quizId = (String) request.getAttribute("target");
+		HttpSession session = request.getSession();
+		String quizId = (String) session.getAttribute("quizID");
 		Quiz q = db.getQuiz(quizId);
+		db.clearQuizHistory(quizId);
 		db.removeQuiz(q);
 		
 		request.getRequestDispatcher("/remove_user.jsp").forward(request, response);

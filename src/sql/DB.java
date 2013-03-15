@@ -83,6 +83,7 @@ public class DB {
 
 		return false;
 	}
+	
 
 	/* Todo: implement this. */
 	public ArrayList<Quiz> getPopularQuizzes(int limit) {
@@ -1049,6 +1050,11 @@ public class DB {
 		}
 
 		return matches;
+	}
+	
+	public void clearQuizHistory(String id) {
+		String query = "DELETE FROM results WHERE quiz='" + id +"'";
+		sqlUpdate(query);
 	}
 
 }
