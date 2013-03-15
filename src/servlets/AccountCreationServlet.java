@@ -57,7 +57,7 @@ public class AccountCreationServlet extends HttpServlet {
 			
 		} else {
 			String imageURL = request.getParameter("profileImage");
-			if(imageURL == "Image URL") {
+			if(imageURL.equals("Image URL")) {
 				// add new user to database
 				String hash = Hash.getHash(password);
 				String defaultUserImage = "http://stanfordflipside.com/images/139not.png";
