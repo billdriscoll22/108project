@@ -48,7 +48,7 @@ public class SendMessageServlet extends HttpServlet {
 		DB db = (DB) context.getAttribute("db");
 		
 		
-		db.sendMessage(new Message(currentUser.getID(), dest, txt, new Date().toString()));
+		db.sendMessage(new Message(currentUser.getID(), dest, txt, "" + System.currentTimeMillis()));
 		
 		request.getRequestDispatcher("/send_message.jsp").forward(request, response);
 	}

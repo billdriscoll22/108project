@@ -1,6 +1,7 @@
 package sql;
 
 /*hi*/
+import java.awt.SystemColor;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -495,11 +496,10 @@ public class DB {
 		return list;
 	}
 
-	public void sendFriendRequest(String id1, String id2) {
-		Date date = new Date();
-		String dateAsStr = date.toString();
-		String query = "INSERT INTO requests VALUES('" + id1 + "', '" + id2
-				+ "', false, '" + dateAsStr + "');";
+	
+	public void sendFriendRequest(String id1, String id2){
+		String dateAsStr = "" + System.currentTimeMillis();
+		String query = "INSERT INTO requests VALUES('" + id1 + "', '" + id2 + "', false, '" + dateAsStr + "');";
 		sqlUpdate(query);
 	}
 
@@ -641,9 +641,9 @@ public class DB {
 		return results;
 	}
 
-	public void postAnnouncement(String message) {
-		String query = "INSERT INTO announcements VALUES('" + message + "', '"
-				+ new Date().toString() + "');";
+	
+	public void postAnnouncement(String message){
+		String query = "INSERT INTO announcements VALUES('" + message + "', '" + System.currentTimeMillis() + "');";
 		sqlUpdate(query);
 	}
 

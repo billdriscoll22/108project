@@ -69,7 +69,7 @@ public class QuizCreateServlet extends HttpServlet {
 			long currentTime = new Date().getTime();
 			long dateOnly = (currentTime / millisInDay) * millisInDay;
 			Date clearDate = new Date(dateOnly);
-			String date = clearDate.toString();	
+			String date = "" + System.currentTimeMillis();
 			
 			HttpSession session = request.getSession();
 			
