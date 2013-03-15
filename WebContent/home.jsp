@@ -38,15 +38,17 @@ pageEncoding="ISO-8859-1"%>
 		<div id="user-info">
 			<!-- Name and Logout option -->
 			<h1><%= user.getID() %></h1>
+			<form  action="LogoutServlet" method="post">
+			<input type="submit" value="Logout" />
+			</form><br>
+			
 			<!% user.setProfPicture("http://stanfordflipside.com/images/139not.png"); %>
 			<img src='<%= user.getProfPicture() %> ' height="150" />
 			<form  action="ProfPictureServlet" method="post">
 			<input type="text" name="pictureURL" value="Image URL" />
 			<input type="submit" value="Change profile picture" name="Change Profile Image" />
 			</form>
-			<form  action="LogoutServlet" method="post">
-			<input type="submit" value="Logout" />
-			</form><br>
+			</br>
 			
 			<!-- Create a Quiz -->
 			<form  action="quiz_create_init.jsp" method="post">
@@ -54,6 +56,12 @@ pageEncoding="ISO-8859-1"%>
 			<% session.setAttribute("multi", false); %>
 			</form><br>
 			
+			<!-- Search Quizzes -->
+			<form action="QuizSearchServlet" method="post">
+			Search Quiz Database: <input type="text" name="search_term">
+			<input type="submit" value="Go!" /><br>
+			</form>
+			</br>
 			
 			<%
 			History history = (History)request.getAttribute("history");
