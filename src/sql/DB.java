@@ -124,7 +124,55 @@ public class DB {
 		}
 		return quizzes;
 	}
+	
+	// returns a list of results recently gotten by this user
+	// returns up to "limit" quizzes
+	public ArrayList<Result> getRecentResults(String userId, int limit) {
+		String query = "select * from results where user='" + userId + "' order by date desc limit "
+				+ limit;
+		ResultSet rs = getResult(query);
+		ArrayList<Result> results = new ArrayList<Result>();
+		try {
+			while (rs.next()) {
+				
+				results.add(new Result(rs.getString("quiz"), rs
+						.getString("user"), Integer.parseInt(rs
+						.getString("time")), Integer.parseInt(rs
+						.getString("questions")), Integer.parseInt(rs
+						.getString("correct")), parseSqlDate(rs.getString("date"))));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return results;
+	}
+	
+	
+	// get recently created quizzes made by a specific user
+	public ArrayList<Quiz> getRecentQuizzes(String userId, int limit) {
+		String query = "select * from quizzes where creator_id='" + userId + "' order by date_created desc limit "
+				+ limit;
+		ResultSet rs = getResult(query);
+		ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz>();
+		try {
+			rs.beforeFirst();
+			while (rs.next()) {
+				recentQuizzes.add(new Quiz(rs.getString("quiz_id"), rs
+						.getString("creator_id"), rs.getString("date_created"),
+						Boolean.parseBoolean(rs.getString("is_random")),
+						Boolean.parseBoolean(rs.getString("is_one_page")),
+						Boolean.parseBoolean(rs.getString("is_immediate")), rs
+								.getString("image_url"), rs
+								.getString("description")));
+			}
+			return recentQuizzes;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
+	// returns a list of the mostly recently created quizzes site wide
 	public ArrayList<Quiz> getRecentQuizzes(int limit) {
 		String query = "select * from quizzes order by date_created desc limit "
 				+ limit;
@@ -499,6 +547,8 @@ public class DB {
 
 		return list;
 	}
+	
+	
 
 	
 	public void sendFriendRequest(String id1, String id2){

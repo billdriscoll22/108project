@@ -41,7 +41,7 @@ public class Achievement {
 	}
 	
 	public String toString(){
-		return achievement + ": " + description + " (" + url + ")";
+		return achievement + ": " + description + "<img src='" + url + "' style='height: 20px'/>";
 	}
 	
 	public static void updateAchievements(User user, String type, Quiz quiz, DB db){

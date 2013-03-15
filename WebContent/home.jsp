@@ -162,7 +162,28 @@ pageEncoding="ISO-8859-1"%>
 					// list all friends and their history
 					ArrayList<String> friends = user.getFriends();
 					for(String f : friends){
+						// print friend name w/ link to profile
 						out.println("<h4 style='color:blue;'>" + user.getUserProfileLink(f) + "</h4></br>");
+						
+						// print recent quizzes taken
+						out.println(f + " has recently taken these quizzes:</br>");
+						ArrayList<Result> results = db.getRecentResults(f, 3);
+						for(Result r : results){
+							out.println(r.getPercentCorrect() + "% on " + Quiz.getQuizLink(r.getQuiz()) + "</br>");
+						}
+						
+						// print recent quizzes made
+						out.println(f + " has recently made these quizzes:</br>");
+						ArrayList<Quiz> quizzes = db.getRecentQuizzes(f, 3);
+						for(Quiz q : quizzes){
+							out.println(q.toLink() + "</br>");
+						}
+						// print achievements
+						out.println(f + " has earned the following achievements:</br>");
+						ArrayList<Achievement> achievement = db.getAchievements(f);
+						for(Achievement a : achievement){
+							out.println(a.toString() + "<br>");
+						}
 					}
 					%>
 					
