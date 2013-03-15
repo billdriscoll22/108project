@@ -11,7 +11,7 @@ REQUIRED:
 
 
 EXTENSIONS:
-	At this point I think we've done all the extensions we're gonna do. I'll finish the layout tonight adn tomorow we just do final bug checks and readme. -BD 2:07 am
+	At this point I think we've done all the extensions we're gonna do.
 
 More question types?
 
