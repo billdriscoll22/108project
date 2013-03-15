@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import sql.DB;
 import frontend.Quiz;
@@ -42,8 +43,9 @@ public class ClearQuizHistoryServlet extends HttpServlet {
 		DB db = (DB) context.getAttribute("db");
 		
 		// remove quiz
-		String quizId = (String) request.getAttribute("target");
-		//db.clearQuizHistory(quizId);
+		HttpSession session = request.getSession();
+		String quizId = (String)session.getAttribute("quizID");
+		db.clearQuizHistory(quizId);
 		
 		request.getRequestDispatcher("/clear_quiz_history.jsp").forward(request, response);
 	}

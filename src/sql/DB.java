@@ -1000,5 +1000,10 @@ public class DB {
 
 		return matches;
 	}
+	
+	public void clearQuizHistory(String id) {
+		String query = "DELETE FROM results WHERE quiz='" + id +"'";
+		sqlUpdate(query);
+	}
 
 }
