@@ -103,11 +103,10 @@ public class MultiQuizServlet extends HttpServlet {
 			// get time used
 			Date startTime = (Date)session.getAttribute("startTime");			
 			int numSecondsUsed = DateHelper.differenceInSeconds(startTime, new Date());
-			
 			// make new result
 			User user = (User)request.getSession().getAttribute("user");
 			int score = (Integer)session.getAttribute("multiQuizScore");
-			Result r = new Result(quiz.getQuizId(), user.getID(), numSecondsUsed, quiz.getNumQuestions(), score, new Date().toString());
+			Result r = new Result(quiz.getQuizId(), user.getID(), numSecondsUsed, quiz.getNumQuestions(), score, "" + System.currentTimeMillis());
 			user.addResult(r);
 			Achievement.updateAchievements(user, "take", quiz, db);
 			
