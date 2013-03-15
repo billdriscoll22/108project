@@ -48,6 +48,12 @@ public class QuizViewServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("quizID", quizID);
 		
+		//average
+		Double average = db.getQuizAverage(quizID);
+		request.setAttribute("averageRight", average);
+		Double averageTime = db.getTimeAverage(quizID);
+		request.setAttribute("averageTime", averageTime);
+		
 		// get top results
 		int NUM_TOP_SCORES_TO_SHOW = 5;
 		ArrayList<Result> topScores = db.getTopResults(quiz.getQuizId(), NUM_TOP_SCORES_TO_SHOW);

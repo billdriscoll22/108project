@@ -8,7 +8,6 @@ Test random questions.
 
 REQUIRED:
 
-quiz create page doesn't have stats summary
 
 
 EXTENSIONS:

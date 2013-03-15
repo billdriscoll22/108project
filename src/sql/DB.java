@@ -848,6 +848,34 @@ public class DB {
 			}
 		}
 	}
+	
+	public Double getQuizAverage(String quizId){
+		String query = "select avg(correct) from results where quiz='" + quizId +  "'";
+		ResultSet rs = getResult(query);
+		double avg;
+		try{
+			rs.first();
+			avg = rs.getDouble("avg(correct)");
+			return avg;
+		}
+		catch (SQLException e){
+		}
+		return 0.0;
+	}
+	
+	public Double getTimeAverage(String quizId){
+		String query = "select avg(time) from results where quiz='" + quizId +  "'";
+		ResultSet rs = getResult(query);
+		double avg;
+		try{
+			rs.first();
+			avg = rs.getDouble("avg(time)");
+			return avg;
+		}
+		catch (SQLException e){
+		}
+		return 0.0;
+	}
 
 	public Quiz getQuiz(String quizId) {
 

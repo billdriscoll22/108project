@@ -12,6 +12,8 @@
 	ArrayList<Result> topScores = (ArrayList<Result>) request.getAttribute("topScores");
 	ArrayList<Result> top24 = (ArrayList<Result>) request.getAttribute("top24");
 	ArrayList<Result> mostRecent = (ArrayList<Result>) request.getAttribute("mostRecent");
+	Double averageRight = (Double) request.getAttribute("averageRight");
+	Double averageTime = (Double) request.getAttribute("averageTime");
 %>
 <%
 	ArrayList<Result> userResults = (ArrayList<Result>) request.getAttribute("userResults");
@@ -56,6 +58,10 @@
 			out.println("<p style='text-align:center;font-weight:bold;'>See your complete history for " + userResults.get(0).getResultLink() + " </p>");
 		}
 	%>
+	
+	<h2 style='text-align: center'>Quiz Stats</h2>
+	<p style="text-align: center">The average number of questions correct is: <%= averageRight %></p>
+	<p style="text-align: center">The average time taken is: <%= averageTime %> seconds</p>
 	
 	<h2 style='text-align: center;'>Most recent results</h2>
 	<%
