@@ -50,19 +50,6 @@ pageEncoding="ISO-8859-1"%>
 			</form>
 			</br>
 			
-			<!-- Create a Quiz -->
-			<form  action="quiz_create_init.jsp" method="post">
-			<input type="submit" value="Create A Quiz!" />
-			<% session.setAttribute("multi", false); %>
-			<% session.setAttribute("noQuestions", false); %>	
-			</form><br>
-			
-			<!-- Search Quizzes -->
-			<form action="QuizSearchServlet" method="post">
-			Search Quiz Database: <input type="text" name="search_term">
-			<input type="submit" value="Go!" /><br>
-			</form>
-			</br>
 			
 			<%
 			History history = (History)request.getAttribute("history");
@@ -123,7 +110,7 @@ pageEncoding="ISO-8859-1"%>
 						out.println(">>> "+ c.getBody());
 					}
 					%>
-					
+					<br/>
 					<b>Friend Requests</b><br/>
 					<%
 					ArrayList<FriendRequest> friendRequests = (ArrayList<FriendRequest>)request.getAttribute("friendRequests");
@@ -210,7 +197,21 @@ pageEncoding="ISO-8859-1"%>
 					<form  action="ListQuizzesServlet" method="post">
 					<input type="submit" value="View All Quizzes" />
 					</form><br>
+					
 			
+			<!-- Search Quizzes -->
+			<form action="QuizSearchServlet" method="post">
+			Search Quiz Database: <input type="text" name="search_term">
+			<input type="submit" value="Go!" /><br>
+			</form>
+			</br>
+			
+			<!-- Create a Quiz -->
+			<form  action="quiz_create_init.jsp" method="post">
+			<input type="submit" value="Create A Quiz!" />
+			<% session.setAttribute("multi", false); %>
+			<% session.setAttribute("noQuestions", false); %>	
+			</form><br>
 				</div>
 			</div>
 		</div>
