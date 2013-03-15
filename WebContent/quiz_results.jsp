@@ -11,7 +11,7 @@
 <title>Your results for <%= quiz.getQuizId() %></title>
 </head>
 <body>
-<h1 style='text-align:center;'>Your results for <%= quiz.toLink() %></h1>
+<h1 style='text-align:center;'>Your Results For <%= quiz.toLink() %></h1>
 
 <p>You have taken this quiz <%= results.size() %> times </p>
 <p>High Score: <%= user.getBestScore(quiz.getQuizId()) %>% </p>

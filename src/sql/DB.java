@@ -159,7 +159,7 @@ public class DB {
 			rs.beforeFirst();
 			while (rs.next()) {
 				recentQuizzes.add(new Quiz(rs.getString("quiz_id"), rs
-						.getString("creator_id"), rs.getString("date_created"),
+						.getString("creator_id"), parseSqlDate(rs.getString("date_created")),
 						Boolean.parseBoolean(rs.getString("is_random")),
 						Boolean.parseBoolean(rs.getString("is_one_page")),
 						Boolean.parseBoolean(rs.getString("is_immediate")), rs
@@ -183,7 +183,7 @@ public class DB {
 			rs.beforeFirst();
 			while (rs.next()) {
 				recentQuizzes.add(new Quiz(rs.getString("quiz_id"), rs
-						.getString("creator_id"), rs.getString("date_created"),
+						.getString("creator_id"), parseSqlDate(rs.getString("date_created")),
 						Boolean.parseBoolean(rs.getString("is_random")),
 						Boolean.parseBoolean(rs.getString("is_one_page")),
 						Boolean.parseBoolean(rs.getString("is_immediate")), rs

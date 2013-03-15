@@ -37,7 +37,7 @@ pageEncoding="ISO-8859-1"%>
 	<div id="content">
 		<div id="user-info">
 			<!-- Name and Logout option -->
-			<h1><%= user.getID() %></h1>
+			<h1><%= user.getProfileLink() %></h1>
 			<form  action="LogoutServlet" method="post">
 			<input type="submit" value="Logout" />
 			</form><br>

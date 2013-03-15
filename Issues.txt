@@ -12,28 +12,19 @@ Quiz never gets deleted.
 
 When you click on a quiz link from a user page (i.e. quizzes they've taken) it give a divide by zero exception.
 
-REQUIRED:
 Duplicate achievements after deleting quizzes
 
-Change homepage admin panel to only be shown to admins
-
 Test random questions.
+
+REQUIRED:
 
 Top daily quiz scores.
 
 Recent user performances on the quiz. Statistics summary.
 
-History Summary Page for each user.
-
-Administration: Remove quiz button on quiz view page. Clear quiz history button.
-*(Mostly done, 8/13. -eh. db.clearQuizHistory(String quizId) needs to be implemented,
-and testing still needs to be done.
-
-
 ReadMe!
 - I created one in the main directory. We should all work on adding to this when we can. -eh
 
-Default Place holder image for quizzes and users so it doesn't look ugly when they don't enter one.
 
 EXTENSIONS:
 

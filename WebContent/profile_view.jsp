@@ -116,6 +116,13 @@
 			out.println("<br><h3>" + profile.getID() + "'s history</h2>");
 			History h = profile.getHistory();
 			out.println(h.toString());
+			
+			// link to complete history
+			out.println("</br><form action='UserHistoryServlet' method='post'>"
+						+ "<input type='submit' value='View Complete History' />"
+						+ "<input type='hidden' name='target' value='"
+						+ profile.getID() + "'>"
+						+ "</form>");	
 
 	%>
 
