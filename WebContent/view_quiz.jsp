@@ -21,7 +21,7 @@
 <title><%=quiz.getQuizId()%></title>
 </head>
 <body>
-
+<div id="quiz" style="width: 1000px; margin-left: auto; margin-right: auto;">
 	<h1 style='text-align: center;'><%=quiz.getQuizId()%></h1>
 	<img src='<%=quiz.getImageURL() %>' height='100' />
 <% System.out.println(quiz.getImageURL()); %>
@@ -94,5 +94,6 @@
 	<form style='text-align: center;' action="HomeServlet" method="post">
 		<input type="submit" value="Home" />
 	</form>
+	</div>
 </body>
 </html>
