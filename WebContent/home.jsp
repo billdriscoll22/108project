@@ -86,7 +86,12 @@ pageEncoding="ISO-8859-1"%>
 		    		<li><a href="#messages">Messages</a></li>
 		    		<li><a href="#announcements">Announcements</a></li>
 		    		<li><a href="#friends">Friends</a></li>
-		    		<li><a href="#administration">Administration</a></li>
+		    		<% 
+		    		// only show admin panel to admins
+		    		if(user.isAdmin()){
+		    			out.println("<li><a href='#administration'>Administration</a></li>");
+		    		}
+		    		%>
 		    		<li><a href="#quizzes">Quizzes</a></li>
 		 		 </ul>
 				<div id="messages">
@@ -176,6 +181,8 @@ pageEncoding="ISO-8859-1"%>
 					
 					
 				</div><!-- friends -->
+				
+				<%if(user.isAdmin()){  %>
 				<div id="administration">
 					<h2>Administration</h2>
 					
@@ -198,6 +205,8 @@ pageEncoding="ISO-8859-1"%>
 					<p> Number of quizzes created: <%= db.numQuizzes() %> </p>
 					<p> Number of users: <%= db.numUsers() %> </p> 
 				</div><!-- administration -->
+				<% } %>
+				
 				<div id="quizzes">
 					<b>Popular Quizzes:</b><br/>
 					<%

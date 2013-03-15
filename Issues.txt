@@ -13,7 +13,7 @@ Quiz never gets deleted.
 When you click on a quiz link from a user page (i.e. quizzes they've taken) it give a divide by zero exception.
 
 REQUIRED:
-
+Duplicate achievements after deleting quizzes
 
 Change homepage admin panel to only be shown to admins
 
@@ -22,8 +22,6 @@ Test random questions.
 Top daily quiz scores.
 
 Recent user performances on the quiz. Statistics summary.
-
-
 
 History Summary Page for each user.
 
