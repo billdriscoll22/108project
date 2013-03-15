@@ -660,8 +660,7 @@ public class DB {
 
 		try {
 			while (rs.next()) {
-				list.add(new Announcement(rs.getString("text"), rs
-						.getString("date")));
+				list.add(new Announcement(rs.getString("text"), new Date(Long.parseLong(rs.getString("date"))).toString()));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
