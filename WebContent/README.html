@@ -8,6 +8,15 @@
 
 To the best of our knowledge, we did everything required and recommended for a four-person group.
 
+Nice to know:
+1. There is a user "admin" with password "admin" to test admin functionality.
+2. Eclipse takes issue with something in jquery and puts an x on the webcontent folder.  It isn't any
+of our code that causes the x, and it runs fine.
+
+Non-obvious features:
+Challenging a user can only be done after taking a quiz from the quiz results page.  There is a button
+that says Challenge a friend that is sort of buried near the bottom.
+
 Known Bugs
 
 1. Whatever you do, don't enter an apostrophe in any text box that gets sent to the database. Please.
@@ -16,31 +25,32 @@ Extensions
 
 1. beautiful layout
 
-Speaks for itself.
+We gave our quiz site a basic theme, added nice colors, made the fonts look better, and used a JQuery 
+tab setup on the home page because there was a lot of information to display there.
 
 2. pictures (user, quiz)
 
 Users can choose images for their quizzes and user profile.
 
-3. javascript tabs on home page
 
-JQuery or some shit. Bill, care to elaborate?
-
-4. quiz search and user search
+3. quiz search and user search
 
 We added the option to search for quizzes (under the "Quizzes" tab on the home page) and for users/friends 
 (under the "Friends" tab on the home page). Both searches use SQL regular expressions to return partial 
 matches. The results pages provide links to the quizzes/users.
 
-5. error checking
+4. error checking
 
 We added additional error-checking the keeps the site from crashing and give the user a message telling 
 them how to fix their input. The quiz creation page checks to make sure that all of the necessary information
 has been entered (i.e. no empty radio buttons), that the user does not try to create a multi-page quiz with
 immediate grading and that the user does not create a quiz with no questions. In each case, the user is allowed
 to click the submit button, but is taken back to the same page with a message exlaining what input needs to
-be fixed.
+be fixed.  The exception to this error checking policy are any characters that are normally escaped
+(apostrophes and "<", for example).  We would have liked to do this but didn't use prepared sql statements
+with the "?" operators and ran out of time at the end to change them. 
 
+5. We came up with "Quizzombie". Catchy, right? Because you use your braaaaaaaains.
 
 
 </body>
